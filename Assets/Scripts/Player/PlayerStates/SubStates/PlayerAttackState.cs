@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class PlayerAttackState : PlayerAbilityState
 {
+    #region Variables
+
     private Weapon weapon;
     
     private float velocityToSet;
+    
     private bool setVelocity;
     private bool shouldCheckFlip;
+
+    #endregion
+    
     public PlayerAttackState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName) 
         : base(player, stateMachine, playerData, animName)
     {
