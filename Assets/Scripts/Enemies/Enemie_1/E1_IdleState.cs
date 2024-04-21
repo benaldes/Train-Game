@@ -13,7 +13,12 @@ public class E1_IdleState : IdleState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (isIdleTimeOver)
+
+        if (isPlayerInMinAgroRange)
+        {
+            stateMachine.SwitchState(enemy.PlayerDetectedState);
+        }
+        else if (isIdleTimeOver)
         {
             stateMachine.SwitchState(enemy.MoveState);
         }

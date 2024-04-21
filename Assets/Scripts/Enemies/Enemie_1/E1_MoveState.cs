@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class E1_MoveState : MoveState
 {
-    private Enemy1 enemyType;
-    public E1_MoveState(Entity entity, StateMachine stateMachine, string animName, D_MoveState stateData,Enemy1 enemyType) : base(entity, stateMachine, animName, stateData)
+    private Enemy1 enemy;
+    public E1_MoveState(Entity entity, StateMachine stateMachine, string animName, D_MoveState stateData,Enemy1 enemy) : base(entity, stateMachine, animName, stateData)
     {
-        this.enemyType = enemyType;
+        this.enemy = enemy;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if (isDetectingWall || !isDetectingLedge)
+
+        if (IsPlayerInMinAgroRange)
         {
-            enemyType.IdleState.SetFlipAfterIdle(true);
-            stateMachine.SwitchState(enemyType.IdleState);
+            stateMachine.SwitchState(enemy.PlayerDetectedState);
+        }
+        
+        else if (isDetectingWall || !isDetectingLedge)
+        {
+            enemy.IdleState.SetFlipAfterIdle(true);
+            stateMachine.SwitchState(enemy.IdleState);
         }
     }
 }

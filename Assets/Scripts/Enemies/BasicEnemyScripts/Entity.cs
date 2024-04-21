@@ -14,10 +14,12 @@ public class Entity : MonoBehaviour
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
+    [SerializeField] private Transform playerCheck;
     private Vector2 velocityWorkSpace;
 
     public virtual void Start()
     {
+        FacingDirection = 1;
         aliveGO = transform.Find("Alive").gameObject;
         RB = aliveGO.GetComponent<Rigidbody2D>();
         Animator = aliveGO.GetComponent<Animator>();
@@ -53,9 +55,27 @@ public class Entity : MonoBehaviour
             entityData.LedgeCheckDistance, entityData.WhatIsGround);
     }
 
+    public virtual bool CheckPlayerInMinAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.MinAgroDistance,
+            entityData.WahtIsPlayer);
+    }
+
+    public virtual bool CheckPlayerInMaxAgroRange()
+    {
+        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.MaxAgroDistance,
+            entityData.WahtIsPlayer);
+    }
+
     public virtual void Flip()
     {
         FacingDirection *= -1;
         aliveGO.transform.Rotate(0,180,0);
+    }
+
+    public virtual void OnDrawGizmos()
+    {
+        Gizmos.DrawLine(wallCheck.position,wallCheck.position + (Vector3)(Vector2.right * FacingDirection * entityData.WallCheckDistance));
+        Gizmos.DrawLine(ledgeCheck.position,ledgeCheck.position + (Vector3)(Vector2.down  * entityData.LedgeCheckDistance));
     }
 }

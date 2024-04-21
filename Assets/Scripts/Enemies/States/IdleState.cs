@@ -8,6 +8,7 @@ public class IdleState : State
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
     protected float idleTime;
+    protected bool isPlayerInMinAgroRange;
     
     public IdleState(Entity entity, StateMachine stateMachine, string animName,D_IdleState stateData) : base(entity, stateMachine, animName)
     {
@@ -29,6 +30,15 @@ public class IdleState : State
         {
             isIdleTimeOver = true;
         }
+    }
+
+
+
+    public override void DoChecks()
+    {
+        base.DoChecks();
+        
+        isPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
     }
 
     public override void Exit()
