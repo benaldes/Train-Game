@@ -1,8 +1,9 @@
-﻿
-[System.Serializable]
-public struct WeaponAttackDetails
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public struct AttackDetails
 {
-    public string AttackName;
-    public float MovementSpeed;
+    public Vector2 Position;
     public float DamageAmount;
 }
