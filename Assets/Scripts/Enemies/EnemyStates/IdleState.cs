@@ -2,14 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyIdleState : EnemyState
+public class IdleState : State
 {
     protected D_IdleState stateData;
     protected bool flipAfterIdle;
     protected bool isIdleTimeOver;
     protected float idleTime;
     
-    public EnemyIdleState(Enemy enemy, EnemyStateMachine stateMachine, string animName,D_IdleState stateData) : base(enemy, stateMachine, animName)
+    public IdleState(Entity entity, StateMachine stateMachine, string animName,D_IdleState stateData) : base(entity, stateMachine, animName)
     {
         this.stateData = stateData;
     }
@@ -17,7 +17,7 @@ public class EnemyIdleState : EnemyState
     public override void Enter()
     {
         base.Enter();
-        enemy.SetVelocity(0f);
+        Entity.SetVelocity(0f);
         isIdleTimeOver = false;
 
     }
@@ -36,7 +36,7 @@ public class EnemyIdleState : EnemyState
         base.Exit();
         if (flipAfterIdle)
         {
-            enemy.Flip();
+            Entity.Flip();
         }
     }
 

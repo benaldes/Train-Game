@@ -1,11 +1,12 @@
 ﻿
 using System;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-public class Enemy : MonoBehaviour
-{
-    public D_Enemy EnemyData;
-    public EnemyStateMachine StateMachine;
+public class Entity : MonoBehaviour
+{ 
+    public D_Entity entityData;
+    public StateMachine StateMachine;
     public int FacingDirection { get; private set; }
     public Rigidbody2D RB { get; private set; }
     public Animator Animator { get; private set; }
@@ -21,7 +22,7 @@ public class Enemy : MonoBehaviour
         RB = aliveGO.GetComponent<Rigidbody2D>();
         Animator = aliveGO.GetComponent<Animator>();
 
-        StateMachine = new EnemyStateMachine();
+        StateMachine = new StateMachine();
     }
 
     public virtual void Update()
@@ -43,13 +44,13 @@ public class Enemy : MonoBehaviour
     public virtual bool CheckWall()
     {
         return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right,
-            EnemyData.WallCheckDistance, EnemyData.WhatIsGround);
+            entityData.WallCheckDistance, entityData.WhatIsGround);
     }
 
     public virtual bool CheckLedge()
     {
         return Physics2D.Raycast(ledgeCheck.position, Vector2.down,
-            EnemyData.LedgeCheckDistance, EnemyData.WhatIsGround);
+            entityData.LedgeCheckDistance, entityData.WhatIsGround);
     }
 
     public virtual void Flip()

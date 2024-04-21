@@ -1,31 +1,31 @@
 ﻿
 using UnityEngine;
 
-public class EnemyState
+public class State
 {
-    protected EnemyStateMachine stateMachine;
-    protected Enemy enemy;
+    protected StateMachine stateMachine;
+    protected Entity Entity;
 
     protected float startTime;
 
     protected string animName;
 
-    public EnemyState(Enemy enemy, EnemyStateMachine stateMachine,string animName)
+    public State(Entity entity, StateMachine stateMachine,string animName)
     {
         this.stateMachine = stateMachine;
-        this.enemy = enemy;
+        this.Entity = entity;
         this.animName = animName;
     }
 
     public virtual void Enter()
     {
         startTime = Time.time;
-        enemy.Animator.SetBool(animName,true);
+        Entity.Animator.SetBool(animName,true);
     }
 
     public virtual void Exit()
     {
-        enemy.Animator.SetBool(animName,false);
+        Entity.Animator.SetBool(animName,false);
     }
 
     public virtual void LogicUpdate()

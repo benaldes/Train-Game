@@ -1,15 +1,15 @@
 ﻿
-public class EnemyStateMachine
+public class StateMachine
 {
-    public EnemyState currentState { get; private set; }
+    public State currentState { get; private set; }
 
-    public void Initialize(EnemyState startingState)
+    public void Initialize(State startingState)
     {
         currentState = startingState;
         currentState.Enter();
     }
 
-    public void ChangeState(EnemyState state)
+    public void SwitchState(State state)
     {
         currentState.Exit();
         currentState = state;
