@@ -14,11 +14,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AttackDetails:
   - AttackName: 
-    MovementSpeed: 1
+    MovementSpeed: 2
     DamageAmount: 5
   - AttackName: 
-    MovementSpeed: 2
+    MovementSpeed: 3
     DamageAmount: 10
   - AttackName: 
-    MovementSpeed: 1
+    MovementSpeed: 3
     DamageAmount: 15
