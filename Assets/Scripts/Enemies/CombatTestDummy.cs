@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
-public class CombatTestDummy : MonoBehaviour,Idamageble
+public class CombatTestDummy : MonoBehaviour
 {
     private Animator anim;
 

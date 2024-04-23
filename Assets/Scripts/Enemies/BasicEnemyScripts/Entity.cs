@@ -1,31 +1,40 @@
 ﻿
 using System;
 using UnityEngine;
-using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
-public class Entity : MonoBehaviour
+
+public class Entity : MonoBehaviour ,Idamageble
 { 
     public D_Entity entityData;
     public StateMachine StateMachine;
-    public int FacingDirection { get; private set; }
-    public Rigidbody2D RB { get; private set; }
     public Animator Animator { get; private set; }
-    public GameObject aliveGO { get; private set; }
     public AnimationToStateMachine AnimToStateMachine { get; private set; }
 
     [SerializeField] private Transform wallCheck;
     [SerializeField] private Transform ledgeCheck;
     [SerializeField] private Transform playerCheck;
+    [SerializeField] private Transform groundCheck;
+
+    private float currentHp;
+    private float currentStunResistance;
+    private float lastDamageTime;
+
+    public int lastDamageDirection { get; private set; }
+    public Core core{ get; private set; }
     
     private Vector2 velocityWorkSpace;
 
-    public virtual void Start()
+    protected bool isStuned;
+    protected bool isDead;
+
+    public virtual void Awake()
     {
-        FacingDirection = 1;
-        aliveGO = transform.Find("Alive").gameObject;
-        RB = aliveGO.GetComponent<Rigidbody2D>();
-        Animator = aliveGO.GetComponent<Animator>();
-        AnimToStateMachine = aliveGO.GetComponent<AnimationToStateMachine>();
+        core = GetComponentInChildren<Core>();
+        currentHp = entityData.MaxHp;
+        currentStunResistance = entityData.StunResistance;
+        Animator = GetComponent<Animator>();
+        AnimToStateMachine = GetComponent<AnimationToStateMachine>();
 
         StateMachine = new StateMachine();
     }
@@ -33,6 +42,12 @@ public class Entity : MonoBehaviour
     public virtual void Update()
     {
         StateMachine.currentState.LogicUpdate();
+
+        //Animator.SetFloat("yVelocity",core.Movement.RB.velocity.y);
+        if (Time.time >= lastDamageTime + entityData.StunRecoveryTime)
+        {
+            ResetStunResistance();
+        }
     }
 
     public virtual void FixedUpdate()
@@ -40,55 +55,77 @@ public class Entity : MonoBehaviour
         StateMachine.currentState.PhysicsUpdate();
     }
 
-    public virtual void SetVelocity(float velocity)
-    {
-        velocityWorkSpace.Set(FacingDirection* velocity,RB.velocity.y);
-        RB.velocity = velocityWorkSpace;
-    }
-
-    public virtual bool CheckWall()
-    {
-        return Physics2D.Raycast(wallCheck.position, aliveGO.transform.right,
-            entityData.WallCheckDistance, entityData.WhatIsGround);
-    }
-
-    public virtual bool CheckLedge()
-    {
-        return Physics2D.Raycast(ledgeCheck.position, Vector2.down,
-            entityData.LedgeCheckDistance, entityData.WhatIsGround);
-    }
-
     public virtual bool CheckPlayerInMinAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.MinAgroDistance,
+        return Physics2D.Raycast(playerCheck.position, transform.right, entityData.MinAgroDistance,
             entityData.WhatIsPlayer);
     }
 
     public virtual bool CheckPlayerInMaxAgroRange()
     {
-        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.MaxAgroDistance,
+        return Physics2D.Raycast(playerCheck.position, transform.right, entityData.MaxAgroDistance,
             entityData.WhatIsPlayer);
     }
 
     public virtual bool CheckPlayerInCloseRangeAction()
     {
-        return Physics2D.Raycast(playerCheck.position, aliveGO.transform.right, entityData.CloseRangeActionDistance,
+        return Physics2D.Raycast(playerCheck.position, transform.right, entityData.CloseRangeActionDistance,
             entityData.WhatIsPlayer);
     }
 
-    public virtual void Flip()
+    public virtual void DamageHop(float velocity)
     {
-        FacingDirection *= -1;
-        aliveGO.transform.Rotate(0,180,0);
+        velocityWorkSpace.Set(core.Movement.RB.velocity.x,velocity);
+        core.Movement.RB.velocity = velocityWorkSpace;
     }
+
+    public virtual void ResetStunResistance()
+    {
+        isStuned = false;
+        currentStunResistance = entityData.StunResistance;
+
+    }
+
+    public virtual void Damage(AttackDetails attackDetails)
+    {
+        lastDamageTime = Time.time;
+        currentHp -= attackDetails.DamageAmount;
+        currentStunResistance -= attackDetails.StunDamageAmount;
+
+        DamageHop(entityData.damageHopSpeed);
+        Instantiate(entityData.HitParticle, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
+        if (attackDetails.Position.x > transform.position.x)
+        {
+            lastDamageDirection = -1;
+        }
+        else
+        {
+            lastDamageDirection = 1;
+        }
+
+        if (currentStunResistance <= 0)
+        {
+            isStuned = true;
+        }
+
+        if (currentHp <= 0)
+        {
+            isDead = true;
+        }
+    }
+
+
 
     public virtual void OnDrawGizmos()
     {
-        Gizmos.DrawLine(wallCheck.position,wallCheck.position + (Vector3)(Vector2.right * FacingDirection * entityData.WallCheckDistance));
+        if(core == null) return;
+        Gizmos.DrawLine(wallCheck.position,wallCheck.position + (Vector3)(Vector2.right * core.Movement.FacingDirection * entityData.WallCheckDistance));
         Gizmos.DrawLine(ledgeCheck.position,ledgeCheck.position + (Vector3)(Vector2.down  * entityData.LedgeCheckDistance));
         
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right*  FacingDirection * entityData.CloseRangeActionDistance),0.2f);
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * FacingDirection * entityData.MinAgroDistance),0.2f);
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * FacingDirection * entityData.MaxAgroDistance),0.2f);
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right*  core.Movement.FacingDirection * entityData.CloseRangeActionDistance),0.2f);
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * core.Movement.FacingDirection * entityData.MinAgroDistance),0.2f);
+        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * core.Movement.FacingDirection * entityData.MaxAgroDistance),0.2f);
     }
+
+    
 }

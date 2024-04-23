@@ -4,20 +4,20 @@ using UnityEngine;
 
 public class MeleeAttackState : AttackState
 {
-    protected D_MeleeAttackData stateData;
+    protected D_MeleeAttack State;
 
     protected AttackDetails AttackDetails;
  
-    public MeleeAttackState(Entity entity, StateMachine stateMachine, string animName, Transform attackPosition, D_MeleeAttackData stateData) : base(entity, stateMachine, animName, attackPosition)
+    public MeleeAttackState(Entity entity, StateMachine stateMachine, string animName, Transform attackPosition, D_MeleeAttack state) : base(entity, stateMachine, animName, attackPosition)
     {
-        this.stateData = stateData;
+        this.State = state;
     }
 
     public override void Enter()
     {
         base.Enter();
-        AttackDetails.DamageAmount = stateData.AttackDamage;
-        AttackDetails.Position = Entity.aliveGO.transform.position;
+        AttackDetails.DamageAmount = State.AttackDamage;
+        AttackDetails.Position = Entity.transform.position;
     }
 
     public override void LogicUpdate()
@@ -29,7 +29,7 @@ public class MeleeAttackState : AttackState
     {
         base.TriggerAttack();
         Collider2D[] detectedObject =
-            Physics2D.OverlapCircleAll(attackPosition.position, stateData.AttackRadius, stateData.whatIsPlayer);
+            Physics2D.OverlapCircleAll(attackPosition.position, State.AttackRadius, State.whatIsPlayer);
 
         foreach (Collider2D  collider in detectedObject)
         {

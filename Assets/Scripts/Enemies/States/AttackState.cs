@@ -18,7 +18,7 @@ public class AttackState : State
         base.Enter();
         Entity.AnimToStateMachine.AttackState = this;
         isAnimationFinish = false;
-        Entity.SetVelocity(0);
+        core.Movement.SetVelocityX(0);
     }
 
     public override void DoChecks()

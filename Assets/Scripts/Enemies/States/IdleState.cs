@@ -18,7 +18,7 @@ public class IdleState : State
     public override void Enter()
     {
         base.Enter();
-        Entity.SetVelocity(0f);
+        core.Movement.SetVelocityZero();
         isIdleTimeOver = false;
 
     }
@@ -46,7 +46,7 @@ public class IdleState : State
         base.Exit();
         if (flipAfterIdle)
         {
-            Entity.Flip();
+            core.Movement.Flip();
         }
     }
 

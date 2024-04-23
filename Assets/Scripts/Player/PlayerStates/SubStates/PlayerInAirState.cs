@@ -70,7 +70,7 @@ public class PlayerInAirState : PlayerState
         isGrounded = core.CollisionSenses.CheckIfGrounded();
         isTouchingWall = core.CollisionSenses.CheckIfTouchingWall();
         isTouchingWallBack = core.CollisionSenses.CheckIfTouchingWallBack();
-        isTouchingLedge = core.CollisionSenses.CheckIfTouchingLedge();
+        isTouchingLedge = core.CollisionSenses.CheckIfTouchingHorizontalLedge();
 
         if (isTouchingWall && !isTouchingLedge)
         {

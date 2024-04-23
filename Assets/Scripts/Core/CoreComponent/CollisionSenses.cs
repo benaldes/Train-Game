@@ -5,15 +5,16 @@ public class CollisionSenses : CoreComponenet
     #region Variables
     public Transform GroundCheck => groundCheck;
     public Transform WallCheck => wallCheck;
-    public Transform LedgeCheck => ledgeCheck;
-    
+    public Transform HorizontalLedgeCheck => horizontalLedgeCheck;
+    public Transform VerticalLedgeCheck => verticalLedgeCheck;
     public float GroundCheckRadius => groundCheckRadius;
     public float WallCheckDistance => wallCheckDistance;
     public LayerMask WhatIsGround => whatIsGround;
     
     [SerializeField] private Transform groundCheck;
     [SerializeField] private Transform wallCheck;
-    [SerializeField] private Transform ledgeCheck;
+    [SerializeField] private Transform horizontalLedgeCheck;
+    [SerializeField] private Transform verticalLedgeCheck;
 
     [SerializeField] private float groundCheckRadius;
     [SerializeField] private float wallCheckDistance;
@@ -37,10 +38,14 @@ public class CollisionSenses : CoreComponenet
         return Physics2D.Raycast(wallCheck.position, Vector2.right * 
                  -core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
-    public bool CheckIfTouchingLedge()
+    public bool CheckIfTouchingHorizontalLedge()
     {
-        return Physics2D.Raycast(ledgeCheck.position, Vector2.right * 
-                 core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+         return Physics2D.Raycast(horizontalLedgeCheck.position, Vector2.right * 
+                                core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+    }
+    public bool CheckIfTouchingVerticalLedge()
+    {
+        return Physics2D.Raycast(verticalLedgeCheck.position, Vector2.down, wallCheckDistance, whatIsGround);
     }
 
 }

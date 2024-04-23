@@ -5,6 +5,7 @@ public class State
 {
     protected StateMachine stateMachine;
     protected Entity Entity;
+    protected Core core;
 
     protected float startTime;
 
@@ -15,6 +16,7 @@ public class State
         this.stateMachine = stateMachine;
         this.Entity = entity;
         this.animName = animName;
+        core = entity.core;
     }
 
     public virtual void Enter()

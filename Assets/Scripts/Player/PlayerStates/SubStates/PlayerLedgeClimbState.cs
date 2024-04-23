@@ -147,7 +147,7 @@ public class PlayerLedgeClimbState : PlayerState
             core.CollisionSenses.WallCheckDistance, core.CollisionSenses.WhatIsGround);
         float xDist = xHit.distance;
         workspace.Set(xDist * core.Movement.FacingDirection,0f);
-        var position1 = core.CollisionSenses.LedgeCheck.position;
+        var position1 = core.CollisionSenses.HorizontalLedgeCheck.position;
         RaycastHit2D yHit = Physics2D.Raycast(position1 + (Vector3)(workspace), Vector2.down,
             position1.y - position.y, core.CollisionSenses.WhatIsGround);
         float yDist = yHit.distance;

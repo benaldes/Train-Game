@@ -30,6 +30,11 @@ public class E1_PlayerDetectedState : PlayerDetectedState
         {
             stateMachine.SwitchState(enemy.LookForPlayerState);
         }
+        else if (!isDetectingLedge)
+        {
+            core.Movement.Flip();
+            stateMachine.SwitchState(enemy.MoveState);
+        }
         
         
     }
