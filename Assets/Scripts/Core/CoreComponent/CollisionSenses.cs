@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class CollisionSenses : CoreComponenet
+public class CollisionSenses : CoreComponent
 {
     #region Variables
     public Transform GroundCheck => groundCheck;

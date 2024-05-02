@@ -5,10 +5,10 @@ public class SO_AttackWeaponData : SO_WeaponData
 {
     [SerializeField] private WeaponAttackDetails[] AttackDetails;
 
-    public WeaponAttackDetails[] AttackDerails
+    public WeaponAttackDetails[] AttackDetail
     {
         get => AttackDetails;
-        set => AttackDetails = value;
+        private set => AttackDetails = value;
     }
     private void OnEnable()
     {

@@ -4,7 +4,7 @@ using UnityEngine;
 using Random = UnityEngine.Random;
 
 
-public class Entity : MonoBehaviour ,Idamageble
+public class Entity : MonoBehaviour 
 { 
     public D_Entity entityData;
     public StateMachine StateMachine;
@@ -30,17 +30,19 @@ public class Entity : MonoBehaviour ,Idamageble
 
     public virtual void Awake()
     {
-        core = GetComponentInChildren<Core>();
         currentHp = entityData.MaxHp;
         currentStunResistance = entityData.StunResistance;
+        
+        core = GetComponentInChildren<Core>();
         Animator = GetComponent<Animator>();
         AnimToStateMachine = GetComponent<AnimationToStateMachine>();
-
+        
         StateMachine = new StateMachine();
     }
 
     public virtual void Update()
     {
+        core.LogicUpdate();
         StateMachine.currentState.LogicUpdate();
 
         //Animator.SetFloat("yVelocity",core.Movement.RB.velocity.y);
@@ -85,37 +87,7 @@ public class Entity : MonoBehaviour ,Idamageble
         currentStunResistance = entityData.StunResistance;
 
     }
-
-    public virtual void Damage(AttackDetails attackDetails)
-    {
-        lastDamageTime = Time.time;
-        currentHp -= attackDetails.DamageAmount;
-        currentStunResistance -= attackDetails.StunDamageAmount;
-
-        DamageHop(entityData.damageHopSpeed);
-        Instantiate(entityData.HitParticle, transform.position, Quaternion.Euler(0, 0, Random.Range(0, 360)));
-        if (attackDetails.Position.x > transform.position.x)
-        {
-            lastDamageDirection = -1;
-        }
-        else
-        {
-            lastDamageDirection = 1;
-        }
-
-        if (currentStunResistance <= 0)
-        {
-            isStuned = true;
-        }
-
-        if (currentHp <= 0)
-        {
-            isDead = true;
-        }
-    }
-
-
-
+    
     public virtual void OnDrawGizmos()
     {
         if(core == null) return;

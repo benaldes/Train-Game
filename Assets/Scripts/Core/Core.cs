@@ -32,18 +32,37 @@ public class Core : MonoBehaviour
         }
         private set { collisionSenses = value; }
     }
-
+    public Combat Combat;
+    public Stats Stats;
+    public ParticleManager ParticleManager;
+    
     private Movement movement;
     private CollisionSenses collisionSenses;
+
+    private List<CoreComponent> components = new List<CoreComponent>();
+    
     private void Awake()
     {
         Movement = GetComponentInChildren<Movement>();
         CollisionSenses = GetComponentInChildren<CollisionSenses>();
+        Combat = GetComponentInChildren<Combat>();
+        Stats = GetComponentInChildren<Stats>();
+        ParticleManager = GetComponentInChildren<ParticleManager>();
     }
 
     public void LogicUpdate()
     {
-        Movement.LogicUpdate();
-        
+        foreach (CoreComponent component in components)
+        {
+            component.LogicUpdate();
+        }
+    }
+
+    public void AddComponent(CoreComponent component)
+    {
+        if (!components.Contains(component))
+        {
+            components.Add(component);
+        }
     }
 }

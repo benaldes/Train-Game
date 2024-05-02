@@ -27,6 +27,12 @@ public class AttackState : State
         isPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
     }
 
+    public override void LogicUpdate()
+    {
+        base.LogicUpdate();
+        core.Movement.SetVelocityX(0);
+    }
+
     public virtual void TriggerAttack()
     {
         

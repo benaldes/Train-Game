@@ -27,8 +27,3 @@ MonoBehaviour:
   wallClimbVelocity: 3
   startOffSet: {x: 0.45, y: 0.9}
   stopOffSet: {x: 0.4, y: 0.75}
-  groundCheckRadius: 0.4
-  wallCheckDistance: 0.5
-  whatIsGround:
-    serializedVersion: 2
-    m_Bits: 64

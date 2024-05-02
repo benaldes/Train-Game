@@ -18,7 +18,7 @@ public class IdleState : State
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetVelocityZero();
+        core.Movement.SetVelocityX(0);
         isIdleTimeOver = false;
 
     }
@@ -26,6 +26,9 @@ public class IdleState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+        core.Movement.SetVelocityX(0);
+        
         if (Time.time >= startTime + idleTime)
         {
             isIdleTimeOver = true;

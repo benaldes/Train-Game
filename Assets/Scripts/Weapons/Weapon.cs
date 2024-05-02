@@ -13,6 +13,8 @@ public class Weapon : MonoBehaviour
 
    protected PlayerAttackState state;
 
+   protected Core core;
+
    protected int attackCounter;
    
    private static readonly int Attack = Animator.StringToHash("Attack");
@@ -27,9 +29,10 @@ public class Weapon : MonoBehaviour
       
       gameObject.SetActive(false);
    }
-   public void InitializeWeapon(PlayerAttackState state)
+   public void InitializeWeapon(PlayerAttackState state,Core core)
    {
       this.state = state;
+      this.core = core;
    }
    public virtual void EnterWeapon()
    {

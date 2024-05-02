@@ -37,7 +37,9 @@ public class LookForPlayerState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-
+        
+        core.Movement.SetVelocityX(0f);
+        
         if (TurnImmediately)
         {
             core.Movement.Flip();

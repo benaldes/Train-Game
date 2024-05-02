@@ -54,18 +54,5 @@ public class Enemy1 : Entity
         base.OnDrawGizmos();
         Gizmos.DrawWireSphere(meleeAttackPosition.position,meleeAttackState.AttackRadius);
     }
-
-    public override void Damage(AttackDetails attackDetails)
-    {
-        base.Damage(attackDetails);
-        if (isDead)
-        {
-            StateMachine.SwitchState(DeadState);
-        }
-        else if (isStuned && StateMachine.currentState != StunState)
-        {
-            StateMachine.SwitchState(StunState);
-        }
-        
-    }
+    
 }

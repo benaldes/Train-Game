@@ -28,6 +28,9 @@ public class ChargeState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+        core.Movement.SetVelocityX(stateData.ChargeSpeed * core.Movement.FacingDirection);
+        
         if (Time.time >= startTime + stateData.ChargeTime)
         {
             isChargeTimeOver = true;
