@@ -15,7 +15,6 @@ public class Combat : CoreComponent,Idamageble,IKnockbackable
     }
     public void Damage(float damage)
     {
-        Debug.Log(core.transform.parent.name + " Damaged");
         core.Stats.DecreaseHealth(damage);
         core.ParticleManager.StartParticlesWithRandomRotation(damageParticles);
     }
