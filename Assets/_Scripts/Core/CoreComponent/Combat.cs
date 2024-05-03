@@ -12,6 +12,8 @@ public class Combat : CoreComponent,Idamageble,IKnockbackable
     
     private bool isKnockbackActive;
     private float knockbackStartTime;
+    
+    public float LastDamageTime { get; private set; }
 
     protected override void Awake()
     {
@@ -27,6 +29,7 @@ public class Combat : CoreComponent,Idamageble,IKnockbackable
     public void Damage(float damage)
     {
         if(IsDamageImmune) return;
+        LastDamageTime = Time.time;
         core.Stats.DecreaseHealth(damage);
         core.ParticleManager.StartParticlesWithRandomRotation(damageParticles);
     }

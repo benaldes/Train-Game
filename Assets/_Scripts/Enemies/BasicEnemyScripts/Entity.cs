@@ -16,8 +16,7 @@ public class Entity : MonoBehaviour
     [SerializeField] private Transform playerCheck;
     [SerializeField] private Transform groundCheck;
 
-    private float currentHp;
-    private float currentStunResistance;
+
     private float lastDamageTime;
 
     public int lastDamageDirection { get; private set; }
@@ -30,25 +29,24 @@ public class Entity : MonoBehaviour
 
     public virtual void Awake()
     {
-        currentHp = entityData.MaxHp;
-        currentStunResistance = entityData.StunResistance;
-        
         core = GetComponentInChildren<Core>();
         Animator = GetComponent<Animator>();
         AnimToStateMachine = GetComponent<AnimationToStateMachine>();
-        
         StateMachine = new StateMachine();
     }
+
+
 
     public virtual void Update()
     {
         core.LogicUpdate();
         StateMachine.currentState.LogicUpdate();
-
+        
         //Animator.SetFloat("yVelocity",core.Movement.RB.velocity.y);
-        if (Time.time >= lastDamageTime + entityData.StunRecoveryTime)
+        if (Time.time >= core.Combat.LastDamageTime + entityData.StunRecoveryTime)
         {
-            ResetStunResistance();
+            //ResetStunResistance();
+            core.Stats.ResetStunResistance();
         }
     }
 
@@ -84,7 +82,6 @@ public class Entity : MonoBehaviour
     public virtual void ResetStunResistance()
     {
         isStuned = false;
-        currentStunResistance = entityData.StunResistance;
 
     }
     

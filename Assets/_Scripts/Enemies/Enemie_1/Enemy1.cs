@@ -43,6 +43,21 @@ public class Enemy1 : Entity
 
     }
 
+    private void OnEnable()
+    {
+        core.Stats.OnStunned += Stunned;
+    }
+
+    private void OnDisable()
+    {
+        core.Stats.OnStunned -= Stunned;
+    }
+
+    private void Stunned()
+    {
+        StateMachine.SwitchState(StunState);
+    }
+
     private void Start()
     {
         StateMachine.Initialize(MoveState);
@@ -54,5 +69,6 @@ public class Enemy1 : Entity
         base.OnDrawGizmos();
         Gizmos.DrawWireSphere(meleeAttackPosition.position,meleeAttackState.AttackRadius);
     }
+    
     
 }
