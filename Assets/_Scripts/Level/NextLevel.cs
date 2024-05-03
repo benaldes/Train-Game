@@ -1,31 +1,38 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
-
-public class SceneLoader : MonoBehaviour
+public class NextLevel : MonoBehaviour
 {
-    public GameObject LoadLevelButton, spaceText;
+    public TextMeshProUGUI text;
+    public GameObject EndLevelScreen, spaceText;
     public Slider LevelSlider;
-
-    private AsyncOperation loadOperation;
     
-    public void LoadNextLevelBtn()
+    private AsyncOperation loadOperation;
+    private void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.gameObject.CompareTag("Player"))
+        {
+            LoadNextLevel();
+        }
+    }
+    public void LoadNextLevel()
     {
         
-        Destroy(LoadLevelButton);
-
         StartCoroutine(LoadLevelAsync());
     }
 
     IEnumerator LoadLevelAsync()
     {
+        EndLevelScreen.SetActive(true);
         LevelSlider.gameObject.SetActive(true);
-        loadOperation = SceneManager.LoadSceneAsync(1);
+        yield return new WaitForSeconds(2);
+        text.text = "press space";
+        loadOperation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         loadOperation.allowSceneActivation = false;
         while (!loadOperation.isDone)
         {
@@ -33,8 +40,9 @@ public class SceneLoader : MonoBehaviour
             LevelSlider.value = progressValue;
             yield return null;
         }
-    }
 
+        
+    }
     private void Update()
     {
         if (loadOperation != null)
@@ -42,6 +50,7 @@ public class SceneLoader : MonoBehaviour
 
             if (loadOperation.progress == 0.9f)
             {
+                
                 spaceText.SetActive(true);
                 if(Input.GetKeyDown(KeyCode.Space))
                 {

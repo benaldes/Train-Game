@@ -8,6 +8,26 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 875783348462051958, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: deathParticles.Array.data[0]
+      value: 
+      objectReference: {fileID: 9148873785111708704, guid: c7c504861fcb6454c9d2e519147c768e, type: 3}
+    - target: {fileID: 875783348462051958, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: deathParticles.Array.data[1]
+      value: 
+      objectReference: {fileID: 3725146199840234206, guid: ff6f7c6e25e723a45b5800b942658562, type: 3}
+    - target: {fileID: 2089391903684147247, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089391903684147247, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.31
+      objectReference: {fileID: 0}
+    - target: {fileID: 2089391903684147247, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.31
+      objectReference: {fileID: 0}
     - target: {fileID: 2089391903684147247, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 11.614401
@@ -48,9 +68,37 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2089391903684147247, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3563216209942518516, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
       propertyPath: m_Name
       value: Enemy1.1 Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7313588066739794904, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: m_Color.b
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7313588066739794904, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: m_Color.r
+      value: 0.17367136
+      objectReference: {fileID: 0}
+    - target: {fileID: 7981345661133129345, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: entityData
+      value: 
+      objectReference: {fileID: 11400000, guid: ad6b563ca73415a49b286f36cb54da74, type: 2}
+    - target: {fileID: 7981345661133129345, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: meleeAttackState
+      value: 
+      objectReference: {fileID: 11400000, guid: 7947e4138b9f5cd4f94d64a8e065866c, type: 2}
+    - target: {fileID: 8512779380796089446, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: maxHealth
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8512779380796089446, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
+      propertyPath: maxStunResistance
+      value: 50
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

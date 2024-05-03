@@ -50,11 +50,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3405701439330613917, guid: d7745c03cdcbaba43ac84e8b73335371, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.scalar
-      value: 800
+      value: 500
       objectReference: {fileID: 0}
     - target: {fileID: 3405701439330613917, guid: d7745c03cdcbaba43ac84e8b73335371, type: 3}
       propertyPath: EmissionModule.m_Bursts.Array.data[0].countCurve.minScalar
-      value: 500
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 4825195821872860471, guid: d7745c03cdcbaba43ac84e8b73335371, type: 3}
       propertyPath: m_LocalPosition.x

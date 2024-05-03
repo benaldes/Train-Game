@@ -13,19 +13,13 @@ using UnityEngine;
             }
             core.transform.parent.gameObject.SetActive(false);
         }
+        
 
-        private void OnEnable()
+        private void Start()
         {
-            //TODO: Replace this shit 
-            StartCoroutine(testDeath());
-        }
-
-        IEnumerator testDeath()
-        {
-            yield return new WaitForSeconds(0.1f);
             core.Stats.OnHealthZero += Die;
         }
-
+        
         private void OnDisable()
         {
             core.Stats.OnHealthZero -= Die;

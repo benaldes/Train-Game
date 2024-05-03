@@ -18,6 +18,7 @@ public class Stats : CoreComponent
     {
         base.Awake();
         currentHealth = maxHealth;
+        currentStunResistance = maxStunResistance;
     }
 
     public void DecreaseHealth(float amount)

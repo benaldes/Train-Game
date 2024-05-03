@@ -926,6 +926,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 50
+  maxStunResistance: 0
 --- !u!1 &6423814674670799496
 GameObject:
   m_ObjectHideFlags: 0
@@ -992,7 +993,7 @@ GameObject:
   - component: {fileID: 6982991515401092817}
   m_Layer: 8
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
