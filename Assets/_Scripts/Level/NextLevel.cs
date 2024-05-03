@@ -39,6 +39,7 @@ public class NextLevel : MonoBehaviour
             float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
             LevelSlider.value = progressValue;
             yield return null;
+            
         }
 
         

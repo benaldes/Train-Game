@@ -255,6 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageParticles: {fileID: 5018349650579428343, guid: b2a2be5b70c253345b1ab6a2abc0585d, type: 3}
   maxknockbackTime: 0.2
+  hitSound: {fileID: 8300000, guid: 613ee41f0b191724eb5afed34734a657, type: 3}
 --- !u!61 &2230641206270463851
 BoxCollider2D:
   m_ObjectHideFlags: 0

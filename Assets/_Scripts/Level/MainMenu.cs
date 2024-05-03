@@ -29,24 +29,38 @@ public class MainMenu : MonoBehaviour
 
     private void ReadSaveFile()
     {
-        saveFileData = File.ReadAllText(saveFilePath);
+        saveFileData = File.ReadAllText(saveFilePath).Trim();
         Debug.Log(saveFileData);
         switch (saveFileData)
         {
-            case "0":
-                ContinueButton.gameObject.SetActive(false);
-                levelToLoad = 0;
-                break;
             case "1":
-                ContinueButton.gameObject.SetActive(true);
+                ContinueButton.gameObject.SetActive(false);
                 levelToLoad = 1;
                 break;
             case "2":
                 ContinueButton.gameObject.SetActive(true);
                 levelToLoad = 2;
                 break;
+            
         }
     }
+
+    public static void WriteToFile(string context)
+    {
+        string FilePath = Application.dataPath + "/SaveFile.txt";
+        StreamWriter writer = new StreamWriter(FilePath, true);
+        writer.WriteLine(context);
+        writer.Close();
+    }
+
+    public void NewGame()
+    {
+        WriteToFile("1");
+        ReadSaveFile();
+        LoadNextLevelBtn();
+    }
+    
+    
 
     public void LoadNextLevelBtn()
     {
