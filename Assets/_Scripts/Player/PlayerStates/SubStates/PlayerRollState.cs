@@ -15,6 +15,8 @@ public class PlayerRollState : PlayerAbilityState
         base.Enter();
         player.InputHandler.UseRollInput();
         
+        core.Combat.SetDamageImmune(true);
+        core.Combat.SetKnockbackImmune(true);
         core.Movement.SetVelocity(playerData.rollVelocity, playerData.rollAngle, core.Movement.FacingDirection);
     }
 
@@ -22,6 +24,8 @@ public class PlayerRollState : PlayerAbilityState
     {
         base.Exit();
         core.Movement.SetVelocityZero();
+        core.Combat.SetDamageImmune(false);
+        core.Combat.SetKnockbackImmune(false);
     }
 
   

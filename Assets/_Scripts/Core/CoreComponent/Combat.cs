@@ -6,8 +6,19 @@ public class Combat : CoreComponent,Idamageble,IKnockbackable
 {
     [SerializeField] private GameObject damageParticles;
     [SerializeField] private float maxknockbackTime = 0.2f;
+
+    public bool IsDamageImmune { get; private set; }
+    public bool IsKnockbackImmune { get; private set; }
+    
     private bool isKnockbackActive;
     private float knockbackStartTime;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        IsDamageImmune = false;
+        IsKnockbackImmune = false;
+    }
 
     public override void LogicUpdate()
     {
@@ -15,12 +26,14 @@ public class Combat : CoreComponent,Idamageble,IKnockbackable
     }
     public void Damage(float damage)
     {
+        if(IsDamageImmune) return;
         core.Stats.DecreaseHealth(damage);
         core.ParticleManager.StartParticlesWithRandomRotation(damageParticles);
     }
 
     public void Knockback(Vector2 angle, float strength, int direction)
     {
+        if(IsKnockbackImmune) return;
         core.Movement.SetVelocity(strength,angle,direction);
         core.Movement.CanSetVelocity = false;
         isKnockbackActive = true;
@@ -34,5 +47,15 @@ public class Combat : CoreComponent,Idamageble,IKnockbackable
             isKnockbackActive = false;
             core.Movement.CanSetVelocity = true;
         }
+    }
+
+    public void SetDamageImmune(bool state)
+    {
+        IsDamageImmune = state;
+    }
+    public void SetKnockbackImmune(bool state)
+    {
+        IsKnockbackImmune = state;
+
     }
 }

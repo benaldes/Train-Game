@@ -16,6 +16,7 @@ using UnityEngine;
 
         private void OnEnable()
         {
+            //TODO: Replace this shit 
             StartCoroutine(testDeath());
         }
 
