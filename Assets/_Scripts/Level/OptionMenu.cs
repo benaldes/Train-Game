@@ -13,18 +13,36 @@ public class OptionMenu : MonoBehaviour
     [SerializeField] private TextMeshProUGUI BabyButtonText;
     private bool BabyModeText;
 
+    [SerializeField] private Stats playerStats;
+
+    [SerializeField] private GameObject gameOverScreen;
+
     private void Awake()
     {
         isOptionMenuOn = false;
         BabyModeText = false;
+        playerStats.OnHealthZero += GameOver;
+    }
+
+    private void OnDestroy()
+    {
+        playerStats.OnHealthZero -= GameOver;
+    }
+
+    private void GameOver()
+    {
+        gameOverScreen.SetActive(true);
+        Time.timeScale = 0.1f;
     }
 
     private void Update()
     {
+        if(Time.timeScale == 0.1f) return;
         if (Input.GetKeyDown(KeyCode.Escape))
         {
             ToggleOptionMenu();
         }
+        
     }
 
     public void ToggleOptionMenu()
@@ -42,6 +60,11 @@ public class OptionMenu : MonoBehaviour
         }
 
         isOptionMenuOn = !isOptionMenuOn;
+    }
+
+    public void ResetLevel()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
     public void returnToMainMenu()

@@ -926,7 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4519b0c263de9ab44929ee29bcf0b38b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 50
+  maxHealth: 100
   maxStunResistance: 0
 --- !u!1 &6423814674670799496
 GameObject:

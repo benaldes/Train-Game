@@ -28,8 +28,6 @@ public class MainMenu : MonoBehaviour
     {
         saveFileData = File.ReadAllText(saveFilePath).Trim();
         
-        Debug.Log(saveFileData);
-        
         switch (saveFileData)
         {
             case "1":
@@ -60,7 +58,11 @@ public class MainMenu : MonoBehaviour
         ReadSaveFile();
         LoadNextLevelBtn();
     }
-    
+
+    public void ReturnToMainMenu()
+    {
+        SceneManager.LoadScene(0);
+    }
     
 
     public void LoadNextLevelBtn()
@@ -77,16 +79,12 @@ public class MainMenu : MonoBehaviour
         ContinueButton.gameObject.SetActive(false);
         
         yield return new WaitForSeconds(2);
-        Debug.Log("before load1");
         spaceText.GetComponent<TextMeshProUGUI>().text = "Press Space";
-        Debug.Log("before load2");
         loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
-        if(loadOperation == null) Debug.Log("load null");
         loadOperation.allowSceneActivation = false;
         
         while (!loadOperation.isDone)
         {
-            Debug.Log("Loading");
             float progressValue = Mathf.Clamp01(loadOperation.progress / 0.9f);
             LevelSlider.value = progressValue;
             yield return null;
@@ -97,10 +95,8 @@ public class MainMenu : MonoBehaviour
     {
         if (loadOperation != null)
         {
-            Debug.Log("load not null");
             if (loadOperation.progress >= 0.9f)
             {
-                Debug.Log("load Doon");
                 spaceText.SetActive(true);
                 
                 if(Input.GetKeyDown(KeyCode.Space))

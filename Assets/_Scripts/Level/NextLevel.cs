@@ -1,6 +1,6 @@
-using System;
+
 using System.Collections;
-using System.Collections.Generic;
+using System.IO;
 using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -13,6 +13,7 @@ public class NextLevel : MonoBehaviour
     public Slider LevelSlider;
     
     private AsyncOperation loadOperation;
+    
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Player"))
@@ -32,6 +33,7 @@ public class NextLevel : MonoBehaviour
         LevelSlider.gameObject.SetActive(true);
         yield return new WaitForSeconds(2);
         text.text = "press space";
+        SetSaveFile();
         loadOperation = SceneManager.LoadSceneAsync(SceneManager.GetActiveScene().buildIndex + 1);
         loadOperation.allowSceneActivation = false;
         while (!loadOperation.isDone)
@@ -60,4 +62,21 @@ public class NextLevel : MonoBehaviour
             }
         }
     }
+
+    private void SetSaveFile()
+    {
+        
+        string FilePath = Application.dataPath + "/SaveFile.txt";
+        
+        StreamWriter writer = new StreamWriter(FilePath, false);
+
+        int newLevelIndex = SceneManager.GetActiveScene().buildIndex + 1;
+        if (newLevelIndex > 2)
+        {
+            newLevelIndex = 1;
+        }
+        writer.WriteLine(newLevelIndex);
+        writer.Close();
+    }
+    
 }

@@ -2,11 +2,14 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Stats : CoreComponent
 {
     public event Action OnHealthZero;
     public event Action OnStunned;
+
+    [SerializeField] private Image healthBarFill;
     
     [SerializeField] private float maxHealth;
     [SerializeField] private float maxStunResistance;
@@ -29,6 +32,7 @@ public class Stats : CoreComponent
     {
         if(invulnerable) return;
         currentHealth -= amount;
+        UpdateHPBar();
         DecreaseStunResistance(amount);
         if (currentHealth <= 0)
         {
@@ -61,5 +65,12 @@ public class Stats : CoreComponent
     public void ToggleInvulnerableMode()
     {
         invulnerable = !invulnerable;
+    }
+
+    private void UpdateHPBar()
+    {
+        if(healthBarFill == null) return;
+        float amount = (currentHealth / maxHealth) * 100f;
+        healthBarFill.rectTransform.sizeDelta = new Vector2(amount, healthBarFill.rectTransform.sizeDelta.y);
     }
 }

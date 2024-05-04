@@ -8,7 +8,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
     [SerializeField] private Slider volumeSlider;
-    public float Volume = 10f;
+    public float Volume = 1f;
 
     private void Awake()
     {
@@ -20,10 +20,15 @@ public class SoundManager : MonoBehaviour
         {
             Destroy(this);
         }
+        
+
+        Volume = PlayerPrefs.GetFloat("Volume");
+        volumeSlider.value = Volume;
     }
     private void Update()
     {
         Volume = volumeSlider.value;
+        PlayerPrefs.SetFloat("Volume",Volume);
     }
 
     public void PlaySound(AudioClip sound, Transform transform)
