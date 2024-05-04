@@ -40,13 +40,7 @@ public class Enemy1 : Entity
         MeleeAttackState = new E1_MeleeAttackState(this, StateMachine, "MeleeAttack", meleeAttackPosition, meleeAttackState, this);
         StunState = new E1_StunState(this, StateMachine, "Stun", stunStateData, this);
         DeadState = new E1_DeadState(this, StateMachine, "Dead", deadStateData, this);
-
     }
-
-
-
-   
-
     private void OnDisable()
     {
         core.Stats.OnStunned -= Stunned;

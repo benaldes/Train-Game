@@ -23,6 +23,13 @@ public class AttackWeapons : Weapon
         }
     }
 
+    public override void EnterWeapon()
+    {
+        base.EnterWeapon();
+        
+        SoundManager.Instance.PlaySound(AttackWeaponData.AttackDetail[attackCounter].AudioClip);
+    }
+
     public override void AnimationActionTrigger()
     {
         base.AnimationActionTrigger();

@@ -48,6 +48,8 @@ public class Weapon : MonoBehaviour
       
       baseAnimator.SetInteger(AttackCounter,attackCounter);
       WeaponAnimator.SetInteger(AttackCounter,attackCounter);
+      
+      
    }
    public virtual void ExitWeapon()
    {

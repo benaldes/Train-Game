@@ -32,7 +32,13 @@ public class SoundManager : MonoBehaviour
     }
 
     public void PlaySound(AudioClip sound, Transform transform)
-    { 
+    {
+        if (sound == null)
+        {
+            Debug.Log("your are missing an audio sound");
+            return;
+        }
+            
         GameObject soundGameObject = new GameObject("Sound");
         AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
         audioSource.clip = sound;
@@ -41,6 +47,11 @@ public class SoundManager : MonoBehaviour
 
 
         Destroy(soundGameObject, sound.length);
+    }
+    
+    public void PlaySound(AudioClip sound)
+    {
+        PlaySound(sound,transform);
     }
 
    

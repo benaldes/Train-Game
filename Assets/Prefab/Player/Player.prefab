@@ -255,7 +255,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damageParticles: {fileID: 5018349650579428343, guid: b2a2be5b70c253345b1ab6a2abc0585d, type: 3}
   maxknockbackTime: 0.2
-  hitSound: {fileID: 8300000, guid: 613ee41f0b191724eb5afed34734a657, type: 3}
+  hitSound: {fileID: 8300000, guid: ed8cf36c1bc73544c9152e14344b2cf3, type: 3}
 --- !u!61 &2230641206270463851
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -926,6 +926,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4519b0c263de9ab44929ee29bcf0b38b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  healthBarFill: {fileID: 0}
   maxHealth: 100
   maxStunResistance: 0
 --- !u!1 &6423814674670799496
@@ -975,6 +976,7 @@ MonoBehaviour:
   deathParticles:
   - {fileID: 5229308967901503623, guid: d7745c03cdcbaba43ac84e8b73335371, type: 3}
   - {fileID: 7694187229477223819, guid: 134ef1b9ed4898042b6da3b008613fd3, type: 3}
+  deathSound: {fileID: 8300000, guid: 3ac41f7a01dad194aa52d7fa3c0feea1, type: 3}
 --- !u!1 &6596062555113340139
 GameObject:
   m_ObjectHideFlags: 0

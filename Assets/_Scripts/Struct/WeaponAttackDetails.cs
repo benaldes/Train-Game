@@ -10,4 +10,6 @@ public struct WeaponAttackDetails
 
     public float KnockbackStrength;
     public Vector2 KnockbackAngle;
+
+    public AudioClip AudioClip;
 }

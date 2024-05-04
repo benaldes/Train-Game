@@ -18,13 +18,16 @@ MonoBehaviour:
     DamageAmount: 10
     KnockbackStrength: 2
     KnockbackAngle: {x: 1, y: 1}
+    AudioClip: {fileID: 8300000, guid: 3221cb17e3061b84488d728838739fca, type: 3}
   - AttackName: Right Slash
     MovementSpeed: 4
     DamageAmount: 15
     KnockbackStrength: 2
     KnockbackAngle: {x: 1, y: 1}
+    AudioClip: {fileID: 8300000, guid: c136b2884d380034ba46613ac4f34ba2, type: 3}
   - AttackName: Up Slash
     MovementSpeed: 2
     DamageAmount: 20
     KnockbackStrength: 3
     KnockbackAngle: {x: 1, y: 2}
+    AudioClip: {fileID: 8300000, guid: cf605e95552dd024f820be59faa7362c, type: 3}
