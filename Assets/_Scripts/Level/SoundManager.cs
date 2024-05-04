@@ -7,8 +7,13 @@ using UnityEngine.UI;
 public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance;
+    
     [SerializeField] private Slider volumeSlider;
+
+    [SerializeField] private List<AudioSource> AudioSources = new List<AudioSource>();
+    
     public float Volume = 1f;
+    
 
     private void Awake()
     {
@@ -38,20 +43,37 @@ public class SoundManager : MonoBehaviour
             Debug.Log("your are missing an audio sound");
             return;
         }
+
+        foreach (AudioSource audioSource in AudioSources)
+        {
+            if(audioSource.isPlaying) continue;
             
-        GameObject soundGameObject = new GameObject("Sound");
-        AudioSource audioSource = soundGameObject.AddComponent<AudioSource>();
-        audioSource.clip = sound;
-        audioSource.volume = Volume; 
-        audioSource.Play();
+            Play(audioSource, sound, Volume);
+            return;
+        }
+        
+            
+        GameObject soundGameObject = new GameObject("AudioSound");
+        soundGameObject.transform.parent = this.transform;
+        AudioSource newAudioSource = soundGameObject.AddComponent<AudioSource>();
+        AudioSources.Add(newAudioSource);
+        
+        Play(newAudioSource, sound, Volume);
 
 
-        Destroy(soundGameObject, sound.length);
+        //Destroy(soundGameObject, sound.length);
     }
     
     public void PlaySound(AudioClip sound)
     {
         PlaySound(sound,transform);
+    }
+
+    private void Play(AudioSource audioSource, AudioClip audioClip, float volume)
+    {
+        audioSource.clip = audioClip;
+        audioSource.volume = Volume; 
+        audioSource.Play();
     }
 
    
