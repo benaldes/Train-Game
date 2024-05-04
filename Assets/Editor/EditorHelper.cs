@@ -1,10 +1,7 @@
 using System;
 using UnityEngine;
 using UnityEditor;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using Object = UnityEngine.Object;
 
 public class EditorHelper : MonoBehaviour

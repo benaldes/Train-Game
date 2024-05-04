@@ -14,15 +14,20 @@ public class Stats : CoreComponent
     private float currentHealth;
     private float currentStunResistance;
 
+    private bool invulnerable;
+
     protected override void Awake()
     {
         base.Awake();
+        
         currentHealth = maxHealth;
         currentStunResistance = maxStunResistance;
+        invulnerable = false;
     }
 
     public void DecreaseHealth(float amount)
     {
+        if(invulnerable) return;
         currentHealth -= amount;
         DecreaseStunResistance(amount);
         if (currentHealth <= 0)
@@ -34,12 +39,10 @@ public class Stats : CoreComponent
 
     public void DecreaseStunResistance(float amount)
     {
-        Debug.Log("hit stun " + amount);
+        if(invulnerable) return;
         currentStunResistance -= amount;
-        Debug.Log("hit stun " + currentStunResistance);
         if (currentStunResistance <= 0)
         {
-            Debug.Log("stunned");
             currentStunResistance = 0;
             OnStunned?.Invoke();
         }
@@ -53,5 +56,10 @@ public class Stats : CoreComponent
     public void IncreaseHealth(float amount)
     {
         currentHealth = Mathf.Clamp(currentHealth + amount, 0, maxHealth);
+    }
+
+    public void ToggleInvulnerableMode()
+    {
+        invulnerable = !invulnerable;
     }
 }
