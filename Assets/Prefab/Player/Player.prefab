@@ -256,6 +256,7 @@ MonoBehaviour:
   damageParticles: {fileID: 5018349650579428343, guid: b2a2be5b70c253345b1ab6a2abc0585d, type: 3}
   maxknockbackTime: 0.2
   hitSound: {fileID: 8300000, guid: ed8cf36c1bc73544c9152e14344b2cf3, type: 3}
+  isKnockbackActive: 0
 --- !u!61 &2230641206270463851
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1059,6 +1060,7 @@ MonoBehaviour:
   weapons:
   - {fileID: 7755792975823899808}
   - {fileID: 6102442369564815413}
+  player: {fileID: 1189819210296807131}
 --- !u!114 &3421126087015633808
 MonoBehaviour:
   m_ObjectHideFlags: 0

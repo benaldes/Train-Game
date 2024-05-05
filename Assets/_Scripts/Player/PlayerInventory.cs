@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class PlayerInventory : MonoBehaviour
 {
@@ -11,6 +12,8 @@ public class PlayerInventory : MonoBehaviour
 
     private bool weaponOne = true;
 
+    public Player player;
+
     public void SendAttackState(PlayerAttackState attackState)
     {
         this.attackState = attackState;
@@ -18,10 +21,13 @@ public class PlayerInventory : MonoBehaviour
 
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Q))
+        if(player.StateMachine.CurrentState == attackState) return;
+        
+        if(Input.GetKeyDown(KeyCode.Q) || Input.GetKeyDown(KeyCode.JoystickButton3))
         {
             if (weaponOne)
             {
+                
                 attackState.SetWeapon(weapons[1]);
                 weaponOne = false;
             }

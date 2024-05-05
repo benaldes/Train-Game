@@ -70,7 +70,10 @@ public class Stats : CoreComponent
     private void UpdateHPBar()
     {
         if(healthBarFill == null) return;
-        float amount = (currentHealth / maxHealth) * 100f;
-        healthBarFill.rectTransform.sizeDelta = new Vector2(amount, healthBarFill.rectTransform.sizeDelta.y);
+        float amount = (currentHealth / maxHealth) ;
+        //healthBarFill.rectTransform.sizeDelta = new Vector2(amount, healthBarFill.rectTransform.sizeDelta.y);
+
+        healthBarFill.rectTransform.localScale = new Vector3(amount, healthBarFill.rectTransform.localScale.y,
+            healthBarFill.rectTransform.localScale.z);
     }
 }
