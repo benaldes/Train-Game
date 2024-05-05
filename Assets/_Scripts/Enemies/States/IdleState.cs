@@ -41,7 +41,7 @@ public class IdleState : State
     {
         base.DoChecks();
         
-        isPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 
     public override void Exit()

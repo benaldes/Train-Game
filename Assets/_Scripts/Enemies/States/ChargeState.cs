@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class ChargeState : State
@@ -41,10 +39,10 @@ public class ChargeState : State
     {
         base.DoChecks();
         
-        isPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
         isDetectingLedge = core.CollisionSenses.CheckIfTouchingVerticalLedge();
         isDetectingWall = core.CollisionSenses.CheckIfTouchingWall();
-        performCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
     }
 
 

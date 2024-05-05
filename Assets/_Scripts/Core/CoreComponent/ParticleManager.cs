@@ -25,6 +25,6 @@ public class ParticleManager : CoreComponent
         public GameObject StartParticlesWithRandomRotation(GameObject particlePrefab)
         {
             var randomRotation = Quaternion.Euler(0, 0, Random.Range(0, 360));
-            return StartParticles(particlePrefab, transform.position, quaternion.identity);
+            return StartParticles(particlePrefab, transform.position, randomRotation);
         }
     }

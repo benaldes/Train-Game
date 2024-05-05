@@ -16,7 +16,7 @@ public class AttackState : State
     public override void Enter()
     {
         base.Enter();
-        Entity.AnimToStateMachine.AttackState = this;
+        entity.AnimToStateMachine.AttackState = this;
         isAnimationFinish = false;
         core.Movement.SetVelocityX(0);
     }
@@ -24,7 +24,7 @@ public class AttackState : State
     public override void DoChecks()
     {
         base.DoChecks();
-        isPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 
     public override void LogicUpdate()
@@ -33,10 +33,7 @@ public class AttackState : State
         core.Movement.SetVelocityX(0);
     }
 
-    public virtual void TriggerAttack()
-    {
-        
-    }
+    public virtual void TriggerAttack() { }
 
     public virtual void FinishAttack()
     {

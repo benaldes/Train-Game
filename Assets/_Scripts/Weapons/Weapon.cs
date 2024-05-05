@@ -8,6 +8,7 @@ public class Weapon : MonoBehaviour
    #region Variables
 
    [SerializeField] protected SO_WeaponData weaponData;
+   
    protected Animator baseAnimator;
    protected Animator WeaponAnimator;
 

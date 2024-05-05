@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -40,7 +38,7 @@ public class SoundManager : MonoBehaviour
     {
         if (sound == null)
         {
-            Debug.Log("your are missing an audio sound");
+            Debug.Log(transform.parent.name + " is missing an audio sound");
             return;
         }
 
@@ -52,16 +50,12 @@ public class SoundManager : MonoBehaviour
             return;
         }
         
-            
         GameObject soundGameObject = new GameObject("AudioSound");
         soundGameObject.transform.parent = this.transform;
         AudioSource newAudioSource = soundGameObject.AddComponent<AudioSource>();
         AudioSources.Add(newAudioSource);
         
         Play(newAudioSource, sound, Volume);
-
-
-        //Destroy(soundGameObject, sound.length);
     }
     
     public void PlaySound(AudioClip sound)

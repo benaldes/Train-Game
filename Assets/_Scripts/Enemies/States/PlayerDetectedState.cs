@@ -42,9 +42,9 @@ public class PlayerDetectedState : State
     {
         base.DoChecks();
                 
-        isPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
-        isPlayerInMaxAgroRange = Entity.CheckPlayerInMaxAgroRange();
-        performCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
+        isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         isDetectingLedge = core.CollisionSenses.CheckIfTouchingVerticalLedge();
     }
     

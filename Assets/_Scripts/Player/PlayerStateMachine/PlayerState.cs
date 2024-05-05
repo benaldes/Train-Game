@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class PlayerState
@@ -66,7 +63,6 @@ public class PlayerState
         xInput = player.InputHandler.NormInputX;
         yInput = player.InputHandler.NormInputY;
         jumpInput = player.InputHandler.JumpInput;
-        grabInput = player.InputHandler.GrabInput;
         rollInput = player.InputHandler.RollInput;
         jumpInputStop = player.InputHandler.JumpInputStop;
     }

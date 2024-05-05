@@ -4,7 +4,7 @@ using UnityEngine;
 public class State
 {
     protected StateMachine stateMachine;
-    protected Entity Entity;
+    protected Entity entity;
     protected Core core;
 
     protected float startTime;
@@ -14,7 +14,7 @@ public class State
     public State(Entity entity, StateMachine stateMachine,string animName)
     {
         this.stateMachine = stateMachine;
-        this.Entity = entity;
+        this.entity = entity;
         this.animName = animName;
         core = entity.core;
     }
@@ -22,13 +22,13 @@ public class State
     public virtual void Enter()
     {
         startTime = Time.time;
-        Entity.Animator.SetBool(animName,true);
+        entity.Animator.SetBool(animName,true);
         DoChecks();
     }
 
     public virtual void Exit()
     {
-        Entity.Animator.SetBool(animName,false);
+        entity.Animator.SetBool(animName,false);
     }
 
     public virtual void LogicUpdate()

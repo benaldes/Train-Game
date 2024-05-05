@@ -8,7 +8,7 @@
         {
             this.enemy = enemy;
         }
-
+        
         public override void LogicUpdate()
         {
             base.LogicUpdate();

@@ -70,7 +70,7 @@ public class LookForPlayerState : State
     {
         base.DoChecks();
 
-        isPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 
     public void SetTurnImmediately(bool flip)

@@ -33,6 +33,6 @@ public class MoveState : State
 
         isDetectingLedge = core.CollisionSenses.CheckIfTouchingVerticalLedge();
         isDetectingWall = core.CollisionSenses.CheckIfTouchingWall();
-        IsPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        IsPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 }

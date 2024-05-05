@@ -1117,19 +1117,7 @@ MonoBehaviour:
     m_ActionId: f08a89c9-d61b-42b4-bb94-75e496c34e52
     m_ActionName: Gameplay/Jump[/Keyboard/space]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 4186821268039273543}
-        m_TargetAssemblyTypeName: PlayerInputHandler, Assembly-CSharp
-        m_MethodName: OnGrabInput
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
     m_ActionId: ab3dd279-78b3-4676-b1ed-9adaada5a1e5
     m_ActionName: Gameplay/Grab[/Keyboard/ctrl]
   - m_PersistentCalls:

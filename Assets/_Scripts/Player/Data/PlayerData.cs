@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPlayerData",menuName = "Data/Player Data/Base Data")]
@@ -17,7 +14,6 @@ public class PlayerData : ScriptableObject
     public float rollVelocity = 20;
     public float rollCooldown = 2;
     public Vector2 rollAngle = new Vector2(2, -1);
-    
     
     [Header("Wall Jump State")] 
     public float wallJumpVelocity = 20;

@@ -21,7 +21,7 @@ public class StunState : State
         base.Enter();
         isStunTimeOver = false;
         isMovementStop = false;
-        core.Movement.SetVelocity(State.StunKnockbackSpeed,State.StunKnockbackAngle, Entity.lastDamageDirection);
+        core.Movement.SetVelocity(State.StunKnockbackSpeed,State.StunKnockbackAngle, entity.lastDamageDirection);
         
     }
 
@@ -51,7 +51,7 @@ public class StunState : State
     {
         base.DoChecks();
         isGrounded = core.CollisionSenses.CheckIfGrounded();
-        performCloseRangeAction = Entity.CheckPlayerInCloseRangeAction();
-        isPlayerInMinAgroRange = Entity.CheckPlayerInMinAgroRange();
+        performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
+        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 }
