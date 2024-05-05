@@ -100,7 +100,6 @@ public class MainMenu : MonoBehaviour
                 
                 if(Input.GetKeyDown(KeyCode.Space))
                 {
-                    Debug.Log("Space press");
                     loadOperation.allowSceneActivation = true;
                 }
             }

@@ -250,7 +250,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 303889326702023402}
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
@@ -1483,11 +1483,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1373213052403259451, guid: 0108262b59660ac4898ac3c73a9efe66, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1373213052403259451, guid: 0108262b59660ac4898ac3c73a9efe66, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1420549585294031015, guid: 0108262b59660ac4898ac3c73a9efe66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -1627,15 +1627,15 @@ PrefabInstance:
       objectReference: {fileID: 3860206183693454307}
     - target: {fileID: 7491625416883787158, guid: 0108262b59660ac4898ac3c73a9efe66, type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7491625416883787158, guid: 0108262b59660ac4898ac3c73a9efe66, type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7491625416883787158, guid: 0108262b59660ac4898ac3c73a9efe66, type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7585882083185872192, guid: 0108262b59660ac4898ac3c73a9efe66, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
