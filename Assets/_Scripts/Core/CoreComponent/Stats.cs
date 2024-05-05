@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -73,7 +71,8 @@ public class Stats : CoreComponent
         float amount = (currentHealth / maxHealth) ;
         //healthBarFill.rectTransform.sizeDelta = new Vector2(amount, healthBarFill.rectTransform.sizeDelta.y);
 
-        healthBarFill.rectTransform.localScale = new Vector3(amount, healthBarFill.rectTransform.localScale.y,
-            healthBarFill.rectTransform.localScale.z);
+        var localScale = healthBarFill.rectTransform.localScale;
+        localScale = new Vector3(amount, localScale.y, localScale.z);
+        healthBarFill.rectTransform.localScale = localScale;
     }
 }
