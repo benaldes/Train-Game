@@ -29,7 +29,7 @@ public class PlayerGroundedState : PlayerState
 
         //InputChecks();
 
-        if (rollInput && player.RollState.IsRollReady())
+        if (rollInput && player.RollState.IsRollReady() && !core.Combat.isKnockbackActive)
         {
             stateMachine.SwitchState(player.RollState);
         }

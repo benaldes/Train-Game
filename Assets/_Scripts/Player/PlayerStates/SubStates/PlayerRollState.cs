@@ -27,39 +27,45 @@ public class PlayerRollState : PlayerAbilityState
         core.Combat.SetDamageImmune(false);
         core.Combat.SetKnockbackImmune(false);
     }
-
-  
-
+    
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        if(SwitchToJumpState()) return;
-        if (isAbilityDone && IsGrounded)
-        {
-            stateMachine.SwitchState(player.IdleState);
-                
-        }
-        else if (isAbilityDone && !IsGrounded)
-        {
-            stateMachine.SwitchState(player.InAirState);
-        }
-        
+        if(CheckIfSwitchToJumpState()) return;
+        if(CheckIfSwitchToIdleState()) return;
+        if(CheckIfSwitchToInAirState()) return;
     }
 
-    private bool SwitchToJumpState()
+    private bool CheckIfSwitchToJumpState()
     {
         if (jumpInput && player.JumpState.canJump())
         {
             stateMachine.SwitchState(player.JumpState);
             return true;
         }
-
         return false;
     }
     
-   
-
-
+    private bool CheckIfSwitchToIdleState()
+    {
+        if (isAbilityDone && IsGrounded)
+        {
+            stateMachine.SwitchState(player.IdleState);
+            return true;
+        }
+        return false;
+    }
+    
+    private bool CheckIfSwitchToInAirState()
+    {
+        if (isAbilityDone && !IsGrounded)
+        {
+            stateMachine.SwitchState(player.InAirState);
+            return true;
+        }
+        return false;
+    }
+    
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();

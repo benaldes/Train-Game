@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerInAirState : PlayerState
@@ -22,10 +20,7 @@ public class PlayerInAirState : PlayerState
     private static readonly int XVelocity = Animator.StringToHash("XVelocity");
 
     #endregion
-    public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName)
-        : base(player, stateMachine, playerData, animName)
-    {
-    }
+    public PlayerInAirState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName) : base(player, stateMachine, playerData, animName) { }
 
     #region State Callback Functions
     public override void Exit()
@@ -51,7 +46,6 @@ public class PlayerInAirState : PlayerState
         if(CheckIfSwitchToLedgeClimbState()) return;
         if(CheckIfSwitchToWallJumpState()) return;
         if(CheckIfSwitchToJumpState()) return;
-        //if(CheckIfSwitchToWallGrabState())return;
         if(CheckIfSwitchToWallSlideState())return;
             
         core.Movement.CheckIfShouldFlip(xInput);
@@ -117,7 +111,7 @@ public class PlayerInAirState : PlayerState
 
     private bool CheckIfSwitchToRollState()
     {
-        if (rollInput && player.RollState.IsRollReady())
+        if (rollInput && player.RollState.IsRollReady() && !core.Combat.isKnockbackActive)
         {
             stateMachine.SwitchState(player.RollState);
             return true;

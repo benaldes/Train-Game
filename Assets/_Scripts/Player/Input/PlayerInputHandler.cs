@@ -45,7 +45,8 @@ public class PlayerInputHandler : MonoBehaviour
    }
    public void onSecondaryAttackInput(InputAction.CallbackContext context)
    {
-      if (context.started)
+      //TODO: add secondary attack 
+      /*if (context.started)
       {
          AttackInputs[(int)CombatInputs.secondary] = true;
       }
@@ -53,7 +54,7 @@ public class PlayerInputHandler : MonoBehaviour
       if (context.canceled)
       {
          AttackInputs[(int)CombatInputs.secondary] = false;
-      }
+      }*/
    }
    public void OnMoveInput(InputAction.CallbackContext context)
    {

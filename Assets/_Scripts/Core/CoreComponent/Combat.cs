@@ -10,7 +10,8 @@ public class Combat : CoreComponent,Idamageble,IKnockbackable
     public bool IsDamageImmune { get; private set; }
     public bool IsKnockbackImmune { get; private set; }
     
-    private bool isKnockbackActive;
+    public bool isKnockbackActive;
+    
     private float knockbackStartTime;
     
     public float LastDamageTime { get; private set; }

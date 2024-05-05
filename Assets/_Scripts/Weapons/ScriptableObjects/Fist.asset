@@ -18,13 +18,16 @@ MonoBehaviour:
     DamageAmount: 5
     KnockbackStrength: 1
     KnockbackAngle: {x: 1, y: 0.5}
+    AudioClip: {fileID: 8300000, guid: 9f7774886bc5a734f8a137b326bfdb00, type: 3}
   - AttackName: 
     MovementSpeed: 3
     DamageAmount: 10
     KnockbackStrength: 1
     KnockbackAngle: {x: 1, y: 0.5}
+    AudioClip: {fileID: 8300000, guid: 74e181c280d9f8547aec0c46929c48b2, type: 3}
   - AttackName: 
     MovementSpeed: 3
     DamageAmount: 15
     KnockbackStrength: 2
     KnockbackAngle: {x: 1, y: 0.5}
+    AudioClip: {fileID: 8300000, guid: a8a9a2c6de0ae1e44b179ec3178957d9, type: 3}

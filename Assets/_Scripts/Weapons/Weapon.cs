@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Weapon : MonoBehaviour
@@ -17,6 +14,9 @@ public class Weapon : MonoBehaviour
    protected Core core;
 
    protected int attackCounter;
+
+   protected float lastAttackTime;
+   protected float resetComboTime = 1.5f;
    
    private static readonly int Attack = Animator.StringToHash("Attack");
    private static readonly int AttackCounter = Animator.StringToHash("AttackCounter");
@@ -38,11 +38,13 @@ public class Weapon : MonoBehaviour
    public virtual void EnterWeapon()
    {
       gameObject.SetActive(true);
-
-      if (attackCounter >= weaponData.amountOfAttacks)
+      
+      if (attackCounter >= weaponData.amountOfAttacks || Time.time > lastAttackTime + resetComboTime)
       {
          attackCounter = 0;
       }
+      
+      lastAttackTime = Time.time;
       
       baseAnimator.SetBool(Attack,true);
       WeaponAnimator.SetBool(Attack,true);
