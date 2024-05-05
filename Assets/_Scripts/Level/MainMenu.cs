@@ -72,13 +72,12 @@ public class MainMenu : MonoBehaviour
 
     IEnumerator LoadLevelAsync()
     {
-        
         LoadLevelButton.gameObject.SetActive(false);
         LevelSlider.gameObject.SetActive(true);
         spaceText.gameObject.SetActive(true);
         ContinueButton.gameObject.SetActive(false);
         
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSecondsRealtime(2);
         spaceText.GetComponent<TextMeshProUGUI>().text = "Press Space";
         loadOperation = SceneManager.LoadSceneAsync(levelToLoad);
         loadOperation.allowSceneActivation = false;
