@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Core : MonoBehaviour
@@ -16,10 +17,9 @@ public class Core : MonoBehaviour
             Debug.LogError("No movement core component on" + transform.parent.name);
             return null;
         }
-        private set { movement = value; }
         
     }
-    public CollisionSenses CollisionSenses
+	public CollisionSenses CollisionSenses
     {
         get
         {
@@ -30,24 +30,26 @@ public class Core : MonoBehaviour
             Debug.LogError("No collision Senses core component on" + transform.parent.name);
             return null;
         }
-        private set { collisionSenses = value; }
     }
-    public Combat Combat;
-    public Stats Stats;
-    public ParticleManager ParticleManager;
-    
-    private Movement movement;
-    private CollisionSenses collisionSenses;
+	public Combat Combat => _combat;
+	public Stats Stats => _stats;
+	public ParticleManager ParticleManager => _particleManager;
+
+	[SerializeField, HideInInspector] private Combat _combat;
+	[SerializeField, HideInInspector] private Stats _stats;
+	[SerializeField, HideInInspector] private ParticleManager _particleManager;
+	[SerializeField, HideInInspector] private Movement movement;
+	[SerializeField, HideInInspector] private CollisionSenses collisionSenses;
 
     private List<CoreComponent> components = new List<CoreComponent>();
     
-    private void Awake()
+    private void OnValidate()
     {
-        Movement = GetComponentInChildren<Movement>();
-        CollisionSenses = GetComponentInChildren<CollisionSenses>();
-        Combat = GetComponentInChildren<Combat>();
-        Stats = GetComponentInChildren<Stats>();
-        ParticleManager = GetComponentInChildren<ParticleManager>();
+        movement = GetComponentInChildren<Movement>();
+        collisionSenses = GetComponentInChildren<CollisionSenses>();
+		_combat = GetComponentInChildren<Combat>();
+        _stats = GetComponentInChildren<Stats>();
+        _particleManager = GetComponentInChildren<ParticleManager>();
     }
 
     public void LogicUpdate()

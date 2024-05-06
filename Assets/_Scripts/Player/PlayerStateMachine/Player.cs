@@ -21,25 +21,32 @@ public class Player : MonoBehaviour
     #endregion
     
     #region Components
-    public Core Core { get; private set; }
-    public Animator Animator { get; private set; }
-    public PlayerInputHandler InputHandler { get; private set; }
-    public Rigidbody2D Rb { get; private set; }
+    [field: SerializeField, HideInInspector] public Core Core { get; private set; }
+	[field: SerializeField, HideInInspector] public Animator Animator { get; private set; }
+	[field: SerializeField, HideInInspector] public PlayerInputHandler InputHandler { get; private set; }
+	[field: SerializeField, HideInInspector] public Rigidbody2D Rb { get; private set; }
     [SerializeField] 
     private PlayerData PlayerData;
-    public PlayerInventory Inventory { get; private set; }
+	[field: SerializeField, HideInInspector] public PlayerInventory Inventory { get; private set; }
     #endregion
 
     #region Other Variables
     private Vector2 workspace;
-    #endregion
+	#endregion
 
-    #region Unity Callback Functions
-    private void Awake()
+	#region Unity Callback Functions
+	private void OnValidate()
+	{
+		Core = GetComponentInChildren<Core>();
+		Animator = GetComponent<Animator>();
+		InputHandler = GetComponent<PlayerInputHandler>();
+		Rb = GetComponent<Rigidbody2D>();
+		Inventory = GetComponent<PlayerInventory>();
+	}
+
+	private void Awake()
     {
-        Core = GetComponentInChildren<Core>();
-        
-        // turn Animation names to hashcode!!!!
+        // TODO turn Animation names to hashcode!!!!
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, PlayerData, "Idle");
         MoveState = new PlayerMoveState(this, StateMachine, PlayerData, "Move");
@@ -54,21 +61,15 @@ public class Player : MonoBehaviour
         RollState = new PlayerRollState(this, StateMachine, PlayerData, "RollState");
         PrimaryAttackState = new PlayerAttackState(this, StateMachine, PlayerData, "Attack");
         PrimaryAttackState = new PlayerAttackState(this, StateMachine, PlayerData, "Attack");
-
     }
 
     private void Start()
     {
-        Animator = GetComponent<Animator>();
-        InputHandler = GetComponent<PlayerInputHandler>();
-        Rb = GetComponent<Rigidbody2D>();
-        Inventory = GetComponent<PlayerInventory>();
         Inventory.SendAttackState(PrimaryAttackState);
         
         PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
         
         StateMachine.Initialize(IdleState);
-        
     }
 
     private void Update()

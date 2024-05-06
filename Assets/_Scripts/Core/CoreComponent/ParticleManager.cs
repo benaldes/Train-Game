@@ -4,11 +4,10 @@ using Random = UnityEngine.Random;
 
 public class ParticleManager : CoreComponent
     {
-        private Transform particleContainer;
+        [SerializeField, HideInInspector] private Transform particleContainer;
 
-        protected override void Awake()
+        protected void OnValidate()
         {
-            base.Awake();
             particleContainer = GameObject.FindWithTag("ParticleContainer").transform;
         }
 
