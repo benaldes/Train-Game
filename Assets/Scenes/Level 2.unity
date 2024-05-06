@@ -138241,6 +138241,14 @@ PrefabInstance:
       propertyPath: m_Value
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3232729328885667043, guid: 353b0a1f118752f4dbd3c9e67d29c748, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2432919491037833809}
+    - target: {fileID: 3232729328885667043, guid: 353b0a1f118752f4dbd3c9e67d29c748, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ToggleInvulnerableMode
+      objectReference: {fileID: 0}
     - target: {fileID: 3860206183693454307, guid: 353b0a1f118752f4dbd3c9e67d29c748, type: 3}
       propertyPath: playerStats
       value: 
@@ -138460,6 +138468,11 @@ PrefabInstance:
 Transform:
   m_CorrespondingSourceObject: {fileID: 2089391903684147247, guid: 8d1de9d9b6b170d4cb862b9b8349fedf, type: 3}
   m_PrefabInstance: {fileID: 140374317}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1932996487 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8515490703255624344, guid: 353b0a1f118752f4dbd3c9e67d29c748, type: 3}
+  m_PrefabInstance: {fileID: 1835768741}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1984100045
 PrefabInstance:
@@ -138823,6 +138836,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 6852013021534464944}
     - target: {fileID: 6178466355225659685, guid: 719139aa8fe055d4da2bbb9c082f33bc, type: 3}
+      propertyPath: HealthBar
+      value: 
+      objectReference: {fileID: 1932996487}
+    - target: {fileID: 6178466355225659685, guid: 719139aa8fe055d4da2bbb9c082f33bc, type: 3}
       propertyPath: spaceText
       value: 
       objectReference: {fileID: 122955686806087351}
@@ -138834,18 +138851,6 @@ PrefabInstance:
       propertyPath: EndLevelScreen
       value: 
       objectReference: {fileID: 6452735936799504576}
-    - target: {fileID: 8902479911965610088, guid: 719139aa8fe055d4da2bbb9c082f33bc, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 11.025828
-      objectReference: {fileID: 0}
-    - target: {fileID: 8902479911965610088, guid: 719139aa8fe055d4da2bbb9c082f33bc, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 11.025828
-      objectReference: {fileID: 0}
-    - target: {fileID: 8902479911965610088, guid: 719139aa8fe055d4da2bbb9c082f33bc, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 11.025828
-      objectReference: {fileID: 0}
     - target: {fileID: 8902479911965610088, guid: 719139aa8fe055d4da2bbb9c082f33bc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 123.8

@@ -382,6 +382,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 328a9cb1dd4e4ac489920a2f24e46ee0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  HealthBar: {fileID: 1794861677}
   text: {fileID: 144124083}
   EndLevelScreen: {fileID: 873705586}
   spaceText: {fileID: 144124081}
@@ -138262,6 +138263,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a1128bcf9e317ab499b3661ff6cafc6c, type: 3}
+--- !u!1 &1794861677 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8515490703255624344, guid: 353b0a1f118752f4dbd3c9e67d29c748, type: 3}
+  m_PrefabInstance: {fileID: 8506525083716953950}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1798460721
 PrefabInstance:
   m_ObjectHideFlags: 0

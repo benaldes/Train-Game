@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class NextLevel : MonoBehaviour
 {
+    public GameObject HealthBar;
     public TextMeshProUGUI text;
     public GameObject EndLevelScreen, spaceText;
     public Slider LevelSlider;
@@ -18,6 +19,7 @@ public class NextLevel : MonoBehaviour
     {
         if (other.gameObject.CompareTag("Player"))
         {
+            HealthBar.SetActive(false);
             LoadNextLevel();
         }
     }

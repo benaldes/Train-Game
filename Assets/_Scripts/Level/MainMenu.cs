@@ -27,7 +27,7 @@ public class MainMenu : MonoBehaviour
     private void ReadSaveFile()
     {
         saveFileData = File.ReadAllText(saveFilePath).Trim();
-        
+        if(ContinueButton == null) return;
         switch (saveFileData)
         {
             case "1":
@@ -75,7 +75,8 @@ public class MainMenu : MonoBehaviour
         LoadLevelButton.gameObject.SetActive(false);
         LevelSlider.gameObject.SetActive(true);
         spaceText.gameObject.SetActive(true);
-        ContinueButton.gameObject.SetActive(false);
+        if(ContinueButton != null) ContinueButton.gameObject.SetActive(false);
+        
         
         yield return new WaitForSecondsRealtime(2);
         spaceText.GetComponent<TextMeshProUGUI>().text = "Press Space";
