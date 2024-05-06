@@ -8,7 +8,7 @@ public class ParticleManager : CoreComponent
 
         protected void OnValidate()
         {
-            particleContainer = GameObject.FindWithTag("ParticleContainer").transform;
+            particleContainer = GameObject.FindWithTag("ParticleContainer")?.transform;
         }
 
         public GameObject StartParticles(GameObject particlePrefab, Vector2 position, Quaternion rotation)
