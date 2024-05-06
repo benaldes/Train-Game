@@ -70,6 +70,11 @@ public class MainMenu : MonoBehaviour
         StartCoroutine(LoadLevelAsync());
     }
 
+    public void Exit()
+    {
+        Application.Quit();
+    }
+
     IEnumerator LoadLevelAsync()
     {
         LoadLevelButton.gameObject.SetActive(false);
