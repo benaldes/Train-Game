@@ -5,17 +5,17 @@ using UnityEngine;
 public class PlayerWallJumpState : PlayerAbilityState
 {
     private int wallJumpDirection;
+    private int lastWallDirection;
     private static readonly int YVelocity = Animator.StringToHash("YVelocity");
     private static readonly int XVelocity = Animator.StringToHash("XVelocity");
 
     public PlayerWallJumpState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName) 
-        : base(player, stateMachine, playerData, animName)
-    {
-    }
+        : base(player, stateMachine, playerData, animName) { }
 
     public override void Enter()
     {
         base.Enter();
+        lastWallDirection = wallJumpDirection;
         player.InputHandler.UseJumpInput();
         player.JumpState.ResetAmountsOfJumpsLeft();
         core.Movement.SetVelocity(playerData.wallJumpVelocity,playerData.wallJumpAngle,wallJumpDirection);
@@ -30,6 +30,7 @@ public class PlayerWallJumpState : PlayerAbilityState
         
         player.Animator.SetFloat(YVelocity,core.Movement.CurrentVelocity.y);
         player.Animator.SetFloat(XVelocity,core.Movement.CurrentVelocity.x);
+        
 
         if (Time.time >= StartTime + playerData.wallJumpTime)
         {
@@ -48,5 +49,14 @@ public class PlayerWallJumpState : PlayerAbilityState
         {
             wallJumpDirection = core.Movement.FacingDirection;
         }
+    }
+    public bool TouchWallOnSameSide()
+    {
+        if (lastWallDirection == -core.Movement.FacingDirection)
+        {
+            return true;
+        }
+
+        return false;
     }
 }

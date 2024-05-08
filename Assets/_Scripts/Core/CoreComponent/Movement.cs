@@ -23,6 +23,7 @@
         public override void LogicUpdate()
         {
             CurrentVelocity = RB.velocity;
+            
         }
 
         #region Set Functions
@@ -32,11 +33,27 @@
             workspace = Vector2.zero;
             SetFinalVelocity();
         }
-
         public void SetVelocity(float velocity, Vector2 angle, int direction)
         {
             angle.Normalize();
             workspace.Set(angle.x * velocity * direction,angle.y * velocity);
+            SetFinalVelocity();
+        }
+        public void SetVelocity(float velocity, float angle, int direction)
+        {
+            Vector2 angleVector = new Vector2(Mathf.Cos(angle * Mathf.Deg2Rad), Mathf.Sin(angle * Mathf.Deg2Rad));
+
+            // Normalize the angle vector to ensure consistent magnitude
+            angleVector.Normalize();
+
+            // Calculate the final velocity components based on the angle, velocity, and direction
+            float finalVelocityX = angleVector.x * velocity * direction;
+            float finalVelocityY = angleVector.y * velocity;
+
+            // Set the final velocity components to your workspace vector or wherever you want
+            workspace.Set(finalVelocityX, finalVelocityY);
+
+            // Optionally, you can perform any other operations related to setting the final velocity
             SetFinalVelocity();
         }
         public void SetVelocityX(float velocity)
@@ -44,13 +61,11 @@
             workspace.Set(velocity,CurrentVelocity.y);
             SetFinalVelocity();
         }
-
         public void SetVelocityY(float velocity)
         {
             workspace.Set(CurrentVelocity.x,velocity);
             SetFinalVelocity();
         }
-
         private void SetFinalVelocity()
         {
             if (CanSetVelocity)

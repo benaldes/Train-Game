@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -19,9 +20,7 @@ public class PlayerLedgeClimbState : PlayerState
 
     #endregion
     public PlayerLedgeClimbState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, 
-        string animName) : base(player, stateMachine, playerData, animName)
-    {
-    }
+        string animName) : base(player, stateMachine, playerData, animName) { }
 
     #region State Callback Functions
 
@@ -33,12 +32,15 @@ public class PlayerLedgeClimbState : PlayerState
         player.transform.position = detectedPos;
         
         cornerPos = DetermineCornerPosition();
-        startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerData.startOffSet.x)
-            ,cornerPos.y - playerData.startOffSet.y);
-        stopPos.Set(cornerPos.x + (core.Movement.FacingDirection * playerData.stopOffSet.x)
-            , cornerPos.y + playerData.stopOffSet.y);
+        startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerData.startOffSet.x),cornerPos.y - playerData.startOffSet.y);
+        stopPos.Set(cornerPos.x + (core.Movement.FacingDirection * playerData.stopOffSet.x), cornerPos.y + playerData.stopOffSet.y);
 
         player.transform.position = startPos;
+        
+        //TODO: need to replace this
+        isClimbing = true;
+        player.Animator.SetBool(ClimbLedge,true);
+        //
 
     }
 
@@ -143,15 +145,20 @@ public class PlayerLedgeClimbState : PlayerState
     public Vector2 DetermineCornerPosition()
     {
         var position = core.CollisionSenses.WallCheck.position;
+        var position1 = core.CollisionSenses.HorizontalLedgeCheck.position;
+        
         RaycastHit2D xHit = Physics2D.Raycast(position, Vector2.right * core.Movement.FacingDirection,
             core.CollisionSenses.WallCheckDistance, core.CollisionSenses.WhatIsGround);
         float xDist = xHit.distance;
+        
         workspace.Set(xDist * core.Movement.FacingDirection,0f);
-        var position1 = core.CollisionSenses.HorizontalLedgeCheck.position;
+        
         RaycastHit2D yHit = Physics2D.Raycast(position1 + (Vector3)(workspace), Vector2.down,
-            position1.y - position.y, core.CollisionSenses.WhatIsGround);
+            position1.y - position.y + 1 , core.CollisionSenses.WhatIsGround);
         float yDist = yHit.distance;
+        
         workspace.Set(position.x + (xDist * core.Movement.FacingDirection),position1.y - yDist);
+        
         return workspace;
     }
     

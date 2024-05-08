@@ -7,7 +7,13 @@ public class PlayerLandState : PlayerGroundedState
     public PlayerLandState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName) : base(player, stateMachine, playerData, animName)
     {
     }
-    
+
+    public override void Enter()
+    {
+        base.Enter();
+        core.Movement.SetVelocityZero();
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();

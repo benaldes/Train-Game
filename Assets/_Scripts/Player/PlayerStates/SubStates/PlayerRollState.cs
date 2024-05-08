@@ -3,12 +3,10 @@
 public class PlayerRollState : PlayerAbilityState
 {
     private bool rollIsReady = true;
-    
-    
+
+    private float workSpace;
     public PlayerRollState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName) 
-        : base(player, stateMachine, playerData, animName)
-    {
-    }
+        : base(player, stateMachine, playerData, animName) { }
 
     public override void Enter()
     {
@@ -17,7 +15,7 @@ public class PlayerRollState : PlayerAbilityState
         
         core.Combat.SetDamageImmune(true);
         core.Combat.SetKnockbackImmune(true);
-        core.Movement.SetVelocity(playerData.rollVelocity, playerData.rollAngle, core.Movement.FacingDirection);
+        //acore.Movement.SetVelocity(playerData.rollVelocity, playerData.rollAngle, core.Movement.FacingDirection);
     }
 
     public override void Exit()
@@ -31,6 +29,10 @@ public class PlayerRollState : PlayerAbilityState
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        
+        workSpace = playerData.RollCurve.Evaluate(Time.time - StartTime);
+        core.Movement.SetVelocity(playerData.rollVelocity, workSpace, core.Movement.FacingDirection);
+        
         if(CheckIfSwitchToJumpState()) return;
         if(CheckIfSwitchToIdleState()) return;
         if(CheckIfSwitchToInAirState()) return;

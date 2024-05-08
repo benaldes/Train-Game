@@ -39,7 +39,7 @@ public class PlayerTouchinWallState : PlayerState
 
     private bool CheckIfSwitchToWallJumpState()
     {
-        if (jumpInput)
+        if (jumpInput && !player.WallJumpState.TouchWallOnSameSide())
         {
             player.WallJumpState.DetermineWallJumpDirection(isTouchingWall);
             stateMachine.SwitchState(player.WallJumpState);

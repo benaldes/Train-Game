@@ -13,7 +13,8 @@ public class PlayerData : ScriptableObject
     [Header("Roll State")] 
     public float rollVelocity = 20;
     public float rollCooldown = 2;
-    public Vector2 rollAngle = new Vector2(2, -1);
+    //public Vector2 rollAngle = new Vector2(2, -1);
+    public AnimationCurve RollCurve;
     
     [Header("Wall Jump State")] 
     public float wallJumpVelocity = 20;
