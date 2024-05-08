@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 [CreateAssetMenu(fileName = "NewPlayerData",menuName = "Data/Player Data/Base Data")]
 public class PlayerData : ScriptableObject
@@ -12,14 +13,14 @@ public class PlayerData : ScriptableObject
 
     [Header("Roll State")] 
     public float rollVelocity = 20;
-    public float rollCooldown = 2;
-    //public Vector2 rollAngle = new Vector2(2, -1);
-    public AnimationCurve RollCurve;
+    public float rollCooldown = 2; 
+    public AnimationCurve RollAngleCurve;
     
     [Header("Wall Jump State")] 
     public float wallJumpVelocity = 20;
     public float wallJumpTime = 0.4f;
     public Vector2 wallJumpAngle = new Vector2(1, 2);
+    //public AnimationCurve WallJumpAngleCurve;
     
     [Header("In Air State")]
     public float coyoteTime = 0.2f;

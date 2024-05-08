@@ -23,7 +23,6 @@
         public override void LogicUpdate()
         {
             CurrentVelocity = RB.velocity;
-            
         }
 
         #region Set Functions

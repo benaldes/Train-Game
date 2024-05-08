@@ -6,6 +6,8 @@ public class PlayerWallJumpState : PlayerAbilityState
 {
     private int wallJumpDirection;
     private int lastWallDirection;
+
+    private float workSpace;
     private static readonly int YVelocity = Animator.StringToHash("YVelocity");
     private static readonly int XVelocity = Animator.StringToHash("XVelocity");
 
@@ -31,7 +33,7 @@ public class PlayerWallJumpState : PlayerAbilityState
         player.Animator.SetFloat(YVelocity,core.Movement.CurrentVelocity.y);
         player.Animator.SetFloat(XVelocity,core.Movement.CurrentVelocity.x);
         
-
+        
         if (Time.time >= StartTime + playerData.wallJumpTime)
         {
             isAbilityDone = true;

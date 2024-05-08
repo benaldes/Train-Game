@@ -30,7 +30,7 @@ public class PlayerRollState : PlayerAbilityState
     {
         base.LogicUpdate();
         
-        workSpace = playerData.RollCurve.Evaluate(Time.time - StartTime);
+        workSpace = playerData.RollAngleCurve.Evaluate(Time.time - StartTime);
         core.Movement.SetVelocity(playerData.rollVelocity, workSpace, core.Movement.FacingDirection);
         
         if(CheckIfSwitchToJumpState()) return;

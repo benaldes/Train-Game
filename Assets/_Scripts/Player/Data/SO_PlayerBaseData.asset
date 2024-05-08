@@ -17,7 +17,7 @@ MonoBehaviour:
   amountsOfJumps: 2
   rollVelocity: 12
   rollCooldown: 1
-  RollCurve:
+  RollAngleCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
@@ -30,17 +30,17 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 0.20781007
-      value: -11.537861
-      inSlope: -300.30728
-      outSlope: -300.30728
+      time: 0.2145425
+      value: -21.642399
+      inSlope: -360.32382
+      outSlope: -360.32382
       tangentMode: 0
       weightedMode: 0
       inWeight: 0.33333334
-      outWeight: 0.19087206
+      outWeight: 0.33333334
     - serializedVersion: 3
-      time: 0.30304077
-      value: -50.42455
+      time: 0.25
+      value: -40
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -50,9 +50,42 @@ MonoBehaviour:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
-  wallJumpVelocity: 20
-  wallJumpTime: 0.4
+  wallJumpVelocity: 17
+  wallJumpTime: 0.3
   wallJumpAngle: {x: 1, y: 2}
+  WallJumpAngleCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 60
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 0.15370317
+      value: 47.996002
+      inSlope: -211.03151
+      outSlope: -211.03151
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 0.3
+      value: 10.386414
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
   coyoteTime: 0.3
   variableJumpHeightMultiplier: 0.5
   wallSlideVelocity: 2
