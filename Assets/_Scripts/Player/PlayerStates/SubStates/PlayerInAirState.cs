@@ -41,22 +41,15 @@ public class PlayerInAirState : PlayerState
         CheckWallJumpCoyoteTime();
         CheckIfJumpInputIsHeld();
         
-        if (isTouchingLedgeWithFeet && !isTouchingWall)
-        {
-            
-            stateMachine.SwitchState(player.StepOverState);
-            return;
-        }
         if(CheckIfSwitchToAttackState()) return;
         if(CheckIfSwitchToRollState()) return;
         if(CheckIfSwitchToLandState())return;
+        if(CheckIfSwitchToStepOverState()) return;
         if(CheckIfSwitchToLedgeClimbState()) return;
         if(CheckIfSwitchToWallJumpState()) return;
         if(CheckIfSwitchToJumpState()) return;
         if(CheckIfSwitchToWallSlideState())return;
-
         
-            
         core.Movement.CheckIfShouldFlip(xInput);
         core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
         player.Animator.SetFloat(YVelocity, core.Movement.CurrentVelocity.y);
@@ -110,7 +103,17 @@ public class PlayerInAirState : PlayerState
         }
 
         return false;
+    }
 
+    private bool CheckIfSwitchToStepOverState()
+    {
+        if (isTouchingLedgeWithFeet && !isTouchingWall && !isTouchingLedge && !isGrounded)
+        {
+            stateMachine.SwitchState(player.StepOverState);
+            return true;
+        }
+
+        return false;
     }
     
     private bool CheckIfSwitchToLandState()
@@ -169,16 +172,6 @@ public class PlayerInAirState : PlayerState
             return true;
         }
 
-        return false;
-    }
-
-    private bool CheckIfSwitchToWallGrabState()
-    {
-        if(isTouchingWall && grabInput && isTouchingLedge)
-        {
-            stateMachine.SwitchState(player.WallGrabState);
-            return true;
-        }
         return false;
     }
 

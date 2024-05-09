@@ -13,18 +13,8 @@ public class PlayerWallSlideState : PlayerTouchinWallState
     {
         base.LogicUpdate();
         if(isExitingState) return;
-        core.Movement.SetVelocityY(-playerData.wallSlideVelocity);
-        //if(CheckIfSwitchToWallGrabState()) return;
+        core.Movement.SetVelocityY(-playerData.wallSlideVelocity * (Time.time - StartTime) * 4);
     }
 
-    private bool CheckIfSwitchToWallGrabState()
-    {
-        if (grabInput && yInput == 0 && !isExitingState)
-        {
-            stateMachine.SwitchState(player.WallGrabState);
-            return true;
-        }
 
-        return false;
-    }
 }

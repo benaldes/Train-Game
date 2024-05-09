@@ -19,12 +19,9 @@
         {
             base.Enter();
             
-            //Time.timeScale = 0.4f;
             core.Movement.SetVelocityZero();
             player.transform.position = detectedPos;
             player.StepOverState.SetCornerPosition();
-            
-            
             
             startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerData.StepOverStartOffSet.x),cornerPos.y - playerData.StepOverStartOffSet.y);
             stopPos.Set(cornerPos.x + (core.Movement.FacingDirection * playerData.StepOverStopOffSet.x), cornerPos.y + playerData.StepOverStopOffSet.y);
@@ -37,7 +34,6 @@
         {
             base.Exit();
             player.transform.position = stopPos;
-            //isClimbing = false;
         }
 
         public override void LogicUpdate()
