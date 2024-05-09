@@ -35,5 +35,10 @@ public class PlayerData : ScriptableObject
     [Header("Ledge Climb State")] 
     public Vector2 startOffSet;
     public Vector2 stopOffSet;
+
+    [Header("StepOver State")] 
+    public Vector2 StepOverStartOffSet;
+    public Vector2 StepOverStopOffSet;
     
+
 }

@@ -13,6 +13,7 @@ public class PlayerInAirState : PlayerState
     private bool wallJumpCoyoteTime;
     private bool isJumping;
     private bool isTouchingLedge;
+    private bool isTouchingLedgeWithFeet;
 
     private float startWallJumpCoyoteTime;
     
@@ -47,6 +48,12 @@ public class PlayerInAirState : PlayerState
         if(CheckIfSwitchToWallJumpState()) return;
         if(CheckIfSwitchToJumpState()) return;
         if(CheckIfSwitchToWallSlideState())return;
+
+        if (isTouchingLedgeWithFeet && !isTouchingWall)
+        {
+            player.StepOverState.SetCornerPosition();
+            stateMachine.SwitchState(player.StepOverState);
+        }
             
         core.Movement.CheckIfShouldFlip(xInput);
         core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
@@ -65,7 +72,13 @@ public class PlayerInAirState : PlayerState
         isTouchingWall = core.CollisionSenses.CheckIfTouchingWall();
         isTouchingWallBack = core.CollisionSenses.CheckIfTouchingWallBack();
         isTouchingLedge = core.CollisionSenses.CheckIfTouchingHorizontalLedge();
-
+        isTouchingLedgeWithFeet = core.CollisionSenses.CheckIfTouchingLedgeWithFeet();
+        
+        if(isTouchingLedgeWithFeet && !isTouchingWall)
+        {
+            Debug.Log("Low Ledge Detect");
+            player.StepOverState.SetDetectedPosition(player.transform.position);
+        }
         if (isTouchingWall && !isTouchingLedge)
         {
             player.LedgeClimbState.SetDetectedPosition(player.transform.position);

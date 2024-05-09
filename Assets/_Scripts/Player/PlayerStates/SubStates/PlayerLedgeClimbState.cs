@@ -75,7 +75,7 @@ public class PlayerLedgeClimbState : PlayerState
     public override void AnimationFinishTrigger()
     {
         base.AnimationFinishTrigger();
-        player.Animator.SetBool(nameof(ClimbLedge), false);
+        player.Animator.SetBool(ClimbLedge, false);
     }
 
     #endregion
@@ -148,10 +148,10 @@ public class PlayerLedgeClimbState : PlayerState
             core.CollisionSenses.WallCheckDistance, core.CollisionSenses.WhatIsGround);
         float xDist = xHit.distance;
         
-        workspace.Set(xDist * core.Movement.FacingDirection,0f);
+        workspace.Set((xDist + 0.1f) * core.Movement.FacingDirection,0f);
         
         RaycastHit2D yHit = Physics2D.Raycast(position1 + (Vector3)(workspace), Vector2.down,
-            position1.y - position.y + 1 , core.CollisionSenses.WhatIsGround);
+            position1.y - position.y + 0.1f , core.CollisionSenses.WhatIsGround);
         float yDist = yHit.distance;
         
         workspace.Set(position.x + (xDist * core.Movement.FacingDirection),position1.y - yDist);

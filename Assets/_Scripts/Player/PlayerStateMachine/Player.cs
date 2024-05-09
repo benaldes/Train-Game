@@ -15,6 +15,7 @@ public class Player : MonoBehaviour
     public PlayerWallJumpState WallJumpState { get; private set; }
     public PlayerLedgeClimbState LedgeClimbState { get; private set; }
     public PlayerRollState RollState { get; private set; }
+    public PlayerStepOverState StepOverState { get; private set; }
     public PlayerAttackState PrimaryAttackState { get; private set; }
     public PlayerAttackState SecondaryAttackState { get; private set; }
     
@@ -59,8 +60,10 @@ public class Player : MonoBehaviour
         WallJumpState = new PlayerWallJumpState(this, StateMachine, PlayerData, "InAir");
         LedgeClimbState = new PlayerLedgeClimbState(this, StateMachine, PlayerData, "LedgeClimbState");
         RollState = new PlayerRollState(this, StateMachine, PlayerData, "RollState");
+        StepOverState = new PlayerStepOverState(this, StateMachine, PlayerData, "StepOver");
         PrimaryAttackState = new PlayerAttackState(this, StateMachine, PlayerData, "Attack");
         PrimaryAttackState = new PlayerAttackState(this, StateMachine, PlayerData, "Attack");
+        
     }
 
     private void Start()

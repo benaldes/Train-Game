@@ -53,42 +53,11 @@ MonoBehaviour:
   wallJumpVelocity: 17
   wallJumpTime: 0.3
   wallJumpAngle: {x: 1, y: 2}
-  WallJumpAngleCurve:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: 0
-      value: 60
-      inSlope: 2
-      outSlope: 2
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    - serializedVersion: 3
-      time: 0.15370317
-      value: 47.996002
-      inSlope: -211.03151
-      outSlope: -211.03151
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.33333334
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 0.3
-      value: 10.386414
-      inSlope: 0
-      outSlope: 0
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
   coyoteTime: 0.3
   variableJumpHeightMultiplier: 0.5
   wallSlideVelocity: 2
   wallClimbVelocity: 3
   startOffSet: {x: 0.45, y: 0.9}
   stopOffSet: {x: 0.4, y: 0.75}
+  StepOverStartOffSet: {x: 0, y: 0}
+  StepOverStopOffSet: {x: 0.5, y: 1}
