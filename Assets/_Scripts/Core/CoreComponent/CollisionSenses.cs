@@ -55,7 +55,7 @@ public class CollisionSenses : CoreComponent
     public bool CheckIfTouchingLedgeWithFeet()
     {
         return Physics2D.Raycast(LedgeFeetCheck.position, Vector2.right *
-                                                          core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+                                                          core.Movement.FacingDirection, wallCheckDistance , whatIsGround);
     }
 
     private void OnDrawGizmos()

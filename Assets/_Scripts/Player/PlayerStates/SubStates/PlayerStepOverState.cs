@@ -19,10 +19,11 @@
         {
             base.Enter();
             
-            Time.timeScale = 0.4f;
+            //Time.timeScale = 0.4f;
             core.Movement.SetVelocityZero();
-            
             player.transform.position = detectedPos;
+            player.StepOverState.SetCornerPosition();
+            
             
             
             startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerData.StepOverStartOffSet.x),cornerPos.y - playerData.StepOverStartOffSet.y);
@@ -30,7 +31,6 @@
 
             player.transform.position = startPos;
             
-            player.Animator.SetBool(StepOver,true);
         }
 
         public override void Exit()

@@ -41,6 +41,12 @@ public class PlayerInAirState : PlayerState
         CheckWallJumpCoyoteTime();
         CheckIfJumpInputIsHeld();
         
+        if (isTouchingLedgeWithFeet && !isTouchingWall)
+        {
+            
+            stateMachine.SwitchState(player.StepOverState);
+            return;
+        }
         if(CheckIfSwitchToAttackState()) return;
         if(CheckIfSwitchToRollState()) return;
         if(CheckIfSwitchToLandState())return;
@@ -49,11 +55,7 @@ public class PlayerInAirState : PlayerState
         if(CheckIfSwitchToJumpState()) return;
         if(CheckIfSwitchToWallSlideState())return;
 
-        if (isTouchingLedgeWithFeet && !isTouchingWall)
-        {
-            player.StepOverState.SetCornerPosition();
-            stateMachine.SwitchState(player.StepOverState);
-        }
+        
             
         core.Movement.CheckIfShouldFlip(xInput);
         core.Movement.SetVelocityX(playerData.MovementVelocity * xInput);
@@ -79,7 +81,7 @@ public class PlayerInAirState : PlayerState
             Debug.Log("Low Ledge Detect");
             player.StepOverState.SetDetectedPosition(player.transform.position);
         }
-        if (isTouchingWall && !isTouchingLedge)
+        else if (isTouchingWall && !isTouchingLedge)
         {
             player.LedgeClimbState.SetDetectedPosition(player.transform.position);
         }
