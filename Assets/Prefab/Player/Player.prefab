@@ -44,6 +44,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b56eaf2b0d490c9d4268d40b451d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleContainer: {fileID: 0}
 --- !u!1 &589192361314333636
 GameObject:
   m_ObjectHideFlags: 0
@@ -382,6 +383,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   weaponData: {fileID: 11400000, guid: 6273a93f2269f6f44bade659821066a3, type: 2}
+--- !u!1 &3080515521516200518
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5446888965627419325}
+  m_Layer: 8
+  m_Name: LedgeFeetCheck
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5446888965627419325
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3080515521516200518}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: -0.826, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 7214032867239732594}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3375158289370300136
 GameObject:
   m_ObjectHideFlags: 0
@@ -597,9 +629,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e280ce5d93a7745aa773c5524c3900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Combat: {fileID: 0}
-  Stats: {fileID: 0}
-  ParticleManager: {fileID: 0}
+  _combat: {fileID: 2893510545762727622}
+  _stats: {fileID: 5561955729264252659}
+  _particleManager: {fileID: 3383612727664904473}
+  movement: {fileID: 4819645884207350894}
+  collisionSenses: {fileID: 370466432563194151}
 --- !u!1 &3935099058749241635
 GameObject:
   m_ObjectHideFlags: 0
@@ -633,6 +667,7 @@ Transform:
   - {fileID: 143473379946615502}
   - {fileID: 4668468220578133737}
   - {fileID: 3587693427917083076}
+  - {fileID: 5446888965627419325}
   m_Father: {fileID: 5662875173236672258}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &370466432563194151
@@ -647,10 +682,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff203f98b6377e240b7ffa879152e6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestBall: {fileID: 0}
   groundCheck: {fileID: 143473379946615502}
   wallCheck: {fileID: 4668468220578133737}
   horizontalLedgeCheck: {fileID: 3587693427917083076}
   verticalLedgeCheck: {fileID: 0}
+  ledgeFeetCheck: {fileID: 5446888965627419325}
   groundCheckRadius: 0.35
   wallCheckDistance: 0.5
   whatIsGround:
@@ -681,7 +718,7 @@ Transform:
   m_GameObject: {fileID: 3939321357276938568}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -0.256, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -712,7 +749,7 @@ Transform:
   m_GameObject: {fileID: 4664190901572489719}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.5, z: 0}
+  m_LocalPosition: {x: 0, y: 0.45, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1031,7 +1068,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4fd296a127c4eee46aaa5e2d7894a7b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Core>k__BackingField: {fileID: 4164721482659143363}
+  <Animator>k__BackingField: {fileID: 2690684015030641778}
+  <InputHandler>k__BackingField: {fileID: 4186821268039273543}
+  <Rb>k__BackingField: {fileID: 8001610543777703876}
   PlayerData: {fileID: 11400000, guid: 1c29fe09082f58044917316113b28df7, type: 2}
+  <Inventory>k__BackingField: {fileID: 4265222503230625647}
 --- !u!114 &4186821268039273543
 MonoBehaviour:
   m_ObjectHideFlags: 0
