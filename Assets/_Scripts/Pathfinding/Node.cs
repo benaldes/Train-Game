@@ -38,7 +38,16 @@ public class Node
         Neighbours = neighbours;
     }
 
-  
+    public override bool Equals(object obj)
+    {
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+
+        Node otherNode = (Node)obj;
+        return WorldPosition == otherNode.WorldPosition;
+    }
 }
 
 public enum TileType

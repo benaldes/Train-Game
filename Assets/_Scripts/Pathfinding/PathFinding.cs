@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
     public static class PathFinding
     {
         private static List<Node> path = new List<Node>();
+        private static List<Node> checkedNeighbours = new List<Node>();
+        
 
 
         public static Node FindClosestNode(this List<List<Node>> nodes, Vector2 position)
@@ -31,17 +34,43 @@ using UnityEngine;
             return closestNode;
 
         }
-        /*public static List<Node> FindPath(this List<List<Node>> path, Vector2 myPosition,Vector2 targetPosition)
+        public static List<Node> FindPath(this Node myNode ,Node targetNode)
         {
             
-            return new List<Node>();
+            path.Add(myNode);
+            
+            return CheckNeighbours(myNode.Neighbours, targetNode);
         }
 
-        private static List<Node> CheckNeighbours(List<Node> neighbours)
+        private static List<Node> CheckNeighbours(List<Node> neighbours, Node targetNode)
         {
+            if (path[^1].Equals(targetNode)) return path;
+
             foreach (var neighbour in neighbours)
             {
-                CheckNeighbours(neighbours);
+                if (neighbour.WorldPosition == targetNode.WorldPosition)
+                {
+                    path.Add(neighbour);
+                    return path;
+                }
+                else if ((neighbour.TileType == TileType.aboveGround || neighbour.TileType == TileType.InAir) && !checkedNeighbours.Contains(neighbour))
+                {
+                    path.Add(neighbour);
+                    checkedNeighbours.Add(neighbour);
+
+                    CheckNeighbours(neighbour.Neighbours, targetNode);
+
+                    if (path[^1].Equals(targetNode)) return path;
+                }
+                else
+                {
+                    checkedNeighbours.Add(neighbour);
+                }
+
+
             }
-        }*/
+
+            path.Remove(path[^1]);
+            return path;
+        }
     }

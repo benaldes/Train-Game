@@ -27,7 +27,11 @@ public class NodeGraph : MonoBehaviour
     [ContextMenu("test pathfinding")]
     public void test()
     {
-        Debug.Log(PathFinding.FindClosestNode(Nodes, new Vector2(-23, -3)).WorldPosition);
+        List<Node> path = PathFinding.FindPath(Nodes[11][1],Nodes[11][10]);
+        foreach (var VARIABLE in path)
+        {
+            Debug.Log(VARIABLE.WorldPosition);
+        }
 
     }
     [ContextMenu("initialize Node Graph")]
@@ -139,16 +143,16 @@ public class NodeGraph : MonoBehaviour
         List<Node> neighbours = new List<Node>();
         
         try { if(Nodes[y + 1][x] != null) neighbours.Add(Nodes[y + 1][x]); }
-        catch (ArgumentOutOfRangeException e) { }
+        catch (ArgumentOutOfRangeException) { }
         
         try { if(Nodes[y - 1][x] != null) neighbours.Add(Nodes[y - 1][x]); }
-        catch (ArgumentOutOfRangeException e) { }
+        catch (ArgumentOutOfRangeException) { }
         
         try { if(Nodes[y][x + 1] != null) neighbours.Add(Nodes[y][x + 1]); }
-        catch (ArgumentOutOfRangeException e) { }
+        catch (ArgumentOutOfRangeException) { }
         
         try { if(Nodes[y][x - 1] != null) neighbours.Add(Nodes[y][x - 1]); }
-        catch (ArgumentOutOfRangeException e) { }
+        catch (ArgumentOutOfRangeException) { }
         
         Nodes[y][x].SetNeighbours(neighbours);
         
