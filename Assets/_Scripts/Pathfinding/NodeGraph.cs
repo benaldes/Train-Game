@@ -3,12 +3,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NodeGrid : MonoBehaviour
+public class NodeGraph : MonoBehaviour
 {
     
     public Transform size;
-    //public List<Node> Nodes = new List<Node>();
-    private List<List<Node>> Nodes = new List<List<Node>>();
+    public List<List<Node>> Nodes = new List<List<Node>>();
     public float XNodeSpace = 1;
     public float YNodeSpace = 1;
     
@@ -22,14 +21,42 @@ public class NodeGrid : MonoBehaviour
     
     private void Start()
     {
-        FillGrid();
-        
+        initializeNodeGraph();
     }
-    [ContextMenu("fill grid")]
-    public void FillGrid()
+
+    [ContextMenu("test pathfinding")]
+    public void test()
     {
-        initializeNodeList();
+        Debug.Log(PathFinding.FindClosestNode(Nodes, new Vector2(-23, -3)).WorldPosition);
+
+    }
+    [ContextMenu("initialize Node Graph")]
+    private void initializeNodeGraph()
+    {
+        initializeNodeRow();
+        FillGraph();
+        checkGraphNodesAboveGround();
+        checkGridNodesInAir();
+    }
+    private void initializeNodeRow()
+    {
+        Nodes.Clear();
         
+        var position = size.position;
+        var lossyScale = size.lossyScale;
+        
+        minXYGridPosition = new Vector2(position.x - lossyScale.x / 2, position.y + lossyScale.y / 2);
+        maxXYGridPosition = new Vector2(position.x + lossyScale.x / 2, position.y - lossyScale.y / 2);
+        
+        int numberOfNodeRows = Mathf.CeilToInt(Mathf.Abs(maxXYGridPosition.y - minXYGridPosition.y) / YNodeSpace) ;
+
+        for (int i = 0; i < numberOfNodeRows; i++)
+        {
+            Nodes.Add(new List<Node>());
+        }
+    }
+    private void FillGraph()
+    {
         currentPosition = new Vector2(minXYGridPosition.x + XNodeSpace/2, minXYGridPosition.y - YNodeSpace/2);
         
         while (currentPosition.x < maxXYGridPosition.x)
@@ -56,29 +83,9 @@ public class NodeGrid : MonoBehaviour
         }
         
         drawGizmos = true;
-        
-        checkGridNodesAboveGround();
     }
-
-    private void initializeNodeList()
-    {
-        var position = size.position;
-        var lossyScale = size.lossyScale;
-        
-        minXYGridPosition = new Vector2(position.x - lossyScale.x / 2, position.y + lossyScale.y / 2);
-        maxXYGridPosition = new Vector2(position.x + lossyScale.x / 2, position.y - lossyScale.y / 2);
-
-        //int numberOfNodeRows = (int)Mathf.Abs((maxXYGridPosition.y - minXYGridPosition.y - 1);
-        
-        int numberOfNodeRows = Mathf.CeilToInt(Mathf.Abs(maxXYGridPosition.y - minXYGridPosition.y) / YNodeSpace) ;
-
-        for (int i = 0; i < numberOfNodeRows; i++)
-        {
-            Nodes.Add(new List<Node>());
-        }
-    }
-
-    public void checkGridNodesAboveGround()
+   
+    private void checkGraphNodesAboveGround()
     {
         for (int i = 0; i < Nodes.Count ; i++)
         {
@@ -86,6 +93,8 @@ public class NodeGrid : MonoBehaviour
             {
                 try
                 {
+                    SetNodeNeighbours(i,j);
+                    
                     if (Nodes[i + 1][j].TileType == TileType.Grounded && Nodes[i][j].TileType != TileType.Grounded)
                     {
                         Nodes[i][j].TileType = TileType.aboveGround;
@@ -94,10 +103,8 @@ public class NodeGrid : MonoBehaviour
                 catch (ArgumentOutOfRangeException){}
             }
         }
-
-       checkGridNodesInAir();
     }
-    public void checkGridNodesInAir()
+    private void checkGridNodesInAir()
     {
         for (int i = 0; i < Nodes.Count ; i++)
         {
@@ -127,6 +134,25 @@ public class NodeGrid : MonoBehaviour
         }
     }
 
+    private void SetNodeNeighbours(int y, int x)
+    {
+        List<Node> neighbours = new List<Node>();
+        
+        try { if(Nodes[y + 1][x] != null) neighbours.Add(Nodes[y + 1][x]); }
+        catch (ArgumentOutOfRangeException e) { }
+        
+        try { if(Nodes[y - 1][x] != null) neighbours.Add(Nodes[y - 1][x]); }
+        catch (ArgumentOutOfRangeException e) { }
+        
+        try { if(Nodes[y][x + 1] != null) neighbours.Add(Nodes[y][x + 1]); }
+        catch (ArgumentOutOfRangeException e) { }
+        
+        try { if(Nodes[y][x - 1] != null) neighbours.Add(Nodes[y][x - 1]); }
+        catch (ArgumentOutOfRangeException e) { }
+        
+        Nodes[y][x].SetNeighbours(neighbours);
+        
+    }
     private void OnDrawGizmos()
     {
         Gizmos.color = new Color(0, 0, 1, 0.2f);
@@ -155,7 +181,7 @@ public class NodeGrid : MonoBehaviour
                     Gizmos.color = Color.clear;
                 }
             
-                Gizmos.DrawSphere(node.Position,0.1f);
+                Gizmos.DrawSphere(node.WorldPosition,0.1f);
             }
            
         }

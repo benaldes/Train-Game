@@ -1,23 +1,26 @@
 using System;using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Node 
 {
     public bool isGround;
     public TileType TileType = TileType.NotValid;
-    public Vector2 Position;
+    public Vector2 WorldPosition;
+    public Vector2 GraphPosition;
     public LayerMask whatIsGround;
+    public List<Node> Neighbours;
 
-    public Node(Vector2 position,LayerMask whatIsGround)
+    public Node(Vector2 worldPosition,LayerMask whatIsGround = default)
     {
-        Position = position;
+        WorldPosition = worldPosition;
         this.whatIsGround = whatIsGround;
     }
 
     public void CheckIfTileIsGround()
     {
-        Collider2D hit = Physics2D.OverlapCircle(Position, 0.05f, whatIsGround);
+        Collider2D hit = Physics2D.OverlapCircle(WorldPosition, 0.05f, whatIsGround);
         
         if (hit != null)
         {
@@ -28,6 +31,11 @@ public class Node
         {
             isGround = false;
         }
+    }
+
+    public void SetNeighbours(List<Node> neighbours)
+    {
+        Neighbours = neighbours;
     }
 
   
