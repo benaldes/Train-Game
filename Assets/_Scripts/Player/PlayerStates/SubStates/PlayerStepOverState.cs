@@ -83,19 +83,18 @@
             RaycastHit2D xHit = Physics2D.Raycast(ledgeFeetPos, Vector2.right * core.Movement.FacingDirection,
                 core.CollisionSenses.WallCheckDistance, core.CollisionSenses.WhatIsGround);
             float xDist = xHit.distance;
-        
-            Debug.Log("xdist = " + xDist );
+            
             workspace.Set((xDist + 0.1f) * core.Movement.FacingDirection,0f);
         
             RaycastHit2D yHit = Physics2D.Raycast(wallPos + (Vector3)(workspace), Vector2.down,
                 wallPos.y - ledgeFeetPos.y + 0.1f, core.CollisionSenses.WhatIsGround);
             
             float yDist = yHit.distance;
-            Debug.Log("ydist = " + yDist );
         
             workspace.Set(ledgeFeetPos.x + (xDist * core.Movement.FacingDirection),wallPos.y - yDist);
-            Debug.Log(workspace);
-            core.CollisionSenses.TestBall.transform.position = workspace;
+            
+            // for Edge check
+            //core.CollisionSenses.TestBall.transform.position = workspace;
         
             return workspace;
         }

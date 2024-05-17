@@ -71,7 +71,6 @@ public class PlayerInAirState : PlayerState
         
         if(isTouchingLedgeWithFeet && !isTouchingWall)
         {
-            Debug.Log("Low Ledge Detect");
             player.StepOverState.SetDetectedPosition(player.transform.position);
         }
         else if (isTouchingWall && !isTouchingLedge)

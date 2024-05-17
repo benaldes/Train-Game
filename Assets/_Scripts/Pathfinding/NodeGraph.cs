@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.Mathematics;
 using UnityEngine;
 
 public class NodeGraph : MonoBehaviour
@@ -18,6 +19,11 @@ public class NodeGraph : MonoBehaviour
     private Vector2 maxXYGridPosition;
     
     private bool drawGizmos = false;
+
+    public GameObject PathObject;
+    private List<GameObject> pathShowObject = new List<GameObject>();
+    public GameObject StartNode;
+    public GameObject TargetNode;
     
     private void Start()
     {
@@ -27,10 +33,21 @@ public class NodeGraph : MonoBehaviour
     [ContextMenu("test pathfinding")]
     public void test()
     {
-        List<Node> path = PathFinding.FindPath(Nodes[11][1],Nodes[11][10]);
+        
+        Node startNode = Nodes.FindClosestNode(StartNode.transform.position);
+        Node endNode= Nodes.FindClosestNode(TargetNode.transform.position);;
+        
+        List<Node> path = PathFinding.FindPath(startNode,endNode);
+        foreach (var pathObject in pathShowObject)
+        {
+            Destroy(pathObject);
+        }
+        pathShowObject.Clear();
         foreach (var VARIABLE in path)
         {
+            pathShowObject.Add(Instantiate(PathObject,VARIABLE.WorldPosition,quaternion.identity));
             Debug.Log(VARIABLE.WorldPosition);
+            
         }
 
     }
@@ -41,6 +58,7 @@ public class NodeGraph : MonoBehaviour
         FillGraph();
         checkGraphNodesAboveGround();
         checkGridNodesInAir();
+        CheckAllNodeNeighbours();
     }
     private void initializeNodeRow()
     {
@@ -97,12 +115,14 @@ public class NodeGraph : MonoBehaviour
             {
                 try
                 {
-                    SetNodeNeighbours(i,j);
+                    
                     
                     if (Nodes[i + 1][j].TileType == TileType.Grounded && Nodes[i][j].TileType != TileType.Grounded)
                     {
                         Nodes[i][j].TileType = TileType.aboveGround;
                     }
+                    
+                    
                 }
                 catch (ArgumentOutOfRangeException){}
             }
@@ -134,6 +154,18 @@ public class NodeGraph : MonoBehaviour
                     }
                 }
                 catch (ArgumentOutOfRangeException){}
+                
+            }
+        }
+    }
+
+    private void CheckAllNodeNeighbours()
+    {
+        for (int i = 0; i < Nodes.Count; i++)
+        {
+            for (int j = 0; j < Nodes[i].Count; j++)
+            {
+                SetNodeNeighbours(i,j);
             }
         }
     }
@@ -142,20 +174,30 @@ public class NodeGraph : MonoBehaviour
     {
         List<Node> neighbours = new List<Node>();
         
-        try { if(Nodes[y + 1][x] != null) neighbours.Add(Nodes[y + 1][x]); }
+        try { if(CheckIfNodePassable(Nodes[y + 1][x])) neighbours.Add(Nodes[y + 1][x]); }
         catch (ArgumentOutOfRangeException) { }
         
-        try { if(Nodes[y - 1][x] != null) neighbours.Add(Nodes[y - 1][x]); }
+        try { if(CheckIfNodePassable(Nodes[y - 1][x])) neighbours.Add(Nodes[y - 1][x]); }
         catch (ArgumentOutOfRangeException) { }
         
-        try { if(Nodes[y][x + 1] != null) neighbours.Add(Nodes[y][x + 1]); }
+        try { if(CheckIfNodePassable(Nodes[y][x + 1])) neighbours.Add(Nodes[y][x + 1]); }
         catch (ArgumentOutOfRangeException) { }
         
-        try { if(Nodes[y][x - 1] != null) neighbours.Add(Nodes[y][x - 1]); }
+        try { if(CheckIfNodePassable(Nodes[y][x - 1])) neighbours.Add(Nodes[y][x - 1]); }
         catch (ArgumentOutOfRangeException) { }
         
         Nodes[y][x].SetNeighbours(neighbours);
         
+    }
+
+    private bool CheckIfNodePassable(Node node)
+    {
+        if (node == null) return false;
+        if (node.TileType is TileType.aboveGround or TileType.InAir)
+        {
+            return true;
+        }
+        return false;
     }
     private void OnDrawGizmos()
     {

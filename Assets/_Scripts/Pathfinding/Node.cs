@@ -43,7 +43,7 @@ public class Node
         if (obj == null || GetType() != obj.GetType())
         {
             return false;
-        }
+        }   
 
         Node otherNode = (Node)obj;
         return WorldPosition == otherNode.WorldPosition;

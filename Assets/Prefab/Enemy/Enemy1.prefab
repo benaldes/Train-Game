@@ -120,6 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84b56eaf2b0d490c9d4268d40b451d0d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  particleContainer: {fileID: 0}
 --- !u!1 &1009249141009715255
 GameObject:
   m_ObjectHideFlags: 0
@@ -199,6 +200,7 @@ MonoBehaviour:
   damageParticles: {fileID: 5018349650579428343, guid: 0d2cecdda934617438556bc796e8f67c, type: 3}
   maxknockbackTime: 0.2
   hitSound: {fileID: 8300000, guid: 600c68be46d90054d8bf377e44f96432, type: 3}
+  isKnockbackActive: 0
 --- !u!61 &1920628578989376364
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -563,10 +565,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff203f98b6377e240b7ffa879152e6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TestBall: {fileID: 0}
   groundCheck: {fileID: 4653659279984378898}
   wallCheck: {fileID: 8425408985686725006}
   horizontalLedgeCheck: {fileID: 0}
   verticalLedgeCheck: {fileID: 6860032930169987155}
+  ledgeFeetCheck: {fileID: 0}
   groundCheckRadius: 0.3
   wallCheckDistance: 0.3
   whatIsGround:
@@ -628,7 +632,7 @@ Transform:
   m_GameObject: {fileID: 5659351580471804481}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.97, y: -0.19, z: 0}
+  m_LocalPosition: {x: 0.81, y: -0.19, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -793,6 +797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e280ce5d93a7745aa773c5524c3900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Combat: {fileID: 0}
-  Stats: {fileID: 0}
-  ParticleManager: {fileID: 0}
+  _combat: {fileID: 3779754730810300694}
+  _stats: {fileID: 8512779380796089446}
+  _particleManager: {fileID: 4735623205349933209}
+  movement: {fileID: 4874482384126091557}
+  collisionSenses: {fileID: 4707189295320264024}
