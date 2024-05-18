@@ -6,11 +6,15 @@ using UnityEngine;
 
 public class NodeGraph : MonoBehaviour
 {
-    
+    public static NodeGraph Instance;
     public Transform size;
     public List<List<Node>> Nodes = new List<List<Node>>();
     public float XNodeSpace = 1;
     public float YNodeSpace = 1;
+    
+    public GameObject PathObject;
+    public GameObject StartNode;
+    public GameObject TargetNode;
     
     [SerializeField] private LayerMask whatIsGround; 
     
@@ -20,11 +24,17 @@ public class NodeGraph : MonoBehaviour
     
     private bool drawGizmos = false;
 
-    public GameObject PathObject;
     private List<GameObject> pathShowObject = new List<GameObject>();
-    public GameObject StartNode;
-    public GameObject TargetNode;
     
+    private void Awake()
+    {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject); // Destroy the new instance if an existing one is found
+            return;
+        }
+        Instance = this;
+    }
     private void Start()
     {
         initializeNodeGraph();
@@ -46,7 +56,6 @@ public class NodeGraph : MonoBehaviour
         foreach (var VARIABLE in path)
         {
             pathShowObject.Add(Instantiate(PathObject,VARIABLE.WorldPosition,quaternion.identity));
-            Debug.Log(VARIABLE.WorldPosition);
             
         }
 
@@ -59,6 +68,14 @@ public class NodeGraph : MonoBehaviour
         checkGraphNodesAboveGround();
         checkGridNodesInAir();
         CheckAllNodeNeighbours();
+        StartCoroutine(TestPathfinding());
+    }
+
+    IEnumerator TestPathfinding()
+    {
+        yield return new WaitForSeconds(0.01f);
+        test();
+        StartCoroutine(TestPathfinding());
     }
     private void initializeNodeRow()
     {

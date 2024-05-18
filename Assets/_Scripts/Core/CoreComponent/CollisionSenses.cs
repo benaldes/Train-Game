@@ -30,23 +30,19 @@ public class CollisionSenses : CoreComponent
     
     public bool CheckIfGrounded()
     {
-        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, 
-            whatIsGround);
+        return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
     }
     public bool CheckIfTouchingWall()
     {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * 
-                 core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
     public bool CheckIfTouchingWallBack()
     {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * 
-                 -core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * -core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
     public bool CheckIfTouchingHorizontalLedge()
     {
-         return Physics2D.Raycast(horizontalLedgeCheck.position, Vector2.right * 
-                                core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+         return Physics2D.Raycast(horizontalLedgeCheck.position, Vector2.right * core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
     public bool CheckIfTouchingVerticalLedge()
     {
@@ -54,8 +50,7 @@ public class CollisionSenses : CoreComponent
     }
     public bool CheckIfTouchingLedgeWithFeet()
     {
-        return Physics2D.Raycast(LedgeFeetCheck.position, Vector2.right *
-                                                          core.Movement.FacingDirection, wallCheckDistance , whatIsGround);
+        return Physics2D.Raycast(LedgeFeetCheck.position, Vector2.right * core.Movement.FacingDirection, wallCheckDistance , whatIsGround);
     }
 
     private void OnDrawGizmos()
