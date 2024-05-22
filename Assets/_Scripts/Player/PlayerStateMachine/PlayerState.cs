@@ -12,7 +12,7 @@ public class PlayerState
     protected bool isAnimationFinished;
     protected bool isExitingState;
     
-    protected string animName;
+    protected int animName;
     
     protected float StartTime;
 
@@ -31,7 +31,7 @@ public class PlayerState
         this.player = player;
         this.stateMachine = stateMachine;
         this.playerData = playerData;
-        this.animName = animName;
+        this.animName = Animator.StringToHash(animName);
         core = player.Core;
     }
 

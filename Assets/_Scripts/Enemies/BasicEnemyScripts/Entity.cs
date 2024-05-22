@@ -1,27 +1,21 @@
-﻿
-using System;
-using UnityEngine;
-using Random = UnityEngine.Random;
-
+﻿using UnityEngine;
 
 public class Entity : MonoBehaviour 
 { 
     public D_Entity entityData;
+    public D_EntityData newEntityData; // TODO: need to change its name to "entityData" after we stop using the current "entityData:
     public StateMachine StateMachine;
     public Animator Animator { get; private set; }
     public AnimationToStateMachine AnimToStateMachine { get; private set; }
     
-    [SerializeField] private Transform playerCheck;
-   
-
-
-    private float lastDamageTime;
-
     public int lastDamageDirection { get; private set; }
+    
     public Core core{ get; private set; }
     
-    private Vector2 velocityWorkSpace;
-
+    [SerializeField] private Transform playerCheck;
+    
+    private float lastDamageTime;
+    
     public virtual void Awake()
     {
         core = GetComponentInChildren<Core>();
@@ -29,9 +23,7 @@ public class Entity : MonoBehaviour
         AnimToStateMachine = GetComponent<AnimationToStateMachine>();
         StateMachine = new StateMachine();
     }
-
-
-
+    
     public virtual void Update()
     {
         core.LogicUpdate();
@@ -42,24 +34,24 @@ public class Entity : MonoBehaviour
             core.Stats.ResetStunResistance();
         }
     }
-
+    
     public virtual void FixedUpdate()
     {
         StateMachine.currentState.PhysicsUpdate();
     }
-
+    
     public virtual bool CheckPlayerInMinAgroRange()
     {
         return Physics2D.Raycast(playerCheck.position, transform.right, entityData.MinAgroDistance,
             entityData.WhatIsPlayer);
     }
-
+    
     public virtual bool CheckPlayerInMaxAgroRange()
     {
         return Physics2D.Raycast(playerCheck.position, transform.right, entityData.MaxAgroDistance,
             entityData.WhatIsPlayer);
     }
-
+    
     public virtual bool CheckPlayerInCloseRangeAction()
     {
         return Physics2D.Raycast(playerCheck.position, transform.right, entityData.CloseRangeActionDistance,
@@ -69,9 +61,10 @@ public class Entity : MonoBehaviour
     public virtual void OnDrawGizmos()
     {
         if(core == null) return;
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right*  core.Movement.FacingDirection * entityData.CloseRangeActionDistance),0.2f);
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * core.Movement.FacingDirection * entityData.MinAgroDistance),0.2f);
-        Gizmos.DrawWireSphere(playerCheck.position + (Vector3)(Vector2.right * core.Movement.FacingDirection * entityData.MaxAgroDistance),0.2f);
+        var position = playerCheck.position;
+        Gizmos.DrawWireSphere(position + (Vector3)(Vector2.right*  core.Movement.FacingDirection * entityData.CloseRangeActionDistance),0.2f);
+        Gizmos.DrawWireSphere(position + (Vector3)(Vector2.right * core.Movement.FacingDirection * entityData.MinAgroDistance),0.2f);
+        Gizmos.DrawWireSphere(position + (Vector3)(Vector2.right * core.Movement.FacingDirection * entityData.MaxAgroDistance),0.2f);
     }
 
     

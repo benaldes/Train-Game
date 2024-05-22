@@ -4,9 +4,14 @@ using UnityEngine;
 
     public class PathFindingComponent : CoreComponent
     {
+        private Node currentNode;
         private List<Node> path = new List<Node>();
         private List<Node> checkedNeighbours = new List<Node>();
-        
+
+        private void Start()
+        {
+            currentNode = FindClosestNode(gameObject);
+        }
 
         // TODO: need to make this search algorithm faster by using Binary search
         public Node FindClosestNode(Vector2 position)
@@ -63,7 +68,7 @@ using UnityEngine;
                     }
                 }
             }
-            return empty;
+            return null;
         }
         public List<Node> FindPath(GameObject startingGameObject, GameObject targetGameObject)
         {

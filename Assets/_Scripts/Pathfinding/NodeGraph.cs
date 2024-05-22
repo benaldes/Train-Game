@@ -11,10 +11,11 @@ public class NodeGraph : MonoBehaviour
     public List<List<Node>> Nodes = new List<List<Node>>();
     public float XNodeSpace = 1;
     public float YNodeSpace = 1;
-    
+
     public GameObject PathObject;
     public GameObject StartNode;
     public GameObject TargetNode;
+    public Node PlayerNode { get; private set; }
     
     [SerializeField] private LayerMask whatIsGround; 
     
@@ -59,6 +60,11 @@ public class NodeGraph : MonoBehaviour
             
         }
 
+    }
+
+    public void SetPlayerNode(Node Node)
+    {
+        PlayerNode = Node;
     }
     [ContextMenu("initialize Node Graph")]
     private void initializeNodeGraph()

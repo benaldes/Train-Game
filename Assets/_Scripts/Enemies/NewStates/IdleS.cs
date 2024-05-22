@@ -1,16 +1,19 @@
+using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
-public class IdleState : State
+public class IdleS : State
 {
-    protected D_IdleState stateData;
-    protected bool flipAfterIdle;
-    protected bool isIdleTimeOver;
+    protected D_EntityData entityData;
     protected float idleTime;
+    protected bool flipAfterIdle;
+    protected bool pathFound;
+    protected bool isIdleTimeOver;
     protected bool isPlayerInMinAgroRange;
     
-    public IdleState(Entity entity, StateMachine stateMachine, string animName,D_IdleState stateData) : base(entity, stateMachine, animName)
+    public IdleS(Entity entity, StateMachine stateMachine, string animName,D_EntityData entityData) : base(entity, stateMachine, animName)
     {
-        this.stateData = stateData;
+        this.entityData = entityData;
     }
 
     public override void Enter()
@@ -37,7 +40,7 @@ public class IdleState : State
     {
         base.DoChecks();
         
-        isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
+       // isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 
     public override void Exit()
@@ -56,6 +59,6 @@ public class IdleState : State
 
     private void SetRandomIdleTime()
     {
-        idleTime = Random.Range(stateData.MinIdleTime, stateData.MaxIdleTime);
+        idleTime = Random.Range(entityData.MinIdleTime, entityData.MaxIdleTime);
     }
 }

@@ -71,6 +71,9 @@ public class Player : MonoBehaviour
         Inventory.SendAttackState(PrimaryAttackState);
         
         PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
+
+        Node playerNode = Core.PathFindingComponent.FindClosestNode(gameObject);
+        NodeGraph.Instance.SetPlayerNode(playerNode);
         
         StateMachine.Initialize(IdleState);
     }

@@ -300,10 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData: {fileID: 11400000, guid: 0d4f7dc1ae76c4e409b9300a557f2fe0, type: 2}
-  wallCheck: {fileID: 8425408985686725006}
-  ledgeCheck: {fileID: 6860032930169987155}
   playerCheck: {fileID: 6129156362251979851}
-  groundCheck: {fileID: 4653659279984378898}
   idleStateData: {fileID: 11400000, guid: 94bad6d9ffa6ae347b1a1b5a33230121, type: 2}
   moveStateData: {fileID: 11400000, guid: 95927ddf63b43f343bfd1b31e476e2ff, type: 2}
   playerDetectedStateData: {fileID: 11400000, guid: 0d9d17f0c16b2ee41ab60a829954adba, type: 2}
@@ -518,6 +515,50 @@ MonoBehaviour:
   - {fileID: 5229308967901503623, guid: d7745c03cdcbaba43ac84e8b73335371, type: 3}
   - {fileID: 7694187229477223819, guid: 134ef1b9ed4898042b6da3b008613fd3, type: 3}
   deathSound: {fileID: 8300000, guid: 3ac41f7a01dad194aa52d7fa3c0feea1, type: 3}
+--- !u!1 &4082760333717258980
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2183858030204959398}
+  - component: {fileID: 3572278881545168730}
+  m_Layer: 7
+  m_Name: PathFinding
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2183858030204959398
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4082760333717258980}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5226127584637988387}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3572278881545168730
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4082760333717258980}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3863286b2da24158a21529c155846ab3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &4615829540920735644
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,6 +824,7 @@ Transform:
   - {fileID: 4623221787408710578}
   - {fileID: 5777138659822532279}
   - {fileID: 4371763093303422554}
+  - {fileID: 2183858030204959398}
   m_Father: {fileID: 2089391903684147247}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &844898793861868821
@@ -797,8 +839,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 27e280ce5d93a7745aa773c5524c3900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _combat: {fileID: 3779754730810300694}
-  _stats: {fileID: 8512779380796089446}
-  _particleManager: {fileID: 4735623205349933209}
+  combat: {fileID: 3779754730810300694}
+  stats: {fileID: 8512779380796089446}
+  particleManager: {fileID: 4735623205349933209}
   movement: {fileID: 4874482384126091557}
   collisionSenses: {fileID: 4707189295320264024}
+  pathFindingComponent: {fileID: 3572278881545168730}

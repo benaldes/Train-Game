@@ -9,13 +9,13 @@ public class State
 
     protected float startTime;
 
-    protected string animName;
+    protected int animName;
 
     public State(Entity entity, StateMachine stateMachine,string animName)
     {
         this.stateMachine = stateMachine;
         this.entity = entity;
-        this.animName = animName;
+        this.animName = Animator.StringToHash(animName);
         core = entity.core;
     }
 
@@ -31,10 +31,7 @@ public class State
         entity.Animator.SetBool(animName,false);
     }
 
-    public virtual void LogicUpdate()
-    {
-        
-    }
+    public virtual void LogicUpdate() { }
 
     public virtual void PhysicsUpdate()
     {

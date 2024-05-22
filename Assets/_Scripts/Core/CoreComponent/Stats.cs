@@ -69,8 +69,6 @@ public class Stats : CoreComponent
     {
         if(healthBarFill == null) return;
         float amount = (currentHealth / maxHealth) ;
-        //healthBarFill.rectTransform.sizeDelta = new Vector2(amount, healthBarFill.rectTransform.sizeDelta.y);
-
         var localScale = healthBarFill.rectTransform.localScale;
         localScale = new Vector3(amount, localScale.y, localScale.z);
         healthBarFill.rectTransform.localScale = localScale;

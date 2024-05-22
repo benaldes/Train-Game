@@ -48,7 +48,6 @@ public class Enemy1 : Entity
 
     private void Start()
     {
-        Time.timeScale = 1;
         StateMachine.Initialize(MoveState);
         core.Stats.OnStunned += Stunned;
     }

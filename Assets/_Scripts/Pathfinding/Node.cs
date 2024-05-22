@@ -1,6 +1,4 @@
-using System;using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Node 
@@ -10,7 +8,7 @@ public class Node
     public Vector2 WorldPosition;
     public Vector2 GraphPosition;
     public LayerMask whatIsGround;
-    public List<Node> Neighbours;
+    public List<Node> Neighbours = new List<Node>();
 
     public Node(Vector2 worldPosition,LayerMask whatIsGround = default)
     {
