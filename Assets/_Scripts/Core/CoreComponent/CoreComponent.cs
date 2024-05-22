@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -16,5 +17,6 @@ public class CoreComponent : MonoBehaviour
     }
 
     public virtual void LogicUpdate() { }
-    
+
+    public virtual void PhysicsUpdate() { }
 }

@@ -6,7 +6,7 @@ public class Node
     public bool isGround;
     public TileType TileType = TileType.NotValid;
     public Vector2 WorldPosition;
-    public Vector2 GraphPosition;
+    //public Vector2 GraphPosition;
     public LayerMask whatIsGround;
     public List<Node> Neighbours = new List<Node>();
 

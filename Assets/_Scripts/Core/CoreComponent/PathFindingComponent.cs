@@ -4,6 +4,8 @@ using UnityEngine;
 
     public class PathFindingComponent : CoreComponent
     {
+        public float UpdateCurrentNodeCooldown = 1;
+        private float UpdateCurrentNodeTimer;
         private Node currentNode;
         private List<Node> path = new List<Node>();
         private List<Node> checkedNeighbours = new List<Node>();
@@ -11,8 +13,17 @@ using UnityEngine;
         private void Start()
         {
             currentNode = FindClosestNode(gameObject);
+            UpdateCurrentNodeTimer = Time.time;
         }
 
+        public override void PhysicsUpdate()
+        {
+            if (Time.time > UpdateCurrentNodeTimer + UpdateCurrentNodeCooldown)
+            {
+                currentNode = FindClosestNode(gameObject);
+            }
+        }
+        
         // TODO: need to make this search algorithm faster by using Binary search
         public Node FindClosestNode(Vector2 position)
         {
@@ -86,6 +97,29 @@ using UnityEngine;
             Node targetNode = FindClosestNode(targetGameObject);
             return FindPath(startingNode, targetNode);
         }
+
+        public NodeDirection ReturnNextNodeDirection()
+        {
+            try
+            {
+                float x = path[0].WorldPosition.x - currentNode.WorldPosition.x;
+                Debug.Log("x: " + x);
+                float y = path[0].WorldPosition.y - currentNode.WorldPosition.y;
+                Debug.Log("y: " + y);
+                if (x == -1)
+                {
+                    return NodeDirection.Left;
+                }
+                else if (x == 1)
+                {
+                    return NodeDirection.Right;
+                }
+            }
+            catch (Exception) { }
+            
+            return NodeDirection.None;
+        }
+
         private List<Node> ReconstructPath(Dictionary<Node, Node> parents, Node goal)
         {
             Node current = goal;
@@ -95,6 +129,8 @@ using UnityEngine;
                 pathToGoal.Insert(0,current);
                 current = parents[current];
             }
+
+            path = pathToGoal;
             return pathToGoal;
         }
         private List<Node> CheckNeighbours(List<Node> neighbours, Node targetNode)
@@ -128,4 +164,14 @@ using UnityEngine;
             path.Remove(path[^1]);
             return path;
         }
+        
+    }
+
+    public enum NodeDirection
+    {
+        Right,
+        Left,
+        Up,
+        Down,
+        None
     }

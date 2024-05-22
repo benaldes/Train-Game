@@ -35,9 +35,7 @@ public class NodeGraph : MonoBehaviour
             return;
         }
         Instance = this;
-    }
-    private void Start()
-    {
+        
         initializeNodeGraph();
     }
 

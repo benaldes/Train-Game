@@ -21,4 +21,17 @@
             Debug.Log("Enter Move State");
             
         }
+
+        public override void LogicUpdate()
+        {
+            base.LogicUpdate();
+            
+        }
+
+        public override void PhysicsUpdate()
+        {
+            base.PhysicsUpdate();
+            core.PathFindingComponent.FindPath(entity.gameObject, NodeGraph.Instance.PlayerNode);
+            NodeDirection direction = core.PathFindingComponent.ReturnNextNodeDirection();
+        }
     }

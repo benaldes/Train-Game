@@ -47,7 +47,6 @@ public class Player : MonoBehaviour
 
 	private void Awake()
     {
-        // TODO turn Animation names to hashcode!!!!
         StateMachine = new PlayerStateMachine();
         IdleState = new PlayerIdleState(this, StateMachine, PlayerData, "Idle");
         MoveState = new PlayerMoveState(this, StateMachine, PlayerData, "Move");
@@ -72,8 +71,7 @@ public class Player : MonoBehaviour
         
         PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
 
-        Node playerNode = Core.PathFindingComponent.FindClosestNode(gameObject);
-        NodeGraph.Instance.SetPlayerNode(playerNode);
+        UpdateCurrentNode();
         
         StateMachine.Initialize(IdleState);
     }
@@ -86,13 +84,19 @@ public class Player : MonoBehaviour
 
     private void FixedUpdate()
     {
+	    Core.PhysicsUpdate();
         StateMachine.CurrentState.PhysicsUpdate();
+        UpdateCurrentNode();
     }
     #endregion
     
     #region Other Functions
 
-    
+    private void UpdateCurrentNode()
+    {
+	    Node playerNode = Core.PathFindingComponent.FindClosestNode(gameObject);
+	    NodeGraph.Instance.SetPlayerNode(playerNode);
+    }
     private void AnimationTrigger() => StateMachine.CurrentState.AnimationTrigger();
     private void AnimationFinishTrigger() => StateMachine.CurrentState.AnimationFinishTrigger();
     

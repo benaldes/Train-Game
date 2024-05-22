@@ -41,6 +41,14 @@ public class Core : MonoBehaviour
         }
     }
 
+    public void PhysicsUpdate()
+    {
+        foreach (CoreComponent component in components)
+        {
+            component.PhysicsUpdate();
+        }
+    }
+
     public void AddComponent(CoreComponent component)
     {
         if (!components.Contains(component))

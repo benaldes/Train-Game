@@ -6,6 +6,9 @@ public class Chaser_IdleState : IdleS
 {
     private Chaser chaser;
     private Chaser_Data chaserData;
+
+    private float lookForNewPathCooldown = 1;
+    private float LookForNewPathTimer;
     
     public Chaser_IdleState(Entity entity, StateMachine stateMachine, string animName, D_EntityData entityData) : base(entity, stateMachine, animName, entityData)
     {
@@ -23,17 +26,32 @@ public class Chaser_IdleState : IdleS
 
     public override void Enter()
     {
-        Debug.Log("Enter Idle State");
         base.Enter();
-        if (core.PathFindingComponent.FindPath(entity.gameObject, NodeGraph.Instance.PlayerNode) != null)
-        {
-            stateMachine.SwitchState(chaser.MoveState);
-        }
+        
+        Debug.Log("Enter Idle State");
+        CheckIfSwitchToMoveState();
+        LookForNewPathTimer = Time.time;
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
+        if (Time.time > LookForNewPathTimer + lookForNewPathCooldown)
+        {
+            if(CheckIfSwitchToMoveState()) return;
+            LookForNewPathTimer = Time.time;
+        }
         
+    }
+
+    private bool CheckIfSwitchToMoveState()
+    {
+        if (core.PathFindingComponent.FindPath(entity.gameObject, NodeGraph.Instance.PlayerNode) != null)
+        {
+            stateMachine.SwitchState(chaser.MoveState);
+            return true;
+        }
+
+        return false;
     }
 }

@@ -37,6 +37,7 @@ public class Entity : MonoBehaviour
     
     public virtual void FixedUpdate()
     {
+        core.PhysicsUpdate();
         StateMachine.currentState.PhysicsUpdate();
     }
     
