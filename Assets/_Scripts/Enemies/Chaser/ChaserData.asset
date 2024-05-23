@@ -19,3 +19,12 @@ MonoBehaviour:
   amountsOfJumps: 1
   StunResistance: 3
   StunRecoveryTime: 2
+  AttackDamage: 10
+  AttackRadius: 0.5
+  KnockbackStrength: 10
+  KnockbackAngle: {x: 1, y: 1}
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 0
+  DetectedStateTime: 0.5
+  ChargeSpeed: 7

@@ -19,7 +19,6 @@
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Enter Move State");
             
         }
 
@@ -29,6 +28,7 @@
             core.Movement.CheckIfShouldFlip(direction.x);
             
             if(CheckIfSwitchToJumpState()) return;
+            if(CheckIfSwitchToPlayerDetectedState())return;
             
             core.Movement.SetVelocityX(chaserData.MovementSpeed * direction.x);
         }
@@ -52,4 +52,17 @@
 
             return false;
         }
+
+        private bool CheckIfSwitchToPlayerDetectedState()
+        {
+            if (IsPlayerInMinAgroRange && core.CollisionSenses.CheckIfGrounded())
+            {
+                stateMachine.SwitchState(chaser.PlayerDetectedState);
+                return true;
+            }
+
+            return false;
+        }
+
+        
     }

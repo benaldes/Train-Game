@@ -36,6 +36,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7078882571804335649}
+  - {fileID: 3174386466276990164}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &704722254914582776
@@ -53,6 +54,7 @@ MonoBehaviour:
   entityData: {fileID: 11400000, guid: 0d4f7dc1ae76c4e409b9300a557f2fe0, type: 2}
   newEntityData: {fileID: 11400000, guid: b237dfb88d8f47f4aaaf5ebdd193f891, type: 2}
   playerCheck: {fileID: 6325459533061849574}
+  meleeAttackPosition: {fileID: 3174386466276990164}
 --- !u!212 &8541865786646912528
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -164,7 +166,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.07881403, y: -0.2953474}
+  m_Offset: {x: 0.07881403, y: -0.30229324}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -175,7 +177,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.2477045, y: 1.4191195}
+  m_Size: {x: 0.2477045, y: 1.4330112}
   m_EdgeRadius: 0
 --- !u!114 &3206158868438559907
 MonoBehaviour:
@@ -458,6 +460,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   particleContainer: {fileID: 0}
+--- !u!1 &2922940536165111152
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3174386466276990164}
+  m_Layer: 7
+  m_Name: MeleeAttackPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3174386466276990164
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2922940536165111152}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.79, y: -0.45, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6325459533061849574}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3245913789886450707
 GameObject:
   m_ObjectHideFlags: 0
@@ -610,7 +643,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff203f98b6377e240b7ffa879152e6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestBall: {fileID: 0}
   groundCheck: {fileID: 8432800006827408483}
   wallCheck: {fileID: 4897595894489417085}
   horizontalLedgeCheck: {fileID: 0}

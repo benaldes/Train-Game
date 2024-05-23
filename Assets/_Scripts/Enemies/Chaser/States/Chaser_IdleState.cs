@@ -27,8 +27,6 @@ public class Chaser_IdleState : IdleS
     public override void Enter()
     {
         base.Enter();
-        
-        Debug.Log("Enter Idle State");
         CheckIfSwitchToMoveState();
         LookForNewPathTimer = Time.time;
     }
