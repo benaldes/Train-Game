@@ -1,10 +1,12 @@
 ﻿using UnityEngine;
-    public class Chaser_MoveState : MoveS
+    public class Chaser_JumpState : JumpS
     {
         private Chaser chaser;
         private Chaser_Data chaserData;
+        
         private Vector2 direction;
-        public Chaser_MoveState(Entity entity, StateMachine stateMachine, string animName, D_EntityData entityData) : base(entity, stateMachine, animName, entityData)
+        
+        public Chaser_JumpState(Entity entity, StateMachine stateMachine, string animName, D_EntityData entityData) : base(entity, stateMachine, animName, entityData)
         {
             if (entity.GetType() == typeof(Chaser))
             {
@@ -19,21 +21,17 @@
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Enter Move State");
-            
+            core.Movement.SetVelocityX(0);
         }
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            core.Movement.CheckIfShouldFlip(direction.x);
+            if(CheckIfSwitchToMoveState()) return;
+            if(CheckIfSwitchToIdleState()) return;
             
-            if(CheckIfSwitchToJumpState()) return;
-            
-            core.Movement.SetVelocityX(chaserData.MovementSpeed * direction.x);
+            core.Movement.SetVelocityY(chaserData.JumpVelocity * direction.y);
         }
-
-
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
@@ -42,14 +40,23 @@
             direction = core.PathFindingComponent.ReturnNextNodeDirection();
         }
 
-        private bool CheckIfSwitchToJumpState()
+        private bool CheckIfSwitchToMoveState()
         {
-            if (direction.y != 0)
+            if (direction.y == 0 && direction.x != 0)
             {
-                stateMachine.SwitchState(chaser.JumpState);
+                stateMachine.SwitchState(chaser.MoveState);
                 return true;
             }
+            return false;
+        }
 
+        private bool CheckIfSwitchToIdleState()
+        {
+            if (direction is { y: 0, x: 0 })
+            {
+                stateMachine.SwitchState(chaser.IdleState);
+                return true;
+            }
             return false;
         }
     }

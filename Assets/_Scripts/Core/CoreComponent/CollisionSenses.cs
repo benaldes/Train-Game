@@ -5,7 +5,6 @@ using UnityEngine.Serialization;
 public class CollisionSenses : CoreComponent
 {
     #region Variables
-    public GameObject TestBall;
     public Transform GroundCheck => groundCheck;
     public Transform WallCheck => wallCheck;
     public Transform HorizontalLedgeCheck => horizontalLedgeCheck;

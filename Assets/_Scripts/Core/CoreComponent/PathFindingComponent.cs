@@ -98,26 +98,23 @@ using UnityEngine;
             return FindPath(startingNode, targetNode);
         }
 
-        public NodeDirection ReturnNextNodeDirection()
+        public Vector2 ReturnNextNodeDirection()
         {
             try
             {
                 float x = path[0].WorldPosition.x - currentNode.WorldPosition.x;
-                Debug.Log("x: " + x);
                 float y = path[0].WorldPosition.y - currentNode.WorldPosition.y;
-                Debug.Log("y: " + y);
-                if (x == -1)
-                {
-                    return NodeDirection.Left;
-                }
-                else if (x == 1)
-                {
-                    return NodeDirection.Right;
-                }
+                
+                return new Vector2(x, y);
+                
+                /*if (x == -1)return NodeDirection.Left;
+                if (x == 1) return NodeDirection.Right;
+                if (y == 1) return NodeDirection.Up;
+                if (y == -1) return NodeDirection.Down;*/
             }
             catch (Exception) { }
             
-            return NodeDirection.None;
+            return Vector2.zero;
         }
 
         private List<Node> ReconstructPath(Dictionary<Node, Node> parents, Node goal)

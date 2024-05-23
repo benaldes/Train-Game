@@ -76,7 +76,7 @@
         
         #endregion
         
-        public void CheckIfShouldFlip(int xInput)
+        public void CheckIfShouldFlip(float xInput)
         {
             if(xInput != 0 && xInput != FacingDirection)
             {

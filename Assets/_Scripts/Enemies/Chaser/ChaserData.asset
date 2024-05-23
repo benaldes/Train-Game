@@ -14,5 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinIdleTime: 1
   MaxIdleTime: 1
-  JumpVelocity: 15
+  MovementSpeed: 3
+  JumpVelocity: 5
   amountsOfJumps: 1
+  StunResistance: 3
+  StunRecoveryTime: 2
