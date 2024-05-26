@@ -29,11 +29,6 @@ using UnityEngine;
             core.transform.parent.gameObject.SetActive(false);
         }
         
-
-        private void Start()
-        {
-            
-        }
         
         private void OnDisable()
         {

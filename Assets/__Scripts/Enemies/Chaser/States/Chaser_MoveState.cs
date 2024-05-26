@@ -16,21 +16,16 @@
             }
         }
         
-
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            
-            
             if(CheckIfSwitchToJumpState()) return;
             if(CheckIfSwitchToPlayerDetectedState())return;
-            //if(CheckIfSwitchToIdleState())return;
             
             movement.SetVelocityX(chaserData.MovementSpeed * direction.x);
             movement.CheckIfShouldFlip(direction.x);
         }
-
-
+        
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
@@ -41,7 +36,7 @@
 
         private bool CheckIfSwitchToJumpState()
         {
-            if (direction.y != 0)
+            if (pathFinding.CheckIfNextNodeIsInAir() && direction.y != 0)
             {
                 stateMachine.SwitchState(chaser.JumpState);
                 return true;

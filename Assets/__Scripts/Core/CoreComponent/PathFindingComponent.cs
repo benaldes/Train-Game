@@ -4,16 +4,13 @@ using UnityEngine;
 
     public class PathFindingComponent : CoreComponent
     {
-        public float UpdateCurrentNodeCooldown = 0.01f;
         public Node currentNode;
-        private float UpdateCurrentNodeTimer;
         private List<Node> path = new List<Node>();
         private List<Node> checkedNeighbours = new List<Node>();
 
         private void Start()
         {
             currentNode = FindClosestNode(gameObject);
-            UpdateCurrentNodeTimer = Time.time;
         }
 
         public override void PhysicsUpdate()
@@ -41,7 +38,10 @@ using UnityEngine;
             }
             return closestNode;
         }
-
+        public Node FindClosestNode(GameObject targetObject)
+        {
+            return FindClosestNode(gameObject.transform.position);
+        }
         public Node FindClosetNodeInNeighbours(Vector2 position)
         {
             float closestDistance = Vector2.Distance(currentNode.WorldPosition, position);
@@ -98,14 +98,9 @@ using UnityEngine;
                 
             }
 
+        
             return closestNode;
         }
-        public Node FindClosestNode(GameObject targetObject)
-        {
-            return FindClosestNode(gameObject.transform.position);
-        }
-
-       
         public List<Node> FindPath(Node startingNode, Node targetNode)
         {
             List<Node> empty = new List<Node>();
@@ -139,8 +134,6 @@ using UnityEngine;
             }
             return null;
         }
-        
-
         public Vector2 ReturnNextNodeDirection()
         {
             try
@@ -149,17 +142,24 @@ using UnityEngine;
                 float y = path[0].WorldPosition.y - currentNode.WorldPosition.y;
                 
                 return new Vector2(x, y);
-                
-                /*if (x == -1)return NodeDirection.Left;
-                if (x == 1) return NodeDirection.Right;
-                if (y == 1) return NodeDirection.Up;
-                if (y == -1) return NodeDirection.Down;*/
             }
             catch (Exception) { }
             
             return Vector2.zero;
         }
 
+        public bool CheckIfNextNodeIsInAir()
+        {
+            try
+            {
+                if (path[0].TileType == TileType.InAir)
+                    return true;
+                return false;
+            }
+            catch (Exception) {
+            }
+            return false;
+        }
         private List<Node> ReconstructPath(Dictionary<Node, Node> parents, Node goal)
         {
             Node current = goal;
