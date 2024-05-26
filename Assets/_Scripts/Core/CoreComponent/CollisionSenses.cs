@@ -25,23 +25,30 @@ public class CollisionSenses : CoreComponent
     
     [SerializeField] private LayerMask whatIsGround;
 
+    private Movement movement;
     #endregion
-    
+
+    public override void InitializeCoreComponent()
+    {
+        base.InitializeCoreComponent();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;;
+    }
+
     public bool CheckIfGrounded()
     {
         return Physics2D.OverlapCircle(groundCheck.position, groundCheckRadius, whatIsGround);
     }
     public bool CheckIfTouchingWall()
     {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
     public bool CheckIfTouchingWallBack()
     {
-        return Physics2D.Raycast(wallCheck.position, Vector2.right * -core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+        return Physics2D.Raycast(wallCheck.position, Vector2.right * -movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
     public bool CheckIfTouchingHorizontalLedge()
     {
-         return Physics2D.Raycast(horizontalLedgeCheck.position, Vector2.right * core.Movement.FacingDirection, wallCheckDistance, whatIsGround);
+         return Physics2D.Raycast(horizontalLedgeCheck.position, Vector2.right * movement.FacingDirection, wallCheckDistance, whatIsGround);
     }
     public bool CheckIfTouchingVerticalLedge()
     {
@@ -49,16 +56,16 @@ public class CollisionSenses : CoreComponent
     }
     public bool CheckIfTouchingLedgeWithFeet()
     {
-        return Physics2D.Raycast(LedgeFeetCheck.position, Vector2.right * core.Movement.FacingDirection, wallCheckDistance , whatIsGround);
+        return Physics2D.Raycast(LedgeFeetCheck.position, Vector2.right * movement.FacingDirection, wallCheckDistance , whatIsGround);
     }
 
     private void OnDrawGizmos()
     {
         if(core == null) return;
-        if(wallCheck != null) Gizmos.DrawLine(wallCheck.position,wallCheck.position + (Vector3)(Vector2.right * core.Movement.FacingDirection * WallCheckDistance));
-        if(LedgeFeetCheck != null) Gizmos.DrawLine(LedgeFeetCheck.position,LedgeFeetCheck.position + (Vector3)(Vector2.right  * core.Movement.FacingDirection * WallCheckDistance));
-        if(horizontalLedgeCheck != null) Gizmos.DrawLine(horizontalLedgeCheck.position,horizontalLedgeCheck.position + (Vector3)(Vector2.right  * core.Movement.FacingDirection * WallCheckDistance));
-        if(groundCheck != null) Gizmos.DrawLine(groundCheck.position,groundCheck.position + (Vector3)(Vector2.right  * core.Movement.FacingDirection * WallCheckDistance));
+        if(wallCheck != null) Gizmos.DrawLine(wallCheck.position,wallCheck.position + (Vector3)(Vector2.right * movement.FacingDirection * WallCheckDistance));
+        if(LedgeFeetCheck != null) Gizmos.DrawLine(LedgeFeetCheck.position,LedgeFeetCheck.position + (Vector3)(Vector2.right  * movement.FacingDirection * WallCheckDistance));
+        if(horizontalLedgeCheck != null) Gizmos.DrawLine(horizontalLedgeCheck.position,horizontalLedgeCheck.position + (Vector3)(Vector2.right  * movement.FacingDirection * WallCheckDistance));
+        if(groundCheck != null) Gizmos.DrawLine(groundCheck.position,groundCheck.position + (Vector3)(Vector2.right  * movement.FacingDirection * WallCheckDistance));
 
     }
 }

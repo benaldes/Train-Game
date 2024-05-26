@@ -14,17 +14,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MinIdleTime: 1
   MaxIdleTime: 1
-  MovementSpeed: 3
+  MovementSpeed: 4
   JumpVelocity: 5
   amountsOfJumps: 1
   StunResistance: 3
   StunRecoveryTime: 2
   AttackDamage: 10
-  AttackRadius: 0.5
+  CloseRangeActionDistance: 1.75
+  AttackRadius: 0.7
   KnockbackStrength: 10
   KnockbackAngle: {x: 1, y: 1}
-  whatIsPlayer:
+  WhatIsPlayer:
     serializedVersion: 2
-    m_Bits: 0
-  DetectedStateTime: 0.5
+    m_Bits: 256
+  MinAgroDistance: 6
+  MaxAgroDistance: 8
+  DetectedStateTime: 0.4
   ChargeSpeed: 7

@@ -6,12 +6,22 @@ using UnityEngine;
         [SerializeField] private GameObject[] deathParticles;
 
         [SerializeField] private AudioClip deathSound;
-        
+        private Stats stats;
+        private ParticleManager particleManager;
+
+        public override void InitializeCoreComponent()
+        {
+            base.InitializeCoreComponent();
+            stats = core.GetCoreComponent(typeof(Stats)) as Stats;
+            particleManager = core.GetCoreComponent(typeof(ParticleManager)) as ParticleManager;
+            stats.OnHealthZero += Die;
+        }
+
         public void Die()
         {
             foreach (var particle in deathParticles)
             {
-                core.ParticleManager.StartParticles(particle);
+                particleManager.StartParticles(particle);
             }
             
             SoundManager.Instance.PlaySound(deathSound);
@@ -22,11 +32,11 @@ using UnityEngine;
 
         private void Start()
         {
-            core.Stats.OnHealthZero += Die;
+            
         }
         
         private void OnDisable()
         {
-            core.Stats.OnHealthZero -= Die;
+            stats.OnHealthZero -= Die;
         }
     }

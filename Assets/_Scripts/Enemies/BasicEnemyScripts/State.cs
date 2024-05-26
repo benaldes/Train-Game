@@ -19,6 +19,8 @@ public class State
         core = entity.core;
     }
 
+    public virtual void initializeState() { }
+
     public virtual void Enter()
     {
         startTime = Time.time;

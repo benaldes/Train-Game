@@ -8,15 +8,23 @@ public class IdleState : State
     protected float idleTime;
     protected bool isPlayerInMinAgroRange;
     
+    protected Movement movement;
+    
     public IdleState(Entity entity, StateMachine stateMachine, string animName,D_IdleState stateData) : base(entity, stateMachine, animName)
     {
         this.stateData = stateData;
     }
 
+    public override void initializeState()
+    {
+        base.initializeState();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+    }
+
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetVelocityX(0);
+        movement.SetVelocityX(0);
         isIdleTimeOver = false;
 
     }
@@ -25,7 +33,7 @@ public class IdleState : State
     {
         base.LogicUpdate();
         
-        core.Movement.SetVelocityX(0);
+        movement.SetVelocityX(0);
         
         if (Time.time >= startTime + idleTime)
         {
@@ -45,7 +53,7 @@ public class IdleState : State
         base.Exit();
         if (flipAfterIdle)
         {
-            core.Movement.Flip();
+            movement.Flip();
         }
     }
 

@@ -23,15 +23,16 @@ public class Chaser_ChargeState : ChargeS
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetVelocityZero();
+        movement.SetVelocityZero();
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
         if(CheckIfSwitchToMeleeAttackState()) return;
+        if(CheckIfSwitchToIdleState())return;
         
-        core.Movement.SetVelocityX(chaserData.ChargeSpeed * core.Movement.FacingDirection);
+        movement.SetVelocityX(chaserData.ChargeSpeed * movement.FacingDirection);
     }
 
     private bool CheckIfSwitchToMeleeAttackState()
@@ -39,6 +40,17 @@ public class Chaser_ChargeState : ChargeS
         if (performCloseRangeAction)
         {
             stateMachine.SwitchState(chaser.MeleeAttackState);
+            return true;
+        }
+        return false;
+    }
+
+    private bool CheckIfSwitchToIdleState()
+    {
+        if (collisionSenses.CheckIfTouchingWall())
+        {
+            movement.Flip();
+            stateMachine.SwitchState(chaser.IdleState);
             return true;
         }
         return false;

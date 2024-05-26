@@ -9,30 +9,40 @@ public class MoveState : State
     protected bool isDetectingWall;
     protected bool isDetectingLedge;
     protected bool IsPlayerInMinAgroRange;
+    
+    protected Movement movement;
+    protected CollisionSenses collisionSenses;
     public MoveState(Entity entity, StateMachine stateMachine, string animName,D_MoveState stateData) : base(entity, stateMachine, animName)
     {
         this.stateData = stateData;
     }
 
+    public override void initializeState()
+    {
+        base.initializeState();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+        collisionSenses = core.GetCoreComponent(typeof(CollisionSenses)) as CollisionSenses;
+    }
+
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetVelocityX(stateData.movementSpeed * core.Movement.FacingDirection);
+        movement.SetVelocityX(stateData.movementSpeed * movement.FacingDirection);
 
     }
 
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        core.Movement.SetVelocityX(stateData.movementSpeed * core.Movement.FacingDirection);
+        movement.SetVelocityX(stateData.movementSpeed * movement.FacingDirection);
     }
 
     public override void DoChecks()
     {
         base.DoChecks();
 
-        isDetectingLedge = core.CollisionSenses.CheckIfTouchingVerticalLedge();
-        isDetectingWall = core.CollisionSenses.CheckIfTouchingWall();
+        isDetectingLedge = collisionSenses.CheckIfTouchingVerticalLedge();
+        isDetectingWall = collisionSenses.CheckIfTouchingWall();
         IsPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }
 }

@@ -15,22 +15,19 @@
                 chaserData = (Chaser_Data)entityData;
             }
         }
-
-        public override void Enter()
-        {
-            base.Enter();
-            
-        }
+        
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            core.Movement.CheckIfShouldFlip(direction.x);
+            
             
             if(CheckIfSwitchToJumpState()) return;
             if(CheckIfSwitchToPlayerDetectedState())return;
+            //if(CheckIfSwitchToIdleState())return;
             
-            core.Movement.SetVelocityX(chaserData.MovementSpeed * direction.x);
+            movement.SetVelocityX(chaserData.MovementSpeed * direction.x);
+            movement.CheckIfShouldFlip(direction.x);
         }
 
 
@@ -38,8 +35,8 @@
         {
             base.PhysicsUpdate();
             //TODO : need to change it so you dont have to calculate a new path every time you want a direction
-            core.PathFindingComponent.FindPath(entity.gameObject, NodeGraph.Instance.PlayerNode);
-            direction = core.PathFindingComponent.ReturnNextNodeDirection();
+            pathFinding.FindPath(pathFinding.currentNode, NodeGraph.Instance.PlayerNode);
+            direction = pathFinding.ReturnNextNodeDirection();
         }
 
         private bool CheckIfSwitchToJumpState()
@@ -55,12 +52,21 @@
 
         private bool CheckIfSwitchToPlayerDetectedState()
         {
-            if (IsPlayerInMinAgroRange && core.CollisionSenses.CheckIfGrounded())
+            if (IsPlayerInMinAgroRange && collisionSenses.CheckIfGrounded())
             {
                 stateMachine.SwitchState(chaser.PlayerDetectedState);
                 return true;
             }
+            return false;
+        }
 
+        private bool CheckIfSwitchToIdleState()
+        {
+            if (direction.x == 0 && direction.y == 0)
+            {
+                stateMachine.SwitchState(chaser.IdleState);
+                return true;
+            }
             return false;
         }
 

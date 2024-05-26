@@ -11,17 +11,28 @@ public class StunState : State
     protected bool isPlayerInMinAgroRange;
 
     protected bool isStunTimeOver;
+    
+    protected Movement movement;
+    protected CollisionSenses collisionSenses;
+    protected Stats stats;
     public StunState(Entity entity, StateMachine stateMachine, string animName,D_StunState state) : base(entity, stateMachine, animName)
     {
         this.State = state;
     }
+    public override void initializeState()
+    {
+        base.initializeState();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+        collisionSenses = core.GetCoreComponent(typeof(CollisionSenses)) as CollisionSenses;
+        stats = core.GetCoreComponent(typeof(Stats)) as Stats;
 
+    }
     public override void Enter()
     {
         base.Enter();
         isStunTimeOver = false;
         isMovementStop = false;
-        core.Movement.SetVelocity(State.StunKnockbackSpeed,State.StunKnockbackAngle, entity.lastDamageDirection);
+        movement.SetVelocity(State.StunKnockbackSpeed,State.StunKnockbackAngle, entity.lastDamageDirection);
         
     }
 
@@ -29,7 +40,7 @@ public class StunState : State
     {
         base.Exit();
         //Entity.ResetStunResistance();
-        core.Stats.ResetStunResistance();
+        stats.ResetStunResistance();
     }
 
     public override void LogicUpdate()
@@ -43,14 +54,14 @@ public class StunState : State
         if (isGrounded && Time.time >= startTime + State.StunKnockbackTime && !isMovementStop)
         {
             isMovementStop = true;
-            core.Movement.SetVelocityX(0);
+            movement.SetVelocityX(0);
         }
     }
 
     public override void DoChecks()
     {
         base.DoChecks();
-        isGrounded = core.CollisionSenses.CheckIfGrounded();
+        isGrounded = collisionSenses.CheckIfGrounded();
         performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
     }

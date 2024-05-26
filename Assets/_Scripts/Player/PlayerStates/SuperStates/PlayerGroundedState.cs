@@ -10,11 +10,23 @@ public class PlayerGroundedState : PlayerState
     private bool isTouchingWalls;
     private bool isTouchingLedge;
 
+    protected Movement movement;
+    protected CollisionSenses collisionSenses;
+    protected Combat combat;
+
     #endregion
 
     public PlayerGroundedState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName)
         : base(player, stateMachine, playerData, animName)
     {
+    }
+
+    public override void initializeState()
+    {
+        base.initializeState();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+        collisionSenses = core.GetCoreComponent(typeof(CollisionSenses)) as CollisionSenses;
+        combat = core.GetCoreComponent(typeof(Combat)) as Combat;
     }
 
     public override void Enter()
@@ -29,7 +41,7 @@ public class PlayerGroundedState : PlayerState
 
         //InputChecks();
 
-        if (rollInput && player.RollState.IsRollReady() && !core.Combat.isKnockbackActive)
+        if (rollInput && player.RollState.IsRollReady() && !combat.isKnockbackActive)
         {
             stateMachine.SwitchState(player.RollState);
         }
@@ -37,16 +49,15 @@ public class PlayerGroundedState : PlayerState
         if(CheckIfSwitchToAttackState()) return;
         if(CheckIfSwitchToJumpState()) return;
         if(CheckIfSwitchToInAirState()) return;
-        if(CheckIfSwitchToWallGrabState()) return;
         
     }
 
     public override void DoChecks()
     {
         base.DoChecks();
-        isGrounded = core.CollisionSenses.CheckIfGrounded();
-        isTouchingWalls = core.CollisionSenses.CheckIfTouchingWall();
-        isTouchingLedge = core.CollisionSenses.CheckIfTouchingHorizontalLedge();
+        isGrounded = collisionSenses.CheckIfGrounded();
+        isTouchingWalls = collisionSenses.CheckIfTouchingWall();
+        isTouchingLedge = collisionSenses.CheckIfTouchingHorizontalLedge();
     }
 
 
@@ -89,16 +100,7 @@ public class PlayerGroundedState : PlayerState
         return false;
     }
 
-    private bool CheckIfSwitchToWallGrabState()
-    {
-        if (isTouchingWalls && grabInput && isTouchingLedge)
-        {
-            stateMachine.SwitchState(player.WallGrabState);
-            return true;
-        }
-
-        return false;
-    }
+   
 }
 
 

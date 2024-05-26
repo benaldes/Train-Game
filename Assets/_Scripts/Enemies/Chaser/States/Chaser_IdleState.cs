@@ -7,7 +7,7 @@ public class Chaser_IdleState : IdleS
     private Chaser chaser;
     private Chaser_Data chaserData;
 
-    private float lookForNewPathCooldown = 1;
+    private float lookForNewPathCooldown = 0.1f;
     private float LookForNewPathTimer;
     
     public Chaser_IdleState(Entity entity, StateMachine stateMachine, string animName, D_EntityData entityData) : base(entity, stateMachine, animName, entityData)
@@ -27,8 +27,9 @@ public class Chaser_IdleState : IdleS
     public override void Enter()
     {
         base.Enter();
-        CheckIfSwitchToMoveState();
+        
         LookForNewPathTimer = Time.time;
+        
     }
 
     public override void LogicUpdate()
@@ -44,7 +45,7 @@ public class Chaser_IdleState : IdleS
 
     private bool CheckIfSwitchToMoveState()
     {
-        if (core.PathFindingComponent.FindPath(entity.gameObject, NodeGraph.Instance.PlayerNode) != null)
+        if (pathFinding.FindPath(pathFinding.currentNode, NodeGraph.Instance.PlayerNode) != null)
         {
             stateMachine.SwitchState(chaser.MoveState);
             return true;

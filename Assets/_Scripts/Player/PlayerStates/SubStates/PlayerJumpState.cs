@@ -9,7 +9,7 @@ public class PlayerJumpState : PlayerAbilityState
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetVelocityY(playerData.JumpVelocity);
+        movement.SetVelocityY(playerData.JumpVelocity);
         isAbilityDone = true;
         DecreaseAmountOfJumpsLeft();
         player.InputHandler.UseJumpInput();

@@ -22,8 +22,7 @@
         public override void Enter()
         {
             base.Enter();
-            Debug.Log("Player Detected State");
-            core.Movement.SetVelocityZero();
+            movement.SetVelocityZero();
         }
 
         public override void LogicUpdate()
@@ -35,7 +34,7 @@
 
         private bool CheckIfSwitchToChargeState()
         {
-            if (isPlayerInMaxAgroRange && Time.time > chaserData.DetectedStateTime + startTime)
+            if (isPlayerInMaxAgroRange && Time.time > chaserData.DetectedStateTime + startTime && collisionSenses.CheckIfGrounded())
             {
                 stateMachine.SwitchState(chaser.ChargeState);
                 return true;

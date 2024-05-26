@@ -18,11 +18,17 @@ public class D_EntityData : ScriptableObject
     [Header("Stun State")]
     public float StunResistance = 3;
     public float StunRecoveryTime = 2;
-    
+
     [Header("Melee Attack")] 
     public float AttackDamage = 10;
+    public float CloseRangeActionDistance = 1.75f;
     public float AttackRadius = 0.5f;
     public float KnockbackStrength = 10;
     public Vector2 KnockbackAngle = Vector2.one;
-    public LayerMask whatIsPlayer;
+    public LayerMask WhatIsPlayer;
+    
+    [Header("Agro")]
+    public float MinAgroDistance = 2f;
+    public float MaxAgroDistance = 3f;
+    
 }

@@ -329,7 +329,7 @@ Transform:
   m_GameObject: {fileID: 2019805186548479896}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -0.06, y: -0.62, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -347,6 +347,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3863286b2da24158a21529c155846ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpdateCurrentNodeCooldown: 1
 --- !u!1 &2083019478246198483
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,7 +729,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff203f98b6377e240b7ffa879152e6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestBall: {fileID: 0}
   groundCheck: {fileID: 143473379946615502}
   wallCheck: {fileID: 4668468220578133737}
   horizontalLedgeCheck: {fileID: 3587693427917083076}

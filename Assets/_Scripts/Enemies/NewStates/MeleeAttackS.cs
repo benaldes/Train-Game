@@ -4,6 +4,7 @@
     public class MeleeAttackS : AttackS
     {
         private D_EntityData entityData;
+        
         public MeleeAttackS(Entity entity, StateMachine stateMachine, string animName, D_EntityData entityData, Transform attackPosition) : base(entity, stateMachine, animName, entityData, attackPosition)
         {
             this.entityData = entityData;
@@ -12,7 +13,7 @@
         {
             base.TriggerAttack();
         
-            Collider2D[] detectedObject = Physics2D.OverlapCircleAll(attackPosition.position, entityData.AttackRadius, entityData.whatIsPlayer);
+            Collider2D[] detectedObject = Physics2D.OverlapCircleAll(attackPosition.position, entityData.AttackRadius, entityData.WhatIsPlayer);
 
             foreach (Collider2D  collider in detectedObject)
             {
@@ -28,7 +29,7 @@
 
                 if (knockbackable != null)
                 {
-                    knockbackable.Knockback(entityData.KnockbackAngle,entityData.KnockbackStrength,core.Movement.FacingDirection);
+                    knockbackable.Knockback(entityData.KnockbackAngle,entityData.KnockbackStrength,movement.FacingDirection);
                 }
             }
         }

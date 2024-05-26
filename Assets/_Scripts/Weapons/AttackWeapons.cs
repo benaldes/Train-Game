@@ -9,6 +9,8 @@ public class AttackWeapons : Weapon
     
     private List<Idamageble> detectedDamageables = new List<Idamageble>();
     private List<IKnockbackable> detectedKnockbackables = new List<IKnockbackable>();
+
+    private Movement movement;
     
     protected override void Awake()
     {
@@ -25,6 +27,8 @@ public class AttackWeapons : Weapon
 
     public override void EnterWeapon()
     {
+        if(movement == null) movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+        
         base.EnterWeapon();
         
         SoundManager.Instance.PlaySound(AttackWeaponData.AttackDetail[attackCounter].AudioClip);
@@ -53,7 +57,7 @@ public class AttackWeapons : Weapon
         }
         foreach (IKnockbackable item in detectedKnockbackables.ToList())
         {
-            item.Knockback(details.KnockbackAngle,details.KnockbackStrength,core.Movement.FacingDirection);
+            item.Knockback(details.KnockbackAngle,details.KnockbackStrength,movement.FacingDirection);
         }
     }
 

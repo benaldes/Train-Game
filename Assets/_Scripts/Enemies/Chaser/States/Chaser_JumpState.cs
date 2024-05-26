@@ -21,7 +21,7 @@
         public override void Enter()
         {
             base.Enter();
-            core.Movement.SetVelocityX(0);
+            movement.SetVelocityX(0);
         }
 
         public override void LogicUpdate()
@@ -30,14 +30,14 @@
             if(CheckIfSwitchToMoveState()) return;
             if(CheckIfSwitchToIdleState()) return;
             
-            core.Movement.SetVelocityY(chaserData.JumpVelocity * direction.y);
+            movement.SetVelocityY(chaserData.JumpVelocity * direction.y);
         }
         public override void PhysicsUpdate()
         {
             base.PhysicsUpdate();
             //TODO : need to change it so you dont have to calculate a new path every time you want a direction
-            core.PathFindingComponent.FindPath(entity.gameObject, NodeGraph.Instance.PlayerNode);
-            direction = core.PathFindingComponent.ReturnNextNodeDirection();
+            pathFinding.FindPath(pathFinding.currentNode, NodeGraph.Instance.PlayerNode);
+            direction = pathFinding.ReturnNextNodeDirection();
         }
 
         private bool CheckIfSwitchToMoveState()
@@ -52,7 +52,7 @@
 
         private bool CheckIfSwitchToIdleState()
         {
-            if (direction is { y: 0, x: 0 })
+            if (direction is { y: 0, x: 0 } && collisionSenses.CheckIfGrounded())
             {
                 stateMachine.SwitchState(chaser.IdleState);
                 return true;

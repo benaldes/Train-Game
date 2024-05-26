@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
 
 public class PlayerAttackState : PlayerAbilityState
 {
@@ -20,6 +17,7 @@ public class PlayerAttackState : PlayerAbilityState
     {
     }
 
+    
     public override void Enter()
     {
         base.Enter();
@@ -40,12 +38,12 @@ public class PlayerAttackState : PlayerAbilityState
         
         if (shouldCheckFlip)
         {
-            core.Movement.CheckIfShouldFlip(xInput);
+            movement.CheckIfShouldFlip(xInput);
         }
         
         if (setVelocity)
         {
-            core.Movement.SetVelocityX(velocityToSet * core.Movement.FacingDirection);
+            movement.SetVelocityX(velocityToSet * movement.FacingDirection);
         }
     }
 
@@ -57,7 +55,7 @@ public class PlayerAttackState : PlayerAbilityState
 
     public void SetPlayerVelocity(float velocity)
     {
-        core.Movement.SetVelocityX(velocity * core.Movement.FacingDirection);
+        movement.SetVelocityX(velocity * movement.FacingDirection);
         velocityToSet = velocity;
         setVelocity = true;
     }

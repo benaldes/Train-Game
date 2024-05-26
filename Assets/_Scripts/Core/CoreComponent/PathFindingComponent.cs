@@ -4,9 +4,9 @@ using UnityEngine;
 
     public class PathFindingComponent : CoreComponent
     {
-        public float UpdateCurrentNodeCooldown = 1;
+        public float UpdateCurrentNodeCooldown = 0.01f;
+        public Node currentNode;
         private float UpdateCurrentNodeTimer;
-        private Node currentNode;
         private List<Node> path = new List<Node>();
         private List<Node> checkedNeighbours = new List<Node>();
 
@@ -18,10 +18,7 @@ using UnityEngine;
 
         public override void PhysicsUpdate()
         {
-            if (Time.time > UpdateCurrentNodeTimer + UpdateCurrentNodeCooldown)
-            {
-                currentNode = FindClosestNode(gameObject);
-            }
+            currentNode = FindClosetNodeInNeighbours(transform.position);
         }
         
         // TODO: need to make this search algorithm faster by using Binary search
@@ -44,10 +41,71 @@ using UnityEngine;
             }
             return closestNode;
         }
+
+        public Node FindClosetNodeInNeighbours(Vector2 position)
+        {
+            float closestDistance = Vector2.Distance(currentNode.WorldPosition, position);
+            if (closestDistance < 0.45f) return currentNode;
+            Node closestNode = currentNode;
+            
+            foreach (Node node in currentNode.Neighbours)
+            {
+                float distance = Vector2.Distance(node.WorldPosition, position);
+                if (closestDistance > distance)
+                {
+                    closestDistance = distance;
+                    closestNode = node;
+                }
+            }
+
+            return closestNode;
+        }
+        public Node FindClosestNodeInNodeGraph(Vector2 position)
+        {
+            Node closestNode = new Node(Vector2.positiveInfinity);
+            float closestDistance = float.MaxValue;
+
+            List<List<Node>> nodeList = NodeGraph.Instance.Nodes;
+            int yIndex = nodeList.Count / 2;
+            int xIndex = nodeList[0].Count / 2;
+            
+            while (nodeList.Count > 1)
+            {
+                if (position.y > nodeList[yIndex][xIndex].WorldPosition.y)
+                {
+                    nodeList.RemoveRange(0,yIndex);
+                }
+                else
+                {
+                    nodeList.RemoveRange(nodeList.Count-1,yIndex);
+                }
+
+                if (position.x > nodeList[yIndex][xIndex].WorldPosition.x)
+                {
+                    foreach (var nodeRow in nodeList)
+                    {
+                        nodeRow.RemoveRange(0,xIndex);
+                    }
+                }
+                else
+                {
+                    foreach (var nodeRow in nodeList)
+                    {
+                        nodeRow.RemoveRange(nodeList[0].Count-1,xIndex);
+                    }
+                }
+                   
+                
+            }
+
+            return closestNode;
+        }
         public Node FindClosestNode(GameObject targetObject)
         {
             return FindClosestNode(gameObject.transform.position);
         }
+
+       
         public List<Node> FindPath(Node startingNode, Node targetNode)
         {
             List<Node> empty = new List<Node>();
@@ -81,22 +139,7 @@ using UnityEngine;
             }
             return null;
         }
-        public List<Node> FindPath(GameObject startingGameObject, GameObject targetGameObject)
-        {
-            Node startingNode = FindClosestNode(startingGameObject);
-            Node targetNode = FindClosestNode(targetGameObject);
-            return FindPath(startingNode, targetNode);
-        }
-        public List<Node> FindPath(GameObject startingGameObject, Node targetNode)
-        {
-            Node startingNode = FindClosestNode(startingGameObject);
-            return FindPath(startingNode, targetNode);
-        }
-        public List<Node> FindPath(Node startingNode, GameObject targetGameObject)
-        {
-            Node targetNode = FindClosestNode(targetGameObject);
-            return FindPath(startingNode, targetNode);
-        }
+        
 
         public Vector2 ReturnNextNodeDirection()
         {

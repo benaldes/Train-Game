@@ -42,21 +42,25 @@ public class NodeGraph : MonoBehaviour
     [ContextMenu("test pathfinding")]
     public void test()
     {
-        
-        Node startNode = Nodes.FindClosestNode(StartNode.transform.position);
-        Node endNode= Nodes.FindClosestNode(TargetNode.transform.position);;
-        
-        List<Node> path = PathFinding.FindPath(startNode,endNode);
-        foreach (var pathObject in pathShowObject)
+        try
         {
-            Destroy(pathObject);
-        }
-        pathShowObject.Clear();
-        foreach (var VARIABLE in path)
-        {
-            pathShowObject.Add(Instantiate(PathObject,VARIABLE.WorldPosition,quaternion.identity));
+            Node startNode = Nodes.FindClosestNode(StartNode.transform.position);
+            Node endNode= Nodes.FindClosestNode(TargetNode.transform.position);;
+        
+            List<Node> path = PathFinding.FindPath(startNode,endNode);
+            foreach (var pathObject in pathShowObject)
+            {
+                Destroy(pathObject);
+            }
+            pathShowObject.Clear();
+            foreach (var VARIABLE in path)
+            {
+                pathShowObject.Add(Instantiate(PathObject,VARIABLE.WorldPosition,quaternion.identity));
             
+            }
         }
+        catch (Exception ) { }
+       
 
     }
 
@@ -72,7 +76,7 @@ public class NodeGraph : MonoBehaviour
         checkGraphNodesAboveGround();
         checkGridNodesInAir();
         CheckAllNodeNeighbours();
-        StartCoroutine(TestPathfinding());
+        //StartCoroutine(TestPathfinding());
     }
 
     IEnumerator TestPathfinding()

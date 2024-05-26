@@ -300,6 +300,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   entityData: {fileID: 11400000, guid: 0d4f7dc1ae76c4e409b9300a557f2fe0, type: 2}
+  newEntityData: {fileID: 11400000, guid: b237dfb88d8f47f4aaaf5ebdd193f891, type: 2}
   playerCheck: {fileID: 6129156362251979851}
   idleStateData: {fileID: 11400000, guid: 94bad6d9ffa6ae347b1a1b5a33230121, type: 2}
   moveStateData: {fileID: 11400000, guid: 95927ddf63b43f343bfd1b31e476e2ff, type: 2}
@@ -559,6 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3863286b2da24158a21529c155846ab3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  UpdateCurrentNodeCooldown: 1
 --- !u!1 &4615829540920735644
 GameObject:
   m_ObjectHideFlags: 0
@@ -606,7 +608,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff203f98b6377e240b7ffa879152e6e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  TestBall: {fileID: 0}
   groundCheck: {fileID: 4653659279984378898}
   wallCheck: {fileID: 8425408985686725006}
   horizontalLedgeCheck: {fileID: 0}

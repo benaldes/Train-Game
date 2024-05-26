@@ -14,6 +14,9 @@ public class PlayerLedgeClimbState : PlayerState
     private bool isClimbing;
     
     private static readonly int ClimbLedge = Animator.StringToHash("ClimbLedge");
+    
+    private Movement movement;
+    protected CollisionSenses collisionSenses;
 
     #endregion
     public PlayerLedgeClimbState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, 
@@ -21,16 +24,23 @@ public class PlayerLedgeClimbState : PlayerState
 
     #region State Callback Functions
 
+    public override void initializeState()
+    {
+        base.initializeState();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+        collisionSenses = core.GetCoreComponent(typeof(CollisionSenses)) as CollisionSenses;
+    }
+
     public override void Enter()
     {
         base.Enter();
         
-        core.Movement.SetVelocityZero();
+        movement.SetVelocityZero();
         player.transform.position = detectedPos;
         
         cornerPos = DetermineCornerPosition();
-        startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerData.startOffSet.x),cornerPos.y - playerData.startOffSet.y);
-        stopPos.Set(cornerPos.x + (core.Movement.FacingDirection * playerData.stopOffSet.x), cornerPos.y + playerData.stopOffSet.y);
+        startPos.Set(cornerPos.x - (movement.FacingDirection * playerData.startOffSet.x),cornerPos.y - playerData.startOffSet.y);
+        stopPos.Set(cornerPos.x + (movement.FacingDirection * playerData.stopOffSet.x), cornerPos.y + playerData.stopOffSet.y);
 
         player.transform.position = startPos;
         
@@ -95,7 +105,7 @@ public class PlayerLedgeClimbState : PlayerState
     
     private bool CheckIfClimbOverLedge()
     {
-        if ((xInput == core.Movement.FacingDirection || yInput == 1) && isHanging && !isClimbing)
+        if ((xInput == movement.FacingDirection || yInput == 1) && isHanging && !isClimbing)
         {
             isClimbing = true;
             player.Animator.SetBool(ClimbLedge,true);
@@ -107,7 +117,7 @@ public class PlayerLedgeClimbState : PlayerState
 
     private bool CheckIfDropFromLedge()
     {
-        if((yInput == -1 || xInput == -core.Movement.FacingDirection) && isHanging && !isClimbing)
+        if((yInput == -1 || xInput == -movement.FacingDirection) && isHanging && !isClimbing)
         {
             stateMachine.SwitchState(player.InAirState);
             return true;
@@ -133,7 +143,7 @@ public class PlayerLedgeClimbState : PlayerState
     
     private void SetPLayerPosAndVelocityToFitAnimation()
     {
-        core.Movement.SetVelocityZero();
+        movement.SetVelocityZero();
         player.transform.position = startPos;
     }
     
@@ -141,20 +151,20 @@ public class PlayerLedgeClimbState : PlayerState
     
     public Vector2 DetermineCornerPosition()
     {
-        var position = core.CollisionSenses.WallCheck.position;
-        var position1 = core.CollisionSenses.HorizontalLedgeCheck.position;
+        var position = collisionSenses.WallCheck.position;
+        var position1 = collisionSenses.HorizontalLedgeCheck.position;
         
-        RaycastHit2D xHit = Physics2D.Raycast(position, Vector2.right * core.Movement.FacingDirection,
-            core.CollisionSenses.WallCheckDistance, core.CollisionSenses.WhatIsGround);
+        RaycastHit2D xHit = Physics2D.Raycast(position, Vector2.right * movement.FacingDirection,
+            collisionSenses.WallCheckDistance, collisionSenses.WhatIsGround);
         float xDist = xHit.distance;
         
-        workspace.Set((xDist + 0.1f) * core.Movement.FacingDirection,0f);
+        workspace.Set((xDist + 0.1f) * movement.FacingDirection,0f);
         
         RaycastHit2D yHit = Physics2D.Raycast(position1 + (Vector3)(workspace), Vector2.down,
-            position1.y - position.y + 0.1f , core.CollisionSenses.WhatIsGround);
+            position1.y - position.y + 0.1f , collisionSenses.WhatIsGround);
         float yDist = yHit.distance;
         
-        workspace.Set(position.x + (xDist * core.Movement.FacingDirection),position1.y - yDist);
+        workspace.Set(position.x + (xDist * movement.FacingDirection),position1.y - yDist);
         
         return workspace;
     }

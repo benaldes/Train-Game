@@ -13,17 +13,17 @@ public class PlayerRollState : PlayerAbilityState
         base.Enter();
         player.InputHandler.UseRollInput();
         
-        core.Combat.SetDamageImmune(true);
-        core.Combat.SetKnockbackImmune(true);
+        combat.SetDamageImmune(true);
+        combat.SetKnockbackImmune(true);
         //acore.Movement.SetVelocity(playerData.rollVelocity, playerData.rollAngle, core.Movement.FacingDirection);
     }
 
     public override void Exit()
     {
         base.Exit();
-        core.Movement.SetVelocityZero();
-        core.Combat.SetDamageImmune(false);
-        core.Combat.SetKnockbackImmune(false);
+        movement.SetVelocityZero();
+        combat.SetDamageImmune(false);
+        combat.SetKnockbackImmune(false);
     }
     
     public override void LogicUpdate()
@@ -31,7 +31,7 @@ public class PlayerRollState : PlayerAbilityState
         base.LogicUpdate();
         
         workSpace = playerData.RollAngleCurve.Evaluate(Time.time - StartTime);
-        core.Movement.SetVelocity(playerData.rollVelocity, workSpace, core.Movement.FacingDirection);
+        movement.SetVelocity(playerData.rollVelocity, workSpace, movement.FacingDirection);
         
         if(CheckIfSwitchToJumpState()) return;
         if(CheckIfSwitchToIdleState()) return;

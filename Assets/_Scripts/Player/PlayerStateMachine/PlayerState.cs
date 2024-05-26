@@ -34,7 +34,7 @@ public class PlayerState
         this.animName = Animator.StringToHash(animName);
         core = player.Core;
     }
-
+    public virtual void initializeState() { }
     public virtual void Enter()
     {
         DoChecks();

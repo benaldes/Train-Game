@@ -11,20 +11,30 @@
         
         private static readonly int StepOver = Animator.StringToHash("StepOver");
         
+        private Movement movement;
+        private CollisionSenses collisionSenses;
+        
         public PlayerStepOverState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName) : base(player, stateMachine, playerData, animName)
         {
+        }
+
+        public override void initializeState()
+        {
+            base.initializeState();
+            movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+            collisionSenses = core.GetCoreComponent(typeof(CollisionSenses)) as CollisionSenses;
         }
 
         public override void Enter()
         {
             base.Enter();
             
-            core.Movement.SetVelocityZero();
+            movement.SetVelocityZero();
             player.transform.position = detectedPos;
             player.StepOverState.SetCornerPosition();
             
-            startPos.Set(cornerPos.x - (core.Movement.FacingDirection * playerData.StepOverStartOffSet.x),cornerPos.y - playerData.StepOverStartOffSet.y);
-            stopPos.Set(cornerPos.x + (core.Movement.FacingDirection * playerData.StepOverStopOffSet.x), cornerPos.y + playerData.StepOverStopOffSet.y);
+            startPos.Set(cornerPos.x - (movement.FacingDirection * playerData.StepOverStartOffSet.x),cornerPos.y - playerData.StepOverStartOffSet.y);
+            stopPos.Set(cornerPos.x + (movement.FacingDirection * playerData.StepOverStopOffSet.x), cornerPos.y + playerData.StepOverStopOffSet.y);
 
             player.transform.position = startPos;
             
@@ -64,7 +74,7 @@
         
         private void SetPLayerPosAndVelocityToFitAnimation()
         {
-            core.Movement.SetVelocityZero();
+            movement.SetVelocityZero();
             player.transform.position = startPos;
         }
 
@@ -77,21 +87,21 @@
     
         public Vector2 DetermineCornerPosition()
         {
-            var ledgeFeetPos = core.CollisionSenses.LedgeFeetCheck.position;
-            var wallPos = core.CollisionSenses.WallCheck.position;
+            var ledgeFeetPos = collisionSenses.LedgeFeetCheck.position;
+            var wallPos = collisionSenses.WallCheck.position;
         
-            RaycastHit2D xHit = Physics2D.Raycast(ledgeFeetPos, Vector2.right * core.Movement.FacingDirection,
-                core.CollisionSenses.WallCheckDistance, core.CollisionSenses.WhatIsGround);
+            RaycastHit2D xHit = Physics2D.Raycast(ledgeFeetPos, Vector2.right * movement.FacingDirection,
+                collisionSenses.WallCheckDistance, collisionSenses.WhatIsGround);
             float xDist = xHit.distance;
             
-            workspace.Set((xDist + 0.1f) * core.Movement.FacingDirection,0f);
+            workspace.Set((xDist + 0.1f) * movement.FacingDirection,0f);
         
             RaycastHit2D yHit = Physics2D.Raycast(wallPos + (Vector3)(workspace), Vector2.down,
-                wallPos.y - ledgeFeetPos.y + 0.1f, core.CollisionSenses.WhatIsGround);
+                wallPos.y - ledgeFeetPos.y + 0.1f, collisionSenses.WhatIsGround);
             
             float yDist = yHit.distance;
         
-            workspace.Set(ledgeFeetPos.x + (xDist * core.Movement.FacingDirection),wallPos.y - yDist);
+            workspace.Set(ledgeFeetPos.x + (xDist * movement.FacingDirection),wallPos.y - yDist);
             
             // for Edge check
             //core.CollisionSenses.TestBall.transform.position = workspace;

@@ -16,6 +16,8 @@ public class CoreComponent : MonoBehaviour
         core.AddComponent(this);
     }
 
+    public virtual void InitializeCoreComponent() { }
+
     public virtual void LogicUpdate() { }
 
     public virtual void PhysicsUpdate() { }

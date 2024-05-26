@@ -7,12 +7,12 @@ using UnityEngine.Serialization;
 
 public class Core : MonoBehaviour
 {
-	public Combat Combat => combat;
+	/*public Combat Combat => combat;
 	public Stats Stats => stats;
 	public ParticleManager ParticleManager => particleManager;
     public Movement Movement => movement;
     public CollisionSenses CollisionSenses => collisionSenses;
-    public PathFindingComponent PathFindingComponent => pathFindingComponent;
+    public PathFindingComponent PathFindingComponent => pathFindingComponent;*/
 
 	[SerializeField, HideInInspector] private Combat combat;
 	[SerializeField, HideInInspector] private Stats stats;
@@ -33,6 +33,13 @@ public class Core : MonoBehaviour
         pathFindingComponent = GetComponentInChildren<PathFindingComponent>();
     }
 
+    public void InitializeCoreComponents()
+    {
+        foreach (CoreComponent component in components)
+        {
+            component.InitializeCoreComponent();
+        }
+    }
     public void LogicUpdate()
     {
         foreach (CoreComponent component in components)
@@ -56,4 +63,18 @@ public class Core : MonoBehaviour
             components.Add(component);
         }
     }
+
+    public CoreComponent GetCoreComponent(Type coreType)
+    {
+        foreach (CoreComponent component in components)
+        {
+            if (component.GetType() == coreType)
+            {
+                return component;
+            }
+        }
+
+        return null;
+    }
+    
 }

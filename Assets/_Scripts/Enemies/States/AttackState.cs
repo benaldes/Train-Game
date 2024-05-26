@@ -8,9 +8,17 @@ public class AttackState : State
 
     protected bool isAnimationFinish;
     protected bool isPlayerInMinAgroRange;
+    
+    protected Movement movement;
     public AttackState(Entity entity, StateMachine stateMachine, string animName, Transform attackPosition) : base(entity, stateMachine, animName)
     {
         this.attackPosition = attackPosition;
+    }
+
+    public override void initializeState()
+    {
+        base.initializeState();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;
     }
 
     public override void Enter()
@@ -18,7 +26,7 @@ public class AttackState : State
         base.Enter();
         entity.AnimToStateMachine.AttackState = this;
         isAnimationFinish = false;
-        core.Movement.SetVelocityX(0);
+        movement.SetVelocityX(0);
     }
 
     public override void DoChecks()
@@ -30,7 +38,7 @@ public class AttackState : State
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        core.Movement.SetVelocityX(0);
+        movement.SetVelocityX(0);
     }
 
     public virtual void TriggerAttack() { }

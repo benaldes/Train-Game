@@ -10,16 +10,26 @@ public class IdleS : State
     protected bool pathFound;
     protected bool isIdleTimeOver;
     protected bool isPlayerInMinAgroRange;
+
+    protected Movement movement;
+    protected PathFindingComponent pathFinding;
     
     public IdleS(Entity entity, StateMachine stateMachine, string animName,D_EntityData entityData) : base(entity, stateMachine, animName)
     {
         this.entityData = entityData;
     }
 
+    public override void initializeState()
+    {
+        base.initializeState();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+        pathFinding = core.GetCoreComponent(typeof(PathFindingComponent)) as PathFindingComponent;
+    }
+
     public override void Enter()
     {
         base.Enter();
-        core.Movement.SetVelocityX(0);
+        movement.SetVelocityX(0);
         isIdleTimeOver = false;
 
     }
@@ -28,7 +38,7 @@ public class IdleS : State
     {
         base.LogicUpdate();
         
-        core.Movement.SetVelocityX(0);
+        movement.SetVelocityX(0);
         
         if (Time.time >= startTime + idleTime)
         {
@@ -48,7 +58,8 @@ public class IdleS : State
         base.Exit();
         if (flipAfterIdle)
         {
-            core.Movement.Flip();
+            movement.Flip();
+            flipAfterIdle = false;
         }
     }
 

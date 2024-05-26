@@ -13,7 +13,7 @@ public class PlayerWallSlideState : PlayerTouchinWallState
     {
         base.LogicUpdate();
         if(isExitingState) return;
-        core.Movement.SetVelocityY(-playerData.wallSlideVelocity * (Time.time - StartTime) * 4);
+        movement.SetVelocityY(-playerData.wallSlideVelocity * (Time.time - StartTime) * 4);
     }
 
 

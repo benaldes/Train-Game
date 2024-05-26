@@ -22,23 +22,25 @@ public class Enemy1 : Entity
     [SerializeField] private D_DeadState deadStateData;
     
     [SerializeField] private Transform meleeAttackPosition;
+
+    private Stats stats;
     
 
     public override void Awake()
     {
         base.Awake();
-        MoveState = new E1_MoveState(this, StateMachine, "Move", moveStateData,this);
-        IdleState = new E1_IdleState(this, StateMachine, "Idle", idleStateData, this);
-        PlayerDetectedState = new E1_PlayerDetectedState(this, StateMachine, "PlayerDetected", playerDetectedStateData, this);
-        ChargeState = new E1_ChargeState(this, StateMachine, "Charge", chargeStateData, this);
-        LookForPlayerState = new E1_LookForPlayerState(this, StateMachine, "LookForPlayer", lookForPlayerStateData, this);
-        MeleeAttackState = new E1_MeleeAttackState(this, StateMachine, "MeleeAttack", meleeAttackPosition, meleeAttackState, this);
-        StunState = new E1_StunState(this, StateMachine, "Stun", stunStateData, this);
-        DeadState = new E1_DeadState(this, StateMachine, "Dead", deadStateData, this);
+        stateList.Add(MoveState = new E1_MoveState(this, StateMachine, "Move", moveStateData,this));
+        stateList.Add(IdleState = new E1_IdleState(this, StateMachine, "Idle", idleStateData, this));
+        stateList.Add(PlayerDetectedState = new E1_PlayerDetectedState(this, StateMachine, "PlayerDetected", playerDetectedStateData, this));
+        stateList.Add(ChargeState = new E1_ChargeState(this, StateMachine, "Charge", chargeStateData, this));
+        stateList.Add(LookForPlayerState = new E1_LookForPlayerState(this, StateMachine, "LookForPlayer", lookForPlayerStateData, this));
+        stateList.Add(MeleeAttackState = new E1_MeleeAttackState(this, StateMachine, "MeleeAttack", meleeAttackPosition, meleeAttackState, this));
+        stateList.Add(StunState = new E1_StunState(this, StateMachine, "Stun", stunStateData, this));
+        stateList.Add(DeadState = new E1_DeadState(this, StateMachine, "Dead", deadStateData, this));
     }
     private void OnDisable()
     {
-        core.Stats.OnStunned -= Stunned;
+        stats.OnStunned -= Stunned;
     }
 
     private void Stunned()
@@ -46,10 +48,12 @@ public class Enemy1 : Entity
         StateMachine.SwitchState(StunState);
     }
 
-    private void Start()
+    public override void Start()
     {
+        base.Start();
         StateMachine.Initialize(MoveState);
-        core.Stats.OnStunned += Stunned;
+        stats = core.GetCoreComponent(typeof(Stats)) as Stats;
+        stats.OnStunned += Stunned;
     }
 
 

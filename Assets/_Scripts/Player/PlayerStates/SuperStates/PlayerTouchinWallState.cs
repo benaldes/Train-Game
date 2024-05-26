@@ -7,11 +7,21 @@ public class PlayerTouchinWallState : PlayerState
     protected bool isGrounded;
     protected bool isTouchingWall;
     protected bool isTouchingLedge;
+
+    protected Movement movement;
+    protected CollisionSenses collisionSenses;
     
     public PlayerTouchinWallState(Player player, PlayerStateMachine stateMachine, PlayerData playerData, string animName) : base(player, stateMachine, playerData, animName)
     {
     }
-    
+
+    public override void initializeState()
+    {
+        base.initializeState();
+        movement = core.GetCoreComponent(typeof(Movement)) as Movement;
+        collisionSenses = core.GetCoreComponent(typeof(CollisionSenses)) as CollisionSenses;
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
@@ -25,9 +35,9 @@ public class PlayerTouchinWallState : PlayerState
     public override void DoChecks()
     {
         base.DoChecks();
-        isGrounded = core.CollisionSenses.CheckIfGrounded();
-        isTouchingWall = core.CollisionSenses.CheckIfTouchingWall();
-        isTouchingLedge = core.CollisionSenses.CheckIfTouchingHorizontalLedge();
+        isGrounded = collisionSenses.CheckIfGrounded();
+        isTouchingWall = collisionSenses.CheckIfTouchingWall();
+        isTouchingLedge = collisionSenses.CheckIfTouchingHorizontalLedge();
 
         if (isTouchingWall && !isTouchingLedge)
         {
@@ -62,7 +72,7 @@ public class PlayerTouchinWallState : PlayerState
 
     private bool CheckIfSwitchToWallInAirState()
     {
-        if(!isTouchingWall || (xInput != core.Movement.FacingDirection && !grabInput))
+        if(!isTouchingWall || (xInput != movement.FacingDirection && !grabInput))
         {
             stateMachine.SwitchState(player.InAirState);
             return true;
