@@ -61,7 +61,7 @@ public class PlayerTouchinWallState : PlayerState
 
     private bool CheckIfSwitchToIdleState()
     {
-        if (isGrounded &&!grabInput)
+        if (isGrounded )
         {
             stateMachine.SwitchState(player.IdleState);
             return true;
@@ -72,7 +72,7 @@ public class PlayerTouchinWallState : PlayerState
 
     private bool CheckIfSwitchToWallInAirState()
     {
-        if(!isTouchingWall || (xInput != movement.FacingDirection && !grabInput))
+        if(!isTouchingWall || (xInput != movement.FacingDirection ))
         {
             stateMachine.SwitchState(player.InAirState);
             return true;

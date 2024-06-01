@@ -3,8 +3,11 @@
     {
         private Chaser chaser;
         private Chaser_Data chaserData;
-        
+
+        private Node jumpTarget;
         private Vector2 direction;
+
+        private float timeToPeek;
         
         public Chaser_JumpState(Entity entity, StateMachine stateMachine, string animName, D_EntityData entityData) : base(entity, stateMachine, animName, entityData)
         {
@@ -22,27 +25,43 @@
         {
             base.Enter();
             movement.SetVelocityX(0);
+            jumpTarget = pathFinding.ReturnNodeToJumpTo();
+            timeToPeek = Time.time;
+            timeToPeek += pathFinding.JumpToNode(jumpTarget,movement.RB);
+            chaser.Collider2D.isTrigger = true;
+            pathFinding.FindPath(pathFinding.CurrentNode, NodeGraph.Instance.PlayerNode);
+            movement.CheckIfEnemyShouldFlip();
+        }
+
+        public override void Exit()
+        {
+            base.Exit();
+            chaser.Collider2D.isTrigger = false;
         }
 
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if(CheckIfSwitchToMoveState()) return;
-            if(CheckIfSwitchToIdleState()) return;
-            
-            movement.SetVelocityY(chaserData.JumpVelocity * direction.y);
+            if (timeToPeek < Time.time)
+            {
+                CheckIfAboutToLend();
+                if(CheckIfSwitchToMoveState()) return;
+                if(CheckIfSwitchToIdleState()) return;
+            }
+
         }
-        public override void PhysicsUpdate()
+
+        private void CheckIfAboutToLend()
         {
-            base.PhysicsUpdate();
-            //TODO : need to change it so you dont have to calculate a new path every time you want a direction
-            pathFinding.FindPath(pathFinding.currentNode, NodeGraph.Instance.PlayerNode);
-            direction = pathFinding.ReturnNextNodeDirection();
+            if (movement.CurrentVelocity.y <= 0)
+            {
+                chaser.Collider2D.isTrigger = false;
+            }
         }
 
         private bool CheckIfSwitchToMoveState()
         {
-            if (direction.y == 0 && direction.x != 0)
+            if (collisionSenses.CheckIfGrounded() && Mathf.Abs(movement.CurrentVelocity.y) < 0.015f)
             {
                 stateMachine.SwitchState(chaser.MoveState);
                 return true;
@@ -52,7 +71,7 @@
 
         private bool CheckIfSwitchToIdleState()
         {
-            if (direction is { y: 0, x: 0 } && collisionSenses.CheckIfGrounded())
+            if (pathFinding.Direction is { y: 0, x: 0 } && collisionSenses.CheckIfGrounded()&& Mathf.Abs(movement.CurrentVelocity.y) < 0.015f)
             {
                 stateMachine.SwitchState(chaser.IdleState);
                 return true;

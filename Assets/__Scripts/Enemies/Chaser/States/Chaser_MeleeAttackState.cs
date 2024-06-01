@@ -22,8 +22,7 @@
             base.LogicUpdate();
             if (isAnimationFinish)
             {
-                if(CheckIfSwitchToPlayerDetectedState()) return;
-                if(CheckIfSwitchToIdleState()) return;
+                stateMachine.SwitchState(chaser.IdleState);
             }
         }
 

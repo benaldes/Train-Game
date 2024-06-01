@@ -28,10 +28,20 @@
         public override void LogicUpdate()
         {
             base.LogicUpdate();
-            if(CheckIfSwitchToChargeState())return;
+            if(CheckIfSwitchToMeleeAttackState()) return;
             if(CheckIfSwitchToIdleState()) return;
+            //if(CheckIfSwitchToChargeState())return;
         }
 
+        private bool CheckIfSwitchToMeleeAttackState()
+        {
+            if (performCloseRangeAction)
+            {
+                stateMachine.SwitchState(chaser.MeleeAttackState);
+                return true;
+            }
+            return false;
+        }
         private bool CheckIfSwitchToChargeState()
         {
             if (isPlayerInMaxAgroRange && Time.time > chaserData.DetectedStateTime + startTime && collisionSenses.CheckIfGrounded())

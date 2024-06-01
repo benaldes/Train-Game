@@ -21,7 +21,6 @@ public class PlayerState
     protected int yInput;
     protected bool jumpInput;
     protected bool rollInput;
-    protected bool grabInput;
     protected bool jumpInputStop;
     
     #endregion
@@ -53,12 +52,16 @@ public class PlayerState
     {
         InputUpdateCheck();
     }
-    public virtual void PhysicsUpdate() { DoChecks(); }
+
+    public virtual void PhysicsUpdate()
+    {
+        DoChecks();
+    }
     public virtual void DoChecks(){}
     public virtual void AnimationTrigger(){}
     public virtual void AnimationFinishTrigger() => isAnimationFinished = true;
 
-    public virtual void InputUpdateCheck()
+    public void InputUpdateCheck()
     {
         xInput = player.InputHandler.NormInputX;
         yInput = player.InputHandler.NormInputY;

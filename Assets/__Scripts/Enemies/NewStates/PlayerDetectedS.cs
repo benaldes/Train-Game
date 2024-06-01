@@ -5,6 +5,7 @@
         protected D_EntityData entityData;
         protected bool isPlayerInMinAgroRange;
         protected bool isPlayerInMaxAgroRange;
+        protected bool performCloseRangeAction;
 
         protected Movement movement;
         protected CollisionSenses collisionSenses;
@@ -25,5 +26,6 @@
             base.DoChecks();
             isPlayerInMinAgroRange = entity.CheckPlayerInMinAgroRange();
             isPlayerInMaxAgroRange = entity.CheckPlayerInMaxAgroRange();
+            performCloseRangeAction = entity.CheckPlayerInCloseRangeAction();
         }
     }

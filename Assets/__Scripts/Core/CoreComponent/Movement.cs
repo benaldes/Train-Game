@@ -75,7 +75,14 @@
         }
         
         #endregion
-        
+
+        public void CheckIfEnemyShouldFlip()
+        {
+            if (Mathf.Sign(CurrentVelocity.x) != FacingDirection)
+            {
+                Flip();
+            }
+        }
         public void CheckIfShouldFlip(float xInput)
         {
             if(xInput != 0 && xInput != FacingDirection)

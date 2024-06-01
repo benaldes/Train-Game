@@ -39,8 +39,6 @@ public class PlayerGroundedState : PlayerState
     {
         base.LogicUpdate();
 
-        //InputChecks();
-
         if (rollInput && player.RollState.IsRollReady() && !combat.isKnockbackActive)
         {
             stateMachine.SwitchState(player.RollState);

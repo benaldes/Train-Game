@@ -1,7 +1,9 @@
+using System;
 using UnityEngine;
 
 public class Chaser : Entity
 {
+    public Collider2D Collider2D { get;private set; }
     public Chaser_IdleState IdleState { get; private set; }
     public Chaser_MoveState MoveState { get; private set; }
     public Chaser_JumpState JumpState { get; private set; }
@@ -10,6 +12,12 @@ public class Chaser : Entity
     public Chaser_MeleeAttackState MeleeAttackState { get; private set; }
 
     [SerializeField] private Transform meleeAttackPosition;
+
+    private void OnValidate()
+    {
+        Collider2D = GetComponent<Collider2D>();
+    }
+
     public override void Awake()
     {
         base.Awake();
