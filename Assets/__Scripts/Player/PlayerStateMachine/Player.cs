@@ -109,8 +109,11 @@ public class Player : MonoBehaviour
     
     private void UpdateCurrentNode()
     {
+	    float distance = Vector3.Distance(pathFinding.CurrentNode.WorldPosition, gameObject.transform.position);
+	    if(distance < 0.5f) return;
+	    
 	    Node playerNode = pathFinding.FindClosestNode(gameObject);
-	    if (playerNode.TileType is TileType.aboveGround or TileType.InAir)
+	    if (playerNode.TileType is TileType.aboveGround )
 	    {
 		    NodeGraph.Instance.SetPlayerNode(playerNode);
 	    }

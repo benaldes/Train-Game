@@ -27,6 +27,7 @@
             base.LogicUpdate();
             if(CheckIfSwitchToJumpState()) return;
             if(CheckIfSwitchToMeleeAttackState())return;
+            if(CheckIfSwitchToIdleState()) return;
             //if(CheckIfSwitchToPlayerDetectedState())return;
             
             movement.SetVelocityX(chaserData.MovementSpeed * direction.x);
@@ -44,7 +45,7 @@
 
         private bool CheckIfSwitchToJumpState()
         {
-            if (pathFinding.CheckIfNextNodeIsInAir()  && pathFinding.CheckIfTargetNodeIsHigher(pathFinding.ReturnNodeToJumpTo())&& direction.y != 0)
+            if (pathFinding.CheckIfNextNodeIsInAir()  && pathFinding.CheckIfTargetNodeIsHigher(pathFinding.ReturnNodeToJumpTo())&& direction.y != 0 && collisionSenses.CheckIfGrounded())
             {
                 stateMachine.SwitchState(chaser.JumpState);
                 return true;
@@ -66,12 +67,12 @@
         public override void DoChecks()
         {
             base.DoChecks();
-            direction = pathFinding.ReturnLastNodeInDirection();
+            direction = pathFinding.ReturnLastNodeDirection();
         }
 
         private bool CheckIfSwitchToIdleState()
         {
-            if (direction.x == 0 && direction.y == 0)
+            if (direction is { x: 0, y: 0 } && collisionSenses.CheckIfGrounded())
             {
                 stateMachine.SwitchState(chaser.IdleState);
                 return true;

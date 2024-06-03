@@ -28,7 +28,7 @@ public class PathFindingComponent : CoreComponent
         }
 
         CurrentNode = FindClosetNodeInNeighbours(transform.position);
-        Direction = ReturnLastNodeInDirection();
+        Direction = ReturnLastNodeDirection();
 
     }
 
@@ -204,7 +204,6 @@ public class PathFindingComponent : CoreComponent
         {
             if (foundNode)
             {
-                Debug.Log(targetNode.WorldPosition);
                 targetNode = node;
                 return targetNode;
 
@@ -240,9 +239,9 @@ public class PathFindingComponent : CoreComponent
         return timeToPeak;
     }
     
-        public Vector2 ReturnLastNodeInDirection()
+        public Vector2 ReturnLastNodeDirection()
         {
-            if (path.Count == 0) return transform.position;
+            if (path.Count == 0) return Vector2.zero;
             Node targetNode = path[0];
             
             foreach (Node node in path)

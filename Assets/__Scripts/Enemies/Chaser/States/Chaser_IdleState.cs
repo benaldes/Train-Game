@@ -44,7 +44,7 @@ public class Chaser_IdleState : IdleS
     }
     private bool CheckIfSwitchToJumpState()
     {
-        if (pathFinding.Direction.y != 0)
+        if (pathFinding.Direction.y != 0 && pathFinding.CheckIfNextNodeIsInAir()  && pathFinding.CheckIfTargetNodeIsHigher(pathFinding.ReturnNodeToJumpTo()))
         {
             stateMachine.SwitchState(chaser.JumpState);
             return true;
