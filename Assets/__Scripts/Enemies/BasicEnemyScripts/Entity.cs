@@ -7,7 +7,7 @@ public class Entity : MonoBehaviour
     public D_Entity entityData;
     public D_EntityData newEntityData; // TODO: need to change its name to "entityData" after we stop using the current "entityData:
     public StateMachine StateMachine;
-    public Animator Animator { get; private set; }
+    public Animator Animator;
     public AnimationToStateMachine AnimToStateMachine { get; private set; }
     
     public int lastDamageDirection { get; private set; }
@@ -26,7 +26,6 @@ public class Entity : MonoBehaviour
     public virtual void Awake()
     {
         core = GetComponentInChildren<Core>();
-        Animator = GetComponent<Animator>();
         AnimToStateMachine = GetComponent<AnimationToStateMachine>();
         StateMachine = new StateMachine();
     }

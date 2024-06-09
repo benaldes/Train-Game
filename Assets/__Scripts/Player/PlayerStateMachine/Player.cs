@@ -71,11 +71,11 @@ public class Player : MonoBehaviour
 
 	    Core.InitializeCoreComponents();
 	    
+	    UpdateCurrentNode();
+	    
         Inventory.SendAttackState(PrimaryAttackState);
         
         PrimaryAttackState.SetWeapon(Inventory.weapons[(int)CombatInputs.primary]);
-
-        UpdateCurrentNode();
         
         StateMachine.Initialize(IdleState);
     }

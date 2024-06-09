@@ -22,10 +22,16 @@ public class Chaser_IdleState : IdleS
      
     }
 
+    public override void Enter()
+    {
+        base.Enter();
+        pathFinding.SetTarget(NodeGraph.Instance.PlayerNode);
+    }
+
     public override void LogicUpdate()
     {
         base.LogicUpdate();
-        
+        pathFinding.SetTarget(NodeGraph.Instance.PlayerNode);
         if(CheckIfSwitchToMoveState()) return;
         if(CheckIfSwitchToJumpState()) return;
         

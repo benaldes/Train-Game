@@ -7,6 +7,7 @@ public class PathFindingComponent : CoreComponent
     public Node CurrentNode;
     public Vector2 Direction;
     public float RefreshPathCooldown = 0.3f;
+    public Node target;
 
     private float RefreshPathTimer;
     private List<Node> path = new List<Node>();
@@ -16,14 +17,19 @@ public class PathFindingComponent : CoreComponent
     {
         RefreshPathTimer = Time.time;
         CurrentNode = FindClosestNode(gameObject);
-        FindPath(CurrentNode, NodeGraph.Instance.PlayerNode);
+        //FindPath(CurrentNode, NodeGraph.Instance.PlayerNode);
+    }
+
+    public void SetTarget(Node node)
+    {
+        target = node;
     }
 
     public override void PhysicsUpdate()
     {
         if (Time.time > RefreshPathTimer + RefreshPathCooldown)
         {
-            FindPath(CurrentNode, NodeGraph.Instance.PlayerNode);
+            FindPath(CurrentNode, target);
             RefreshPathTimer = Time.time;
         }
 

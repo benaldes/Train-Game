@@ -16,6 +16,7 @@ public class NodeGraph : MonoBehaviour
     public GameObject StartNode;
     public GameObject TargetNode;
     public Node PlayerNode { get; private set; }
+    public Node HeartNode { get; private set; }
     
     [SerializeField] private LayerMask whatIsGround; 
     
@@ -68,7 +69,12 @@ public class NodeGraph : MonoBehaviour
     {
         PlayerNode = Node;
     }
-    [ContextMenu("initialize Node Graph")]
+
+    public void SetHeartNode(Node node)
+    {
+        HeartNode = node;
+    }
+
     private void initializeNodeGraph()
     {
         initializeNodeRow();

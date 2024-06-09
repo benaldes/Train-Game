@@ -31,7 +31,7 @@
             
             movement.SetVelocityZero();
             player.transform.position = detectedPos;
-            player.StepOverState.SetCornerPosition();
+            SetCornerPosition();
             
             startPos.Set(cornerPos.x - (movement.FacingDirection * playerData.StepOverStartOffSet.x),cornerPos.y - playerData.StepOverStartOffSet.y);
             stopPos.Set(cornerPos.x + (movement.FacingDirection * playerData.StepOverStopOffSet.x), cornerPos.y + playerData.StepOverStopOffSet.y);
